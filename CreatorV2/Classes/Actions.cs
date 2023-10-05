@@ -16,31 +16,12 @@ namespace CreatorV2.Classes
             _Variables = Variable;
         }
 
-        public void SaveAllParametrs(string SaveTypes)
-        {
-            string path = @"Settings.txt";
-            switch (SaveTypes)
-            {
-                case "EmailAccount":
-                    using (StreamWriter sw = new StreamWriter(path))
-                    {
-                        try
-                        {
-                            sw.WriteLine(_Variables._FIOForSendEmail);//FIOForSendEmail);
-                            sw.WriteLine(_Variables._EmailForSendEmail);// EmailForSendEmail);
-                            sw.WriteLine(_Variables._PasswordForSendEmail);// PasswordForSendEmail);
-                        }
-                        catch (Exception ex) { MessageBox.Show($"error {ex}"); }
-                    }
-                    break;
 
-                case "netBios":
-
-                    break;
-
-            }
-        }
-
+        /// <summary>
+        /// метод для сохранения всех настроек, один метод для всех настроек. 
+        /// </summary>
+        /// <param name="newValue"> переменная в которой будет записано новое значение</param>
+        /// <param name="targetLineIndex"> переменная в которой написан индекс строки которая будет перезаписана новым значением</param>
         public void SaveSetting(string newValue, int targetLineIndex)
         {
             string filePath = @"Settings.txt";
@@ -64,6 +45,12 @@ namespace CreatorV2.Classes
             File.WriteAllLines(filePath, lines); // Записываем все строки обратно в файл
         }
 
+
+        /// <summary>
+        /// метод для выгрузки настроек
+        /// </summary>
+        /// <param name="intex">переменная которая будет выгружена</param>
+        /// <returns></returns>
         public string LoadSetting(int intex)
         {
             string filePath = @"Settings.txt";
@@ -87,6 +74,75 @@ namespace CreatorV2.Classes
         }
 
 
+        /// <summary>
+        /// метод для сохранения текста для отправки письма на почту новому пользователю
+        /// </summary>
+        /// <param name="language">переменная принимает RUS или ENG</param>
+        public void SavingTextForSendEmail(string language)
+        {
+            string path = string.Empty;
+            if (language=="RUS")
+            {
+                path = @"textMessageRU.txt";
+            }
+            else if (language=="ENG")
+            {
+                path = @"textMessageENG.txt";
+            }
+
+            using (StreamWriter sw = new StreamWriter(path))
+            {
+                try
+                {
+                    if(language=="RUS")
+                    {
+                        sw.WriteLine(_Variables.SubjectTextMessageForSendEmail_RUS);
+                        sw.WriteLine(_Variables.TextMessageForSendEMAIL_RUS);
+                    }
+                    else if (language=="ENG")
+                    {
+                        sw.WriteLine(_Variables.SubjectTextMessageForSendEmail_ENG);
+                        sw.WriteLine(_Variables.TextMessageForSendEMAIL_ENG);
+                    }
+                }
+                catch (Exception ex) { MessageBox.Show($"error {ex}"); }
+            }
+        }
+
+
+
+        public void LoadText(string language)
+        {
+            string path = string.Empty;
+            if (language == "RUS")
+            {
+                path = @"textMessageRU.txt";
+            }
+            else if (language == "ENG")
+            {
+                path = @"textMessageENG.txt";
+            }
+
+            
+            if (File.Exists(path))
+            {
+                using (StreamReader sr = new StreamReader(path))
+                {
+                    if (language == "ENG")
+                    {
+                        _Variables.SubjectTextMessageForSendEmail_ENG = sr.ReadLine();
+                        _Variables.TextMessageForSendEMAIL_ENG = sr.ReadToEnd();
+                    }
+                    else if(language =="RUS")
+                    {
+                        _Variables.SubjectTextMessageForSendEmail_RUS = sr.ReadLine();
+                        _Variables.TextMessageForSendEMAIL_RUS = sr.ReadToEnd();
+                    }
+                    
+                }
+            }
+
+        }
 
 
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CreatorV2.Classes;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -21,16 +22,22 @@ namespace CreatorV2
 
         private void TextMessageRUS_Load(object sender, EventArgs e)
         {
-            if(checkBoxENGText.Checked)
-            {
-                textBoxSubject.Text = _Variables.SubjectTextMessageForSendEmail_ENG;
-                textBoxText.Text = _Variables.TextMessageForSendEMAIL_ENG;
-            }
-            else
-            {
-                textBoxSubject.Text = _Variables.SubjectTextMessageForSendEmail_RUS;
-                textBoxText.Text = _Variables.TextMessageForSendEMAIL_RUS;
-            }
+            /*            if(checkBoxENGText.Checked)
+                        {
+                            textBoxSubject.Text = _Variables.SubjectTextMessageForSendEmail_ENG;
+                            textBoxText.Text = _Variables.TextMessageForSendEMAIL_ENG;
+                        }
+                        else
+                        {
+                            textBoxSubject.Text = _Variables.SubjectTextMessageForSendEmail_RUS;
+                            textBoxText.Text = _Variables.TextMessageForSendEMAIL_RUS;
+                        }*/
+
+            _Actions.LoadText("RUS");
+            textBoxSubject.Text = _Variables.SubjectTextMessageForSendEmail_RUS;
+            textBoxText.Text = _Variables.TextMessageForSendEMAIL_RUS;
+
+
 
             label3.ForeColor = Color.Red;
             label3.Text = "*В текста ОБЯЗАТЕЛЬНО должны быть следующие переменные: \nADName - вместо этого текста будет вставлен логин пользователя \nADPassword - вместо этого текста будет написан пароль пользователя.";
@@ -43,13 +50,15 @@ namespace CreatorV2
             {
                 _Variables.SubjectTextMessageForSendEmail_RUS =textBoxSubject.Text;
                 _Variables.TextMessageForSendEMAIL_RUS =textBoxText.Text;
+                _Actions.SavingTextForSendEmail("RUS");
             }
             else
             {
                 _Variables.SubjectTextMessageForSendEmail_ENG =textBoxSubject.Text;
                 _Variables.TextMessageForSendEMAIL_ENG =textBoxText.Text;
+                _Actions.SavingTextForSendEmail("ENG");
             }
-            this.Close();
+            //this.Close();
         }
 
         private void checkBoxENGText_CheckedChanged(object sender, EventArgs e)
@@ -59,6 +68,8 @@ namespace CreatorV2
                 checkBoxRussianText.Checked = false;
                 label1.Text = "Subject";
                 label2.Text = "Text message";
+
+                _Actions.LoadText("ENG");
 
                 textBoxSubject.Text = _Variables.SubjectTextMessageForSendEmail_ENG;
                 textBoxText.Text = _Variables.TextMessageForSendEMAIL_ENG;
@@ -73,6 +84,8 @@ namespace CreatorV2
                 checkBoxENGText.Checked = false;
                 label1.Text = "Тема письма";
                 label2.Text = "Текст письма";
+
+                _Actions.LoadText("RUS");
 
                 textBoxSubject.Text = _Variables.SubjectTextMessageForSendEmail_RUS;
                 textBoxText.Text = _Variables.TextMessageForSendEMAIL_RUS;

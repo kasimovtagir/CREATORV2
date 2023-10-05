@@ -24,10 +24,12 @@
         }
 
         //поля для текста который будет отправлен пользователю 
-        public string TextMessageForSendEMAIL_RUS { get;set; }
         public string SubjectTextMessageForSendEmail_RUS { get; set; }
-        public string TextMessageForSendEMAIL_ENG { get; set; }
+        public string TextMessageForSendEMAIL_RUS { get;set; }
+
         public string SubjectTextMessageForSendEmail_ENG { get; set; }
+        public string TextMessageForSendEMAIL_ENG { get; set; }
+        
 
 
         // поле для переменной netbios
