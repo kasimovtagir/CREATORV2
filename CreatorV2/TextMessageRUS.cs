@@ -22,22 +22,9 @@ namespace CreatorV2
 
         private void TextMessageRUS_Load(object sender, EventArgs e)
         {
-            /*            if(checkBoxENGText.Checked)
-                        {
-                            textBoxSubject.Text = _Variables.SubjectTextMessageForSendEmail_ENG;
-                            textBoxText.Text = _Variables.TextMessageForSendEMAIL_ENG;
-                        }
-                        else
-                        {
-                            textBoxSubject.Text = _Variables.SubjectTextMessageForSendEmail_RUS;
-                            textBoxText.Text = _Variables.TextMessageForSendEMAIL_RUS;
-                        }*/
-
             _Actions.LoadText("RUS");
             textBoxSubject.Text = _Variables.SubjectTextMessageForSendEmail_RUS;
             textBoxText.Text = _Variables.TextMessageForSendEMAIL_RUS;
-
-
 
             label3.ForeColor = Color.Red;
             label3.Text = "*В текста ОБЯЗАТЕЛЬНО должны быть следующие переменные: \nADName - вместо этого текста будет вставлен логин пользователя \nADPassword - вместо этого текста будет написан пароль пользователя.";
@@ -48,14 +35,14 @@ namespace CreatorV2
         {
             if (checkBoxRussianText.Checked)
             {
-                _Variables.SubjectTextMessageForSendEmail_RUS =textBoxSubject.Text;
-                _Variables.TextMessageForSendEMAIL_RUS =textBoxText.Text;
+                _Variables.SubjectTextMessageForSendEmail_RUS = textBoxSubject.Text;
+                _Variables.TextMessageForSendEMAIL_RUS = textBoxText.Text;
                 _Actions.SavingTextForSendEmail("RUS");
             }
             else
             {
-                _Variables.SubjectTextMessageForSendEmail_ENG =textBoxSubject.Text;
-                _Variables.TextMessageForSendEMAIL_ENG =textBoxText.Text;
+                _Variables.SubjectTextMessageForSendEmail_ENG = textBoxSubject.Text;
+                _Variables.TextMessageForSendEMAIL_ENG = textBoxText.Text;
                 _Actions.SavingTextForSendEmail("ENG");
             }
             //this.Close();

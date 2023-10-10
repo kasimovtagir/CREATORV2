@@ -27,7 +27,8 @@ namespace CreatorV2
         private void äîìåíToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DomainSettings domainSettings = new DomainSettings();
-
+            domainSettings._Variables = _Variables;
+            domainSettings._Actions = _Actions;
             domainSettings.ShowDialog();
         }
 
@@ -37,6 +38,14 @@ namespace CreatorV2
             textMessageRUS._Variables = _Variables;
             textMessageRUS._Actions = _Actions;
             textMessageRUS.ShowDialog();
+        }
+
+        private void ãğóïïûÏîÓìîë÷àíèşToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ListGroup listGroup = new ListGroup();
+            listGroup._Variables = _Variables;
+            listGroup._Actions = _Actions;
+            listGroup.ShowDialog();
         }
     }
 }

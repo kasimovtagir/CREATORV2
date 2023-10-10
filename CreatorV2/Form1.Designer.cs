@@ -48,7 +48,7 @@
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Padding = new Padding(10, 3, 0, 3);
-            menuStrip1.Size = new Size(1300, 42);
+            menuStrip1.Size = new Size(1300, 48);
             menuStrip1.TabIndex = 0;
             menuStrip1.Text = "menuStrip1";
             // 
@@ -56,57 +56,58 @@
             // 
             настройкиToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { аккаунтДляОтправкиEmailToolStripMenuItem, текстПисьмаToolStripMenuItem, группыПоУмолчаниюToolStripMenuItem, доменToolStripMenuItem, текстПисьмаToolStripMenuItem1 });
             настройкиToolStripMenuItem.Name = "настройкиToolStripMenuItem";
-            настройкиToolStripMenuItem.Size = new Size(146, 36);
+            настройкиToolStripMenuItem.Size = new Size(169, 42);
             настройкиToolStripMenuItem.Text = "Настройки";
             // 
             // аккаунтДляОтправкиEmailToolStripMenuItem
             // 
             аккаунтДляОтправкиEmailToolStripMenuItem.Name = "аккаунтДляОтправкиEmailToolStripMenuItem";
-            аккаунтДляОтправкиEmailToolStripMenuItem.Size = new Size(409, 36);
+            аккаунтДляОтправкиEmailToolStripMenuItem.Size = new Size(478, 46);
             аккаунтДляОтправкиEmailToolStripMenuItem.Text = "Аккаунт для отправки email";
             аккаунтДляОтправкиEmailToolStripMenuItem.Click += аккаунтДляОтправкиEmailToolStripMenuItem_Click;
             // 
             // текстПисьмаToolStripMenuItem
             // 
             текстПисьмаToolStripMenuItem.Name = "текстПисьмаToolStripMenuItem";
-            текстПисьмаToolStripMenuItem.Size = new Size(409, 36);
+            текстПисьмаToolStripMenuItem.Size = new Size(478, 46);
             текстПисьмаToolStripMenuItem.Text = "Текст письма";
             текстПисьмаToolStripMenuItem.Click += текстПисьмаToolStripMenuItem_Click;
             // 
             // группыПоУмолчаниюToolStripMenuItem
             // 
             группыПоУмолчаниюToolStripMenuItem.Name = "группыПоУмолчаниюToolStripMenuItem";
-            группыПоУмолчаниюToolStripMenuItem.Size = new Size(409, 36);
+            группыПоУмолчаниюToolStripMenuItem.Size = new Size(478, 46);
             группыПоУмолчаниюToolStripMenuItem.Text = "Группы по умолчанию";
+            группыПоУмолчаниюToolStripMenuItem.Click += группыПоУмолчаниюToolStripMenuItem_Click;
             // 
             // доменToolStripMenuItem
             // 
             доменToolStripMenuItem.Name = "доменToolStripMenuItem";
-            доменToolStripMenuItem.Size = new Size(409, 36);
+            доменToolStripMenuItem.Size = new Size(478, 46);
             доменToolStripMenuItem.Text = "Домен";
             доменToolStripMenuItem.Click += доменToolStripMenuItem_Click;
             // 
             // текстПисьмаToolStripMenuItem1
             // 
             текстПисьмаToolStripMenuItem1.Name = "текстПисьмаToolStripMenuItem1";
-            текстПисьмаToolStripMenuItem1.Size = new Size(409, 36);
+            текстПисьмаToolStripMenuItem1.Size = new Size(478, 46);
             текстПисьмаToolStripMenuItem1.Text = "Текст письма";
             // 
             // работаСПользователямиToolStripMenuItem
             // 
             работаСПользователямиToolStripMenuItem.Name = "работаСПользователямиToolStripMenuItem";
-            работаСПользователямиToolStripMenuItem.Size = new Size(310, 36);
+            работаСПользователямиToolStripMenuItem.Size = new Size(358, 42);
             работаСПользователямиToolStripMenuItem.Text = "Работа с пользователями";
             // 
             // работаСГруппамиToolStripMenuItem
             // 
             работаСГруппамиToolStripMenuItem.Name = "работаСГруппамиToolStripMenuItem";
-            работаСГруппамиToolStripMenuItem.Size = new Size(234, 36);
+            работаСГруппамиToolStripMenuItem.Size = new Size(272, 42);
             работаСГруппамиToolStripMenuItem.Text = "Работа с группами";
             // 
             // Form1
             // 
-            AutoScaleDimensions = new SizeF(13F, 31F);
+            AutoScaleDimensions = new SizeF(15F, 38F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1300, 698);
             Controls.Add(menuStrip1);

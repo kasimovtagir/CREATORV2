@@ -1,6 +1,7 @@
 ﻿
 
-using static System.Runtime.InteropServices.JavaScript.JSType;
+
+
 
 namespace CreatorV2.Classes
 {
@@ -73,6 +74,29 @@ namespace CreatorV2.Classes
             return line;
         }
 
+        public void GetGroups() // метод который получает из АД список всех групп
+        {
+            string allGroups = string.Empty;
+            using (PrincipalContext principalContext = new PrincipalContext(ContextType.Domain, _Variables.NetBios))
+            {
+                // Создаем объект группы
+                GroupPrincipal group = new GroupPrincipal(principalContext);
+
+                // Создаем объект для поиска групп
+                PrincipalSearcher searcher = new PrincipalSearcher(group);
+
+                // Получаем коллекцию найденных групп
+                PrincipalSearchResult<Principal> groups = searcher.FindAll();
+
+                // Проходимся по каждой группе и выводим ее имя
+                foreach (Principal result in groups)
+                {
+                    allGroups = result.Name;
+                    _Variables.ListAllGroups.Add(allGroups);
+                }
+            }
+        }
+
 
         /// <summary>
         /// метод для сохранения текста для отправки письма на почту новому пользователю
@@ -110,7 +134,10 @@ namespace CreatorV2.Classes
         }
 
 
-
+        /// <summary>
+        /// метод для выгрузки информации из файла textMessage.txt
+        /// </summary>
+        /// <param name="language"></param>
         public void LoadText(string language)
         {
             string path = string.Empty;
@@ -137,8 +164,7 @@ namespace CreatorV2.Classes
                     {
                         _Variables.SubjectTextMessageForSendEmail_RUS = sr.ReadLine();
                         _Variables.TextMessageForSendEMAIL_RUS = sr.ReadToEnd();
-                    }
-                    
+                    }                    
                 }
             }
 

@@ -16,6 +16,7 @@
             get { return EmailForSendEMail; }
             set { EmailForSendEMail = value; }
         }
+
         private string PasswordForSendEmail;
         public string _PasswordForSendEmail
         {
@@ -30,6 +31,15 @@
         public string SubjectTextMessageForSendEmail_ENG { get; set; }
         public string TextMessageForSendEMAIL_ENG { get; set; }
         
+        //переменные для списка групп в которые будет добавлен новый пользователь 
+        private List<string> ListGroupForAddEmployeer = new List<string>();
+        public List<string> _ListGroupForAddEmployeer 
+        {
+            get { return ListGroupForAddEmployeer; }
+            set { ListGroupForAddEmployeer = value; }
+        }
+
+        public List<string> ListAllGroups = new List<string>();
 
 
         // поле для переменной netbios

@@ -10,6 +10,9 @@
     <Compile Update="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="ListGroup.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="TextMessageRUS.cs">
       <SubType>Form</SubType>
     </Compile>
