@@ -27,38 +27,64 @@ namespace CreatorV2
 
         private void buttonSaveSettingsListGroup_Click(object sender, EventArgs e)
         {
-            string list = string.Empty;
-            foreach (string item in listBoxListGroupForEmployees.Items)
-            {
-                _Variables._ListGroupForAddEmployeer.Add(item);
-                list += item + ";";
-            }
-            _Actions.SaveSetting(list, 4);
-
+            SaveList(listBoxListGroupForEmployees, 4, _Variables._ListGroupForAddEmployeer);
+            SaveList(listBoxListGroupForStudent, 5, _Variables._ListGroupForAddStudent);
+            this.Close();
         }
 
-        private void ListGroup_Load(object sender, EventArgs e)
+
+        /// <summary>
+        /// метод для сохранения списка из listbox'а в файл 
+        /// </summary>
+        /// <param name="listBox"></param>
+        /// <param name="IndexLine"></param>
+        /// <param name="listGroups"></param>
+        public void SaveList(ListBox listBox, int IndexLine, List<string> listGroups)
         {
-            _Actions.GetGroups();
-            //выгрузка списка групп для сотрудника
-            string[] listGroups = _Actions.LoadSetting(4).Split(";");
-            Array.Sort(listGroups);
-            foreach (string listGroup in listGroups)
+            string list = string.Empty;
+            foreach (string item in listBox.Items)
             {
-                if (listGroup == "")
+                listGroups.Add(item);
+                list += item + ";";
+            }
+            _Actions.SaveSetting(list, IndexLine);
+        }
+
+        /// <summary>
+        /// группа для выгрузки списка групп из файла с настройками 
+        /// </summary>
+        /// <param name="listGroup"></param>
+        /// <param name="listBoxGroup"></param>
+        /// <param name="indexLine"></param>
+        public void uploadListGroup (List<string> listGroup, ListBox listBoxGroup, int indexLine)
+        {
+            //выгрузка списка групп для сотрудника
+            string[] listGroups = _Actions.LoadSetting(indexLine).Split(";");
+            Array.Sort(listGroups);
+            foreach (string item in listGroups)
+            {
+                if (item == "")
                 {
                     continue;
                 }
                 else
                 {
-                    _Variables._ListGroupForAddEmployeer.Add(listGroup);
-                    listBoxListGroupForEmployees.Items.Add(listGroup);
+                    listGroup.Add(item);
+                    listBoxGroup.Items.Add(item);
                 }
             }
+        }
+
+        private void ListGroup_Load(object sender, EventArgs e)
+        {
+            //выгрузка списка всех групп 
+            _Actions.GetGroups();
+
+            uploadListGroup(_Variables._ListGroupForAddEmployeer, listBoxListGroupForEmployees, 4);
+            uploadListGroup(_Variables._ListGroupForAddStudent, listBoxListGroupForStudent, 5);
 
             label7.Text = "*Нажми 2 раза на группу в списке и она буде удалена из списка.";
             label7.BackColor = Color.Red;
-
 
             Array.Sort(_Variables.ListAllGroups.ToArray());
 
@@ -94,20 +120,37 @@ namespace CreatorV2
 
         private void buttonAddToListGroupForEmployees_Click(object sender, EventArgs e)
         {
-            string[] allGroups = new string[listBoxListGroupForEmployees.Items.Count];
+            AddGroupInList(listBoxListGroupForEmployees, comboBoxListGroupForEmployees, label4);
+        }
 
-            listBoxListGroupForEmployees.Items.CopyTo(allGroups, 0);
+        private void buttonAddGroupToListGroupForStudent_Click(object sender, EventArgs e)
+        {
+            AddGroupInList(listBoxListGroupForStudent, comboBoxListGroupForStudent, label5);
+        }
 
-            if (Array.Exists(allGroups, group => group == comboBoxListGroupForEmployees.Text))
+
+        /// <summary>
+        /// метод для добавления группы в списко групп по умолчанию 
+        /// </summary>
+        /// <param name="listBox"></param>
+        /// <param name="comboBox"></param>
+        /// <param name="label"></param>
+        public void AddGroupInList(ListBox listBox, System.Windows.Forms.ComboBox comboBox, Label label)
+        {
+            string[] allGroups = new string[listBox.Items.Count];
+
+            listBox.Items.CopyTo(allGroups, 0);
+
+            if (Array.Exists(allGroups, group => group == comboBox.Text))
             {
                 MessageBox.Show("Такая группа уже добавлена.");
             }
             else
             {
-                listBoxListGroupForEmployees.Items.Add(comboBoxListGroupForEmployees.Text);
-                label4.Text = $"Количество групп: {listBoxListGroupForEmployees.Items.Count}";
+                listBox.Items.Add(comboBox.Text);
+                label.Text = $"Количество групп: {listBox.Items.Count}";
             }
-            if (comboBoxListGroupForEmployees.Text == "")
+            if (comboBox.Text == "")
             {
                 MessageBox.Show("Выбери группу.");
             }

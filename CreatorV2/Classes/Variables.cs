@@ -39,6 +39,21 @@
             set { ListGroupForAddEmployeer = value; }
         }
 
+        private List<string> ListGroupForAddStudent = new List<string>();
+        public List<string> _ListGroupForAddStudent
+        {
+            get { return ListGroupForAddStudent; }
+            set { ListGroupForAddStudent = value; }
+        }
+
+        private List<string> ListGroupForAddSUZsPF = new List<string>();
+        public List<string> _ListGroupForAddSUZsPF
+        {
+            get { return ListGroupForAddSUZsPF; }
+            set { ListGroupForAddSUZsPF = value; }
+        }
+
+
         public List<string> ListAllGroups = new List<string>();
 
 

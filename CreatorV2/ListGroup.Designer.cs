@@ -201,6 +201,7 @@
             buttonAddGroupToListGroupForStudent.TabIndex = 15;
             buttonAddGroupToListGroupForStudent.Text = "Доабвить в список";
             buttonAddGroupToListGroupForStudent.UseVisualStyleBackColor = true;
+            buttonAddGroupToListGroupForStudent.Click += buttonAddGroupToListGroupForStudent_Click;
             // 
             // buttonAddToListGroupForSUZsPF
             // 
