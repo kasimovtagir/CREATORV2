@@ -1,5 +1,7 @@
-using CreatorV2.Classes;
-using static System.Windows.Forms.DataFormats;
+/*using CreatorV2.Classes;
+using static System.Windows.Forms.DataFormats;*/
+
+using System.Text.RegularExpressions;
 
 namespace CreatorV2
 {
@@ -13,6 +15,8 @@ namespace CreatorV2
 
             _Variables = new Classes.Variables();
             _Actions = new Classes.Actions(_Variables);
+
+            //_Actions.GetSettings();
         }
 
         private void аккаунтДляОтправкиEmailToolStripMenuItem_Click(object sender, EventArgs e)
@@ -45,7 +49,43 @@ namespace CreatorV2
             ListGroup listGroup = new ListGroup();
             listGroup._Variables = _Variables;
             listGroup._Actions = _Actions;
+            _Actions.GetSettings();
             listGroup.ShowDialog();
+        }
+
+        private void buttonCreateUser_Click(object sender, EventArgs e)
+        {
+            // Проверяем, что поле имени и фамилии содержит только русские буквы
+            bool checkRUStxtboxName = Regex.IsMatch(textBoxUserNameInAD.Text, "^[А-Яа-я]+$");
+            bool checkRUStxtboxSurName = Regex.IsMatch(textBoxLastNameInAD.Text, "^[А-Яа-я]+$");
+
+            // Получаем и обрабатываем имя и фамилию
+            string name = textBoxUserNameInAD.Text.Trim();
+            string lastName = textBoxLastNameInAD.Text.Trim();
+
+            _Variables._WithEmail = true;
+
+            if (checkRUStxtboxName)
+            {
+                name = _Actions.Transliteration(name);
+            }
+
+            if (checkRUStxtboxSurName)
+            {
+                lastName = _Actions.Transliteration(lastName);
+            }
+
+            // Устанавливаем имя и фамилию
+            _Variables._nameInAD = name;
+            _Variables._lastNameInAD = lastName;
+            _Variables._UserlastName = textBoxName.Text.Trim();
+            _Variables._UserName = textBoxLastName.Text.Trim();
+            _Variables._UserThistName = textBoxThirdName.Text.Trim();
+            _Variables._UserISU_ID = textBoxISUID.Text.Trim();
+            _Variables._UserDescription = textBoxDescription.Text.Trim();
+            _Variables._UsersEmail = textBoxEMAIL.Text.Trim();
+            _Variables._PasswordInAD = textBoxPassword.Text.Trim();
+            _Variables._TypePost = comboBoxTypePost.SelectedIndex.ToString();        
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using CreatorV2.Classes;
+﻿/*using CreatorV2.Classes;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Runtime.InteropServices.JavaScript.JSType;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;*/
 
 namespace CreatorV2
 {
@@ -56,7 +56,7 @@ namespace CreatorV2
         /// <param name="listGroup"></param>
         /// <param name="listBoxGroup"></param>
         /// <param name="indexLine"></param>
-        public void uploadListGroup (List<string> listGroup, ListBox listBoxGroup, int indexLine)
+        public void uploadListGroup(List<string> listGroup, ListBox listBoxGroup, int indexLine)
         {
             //выгрузка списка групп для сотрудника
             string[] listGroups = _Actions.LoadSetting(indexLine).Split(";");
@@ -77,9 +77,10 @@ namespace CreatorV2
 
         private void ListGroup_Load(object sender, EventArgs e)
         {
-            //выгрузка списка всех групп 
             _Actions.GetGroups();
+           
 
+            
             uploadListGroup(_Variables._ListGroupForAddEmployeer, listBoxListGroupForEmployees, 4);
             uploadListGroup(_Variables._ListGroupForAddStudent, listBoxListGroupForStudent, 5);
 

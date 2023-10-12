@@ -74,29 +74,37 @@ namespace CreatorV2.Classes
             return line;
         }
 
+        /// <summary>
+        /// метод которые получает список всех групп из АД
+        /// </summary>
         public void GetGroups() // метод который получает из АД список всех групп
         {
-            string allGroups = string.Empty;
-            using (PrincipalContext principalContext = new PrincipalContext(ContextType.Domain, _Variables.NetBios))
+            //string allGroups = string.Empty;
+            using (_Variables.principalContext)
             {
-                // Создаем объект группы
-                GroupPrincipal group = new GroupPrincipal(principalContext);
-
                 // Создаем объект для поиска групп
-                PrincipalSearcher searcher = new PrincipalSearcher(group);
+                PrincipalSearcher searcher = new PrincipalSearcher(_Variables.group);
 
                 // Получаем коллекцию найденных групп
                 PrincipalSearchResult<Principal> groups = searcher.FindAll();
-
+                
                 // Проходимся по каждой группе и выводим ее имя
                 foreach (Principal result in groups)
                 {
-                    allGroups = result.Name;
+                    string allGroups = result.Name;
                     _Variables.ListAllGroups.Add(allGroups);
                 }
             }
         }
 
+        /// <summary>
+        /// метод которые получает главные из АД
+        /// </summary>
+        public void GetSettings()
+        {
+            _Variables.principalContext = new PrincipalContext(ContextType.Domain, _Variables.NetBios);
+            _Variables.group = new GroupPrincipal(_Variables.principalContext);
+        }
 
         /// <summary>
         /// метод для сохранения текста для отправки письма на почту новому пользователю
@@ -105,11 +113,11 @@ namespace CreatorV2.Classes
         public void SavingTextForSendEmail(string language)
         {
             string path = string.Empty;
-            if (language=="RUS")
+            if (language == "RUS")
             {
                 path = @"textMessageRU.txt";
             }
-            else if (language=="ENG")
+            else if (language == "ENG")
             {
                 path = @"textMessageENG.txt";
             }
@@ -118,12 +126,12 @@ namespace CreatorV2.Classes
             {
                 try
                 {
-                    if(language=="RUS")
+                    if (language == "RUS")
                     {
                         sw.WriteLine(_Variables.SubjectTextMessageForSendEmail_RUS);
                         sw.WriteLine(_Variables.TextMessageForSendEMAIL_RUS);
                     }
-                    else if (language=="ENG")
+                    else if (language == "ENG")
                     {
                         sw.WriteLine(_Variables.SubjectTextMessageForSendEmail_ENG);
                         sw.WriteLine(_Variables.TextMessageForSendEMAIL_ENG);
@@ -150,27 +158,173 @@ namespace CreatorV2.Classes
                 path = @"textMessageENG.txt";
             }
 
-            
+
             if (File.Exists(path))
             {
-                using (StreamReader sr = new StreamReader(path))
+                using (StreamReader sr = new(path))
                 {
                     if (language == "ENG")
                     {
                         _Variables.SubjectTextMessageForSendEmail_ENG = sr.ReadLine();
                         _Variables.TextMessageForSendEMAIL_ENG = sr.ReadToEnd();
                     }
-                    else if(language =="RUS")
+                    else if (language == "RUS")
                     {
                         _Variables.SubjectTextMessageForSendEmail_RUS = sr.ReadLine();
                         _Variables.TextMessageForSendEMAIL_RUS = sr.ReadToEnd();
-                    }                    
+                    }
                 }
             }
 
         }
 
+        /// <summary>
+        /// Метод для транслитерации строки
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public string Transliteration(string name) 
+        {
+            StringBuilder newName = new StringBuilder();
+            foreach (char c in name)
+            {
+                switch (c)
+                {
+                    case '-':
+                    case ' ':
+                        newName.Append(c);
+                        break;
 
+                    case 'а':
+                        newName.Append("a");
+                        break;
+
+                    case 'б':
+                        newName.Append("b");
+                        break;
+
+                    case 'в':
+                        newName.Append("v");
+                        break;
+
+                    case 'г':
+                        newName.Append("g");
+                        break;
+
+                    case 'д':
+                        newName.Append("d");
+                        break;
+
+                    case 'е':
+                    case 'ё':
+                        newName.Append("e");
+                        break;
+
+                    case 'ж':
+                        newName.Append("zh");
+                        break;
+
+                    case 'з':
+                        newName.Append("z");
+                        break;
+
+                    case 'и':
+                    case 'й':
+                        newName.Append("i");
+                        break;
+
+                    case 'к':
+                        newName.Append("k");
+                        break;
+
+                    case 'л':
+                        newName.Append("l");
+                        break;
+
+                    case 'м':
+                        newName.Append("m");
+                        break;
+
+                    case 'н':
+                        newName.Append("n");
+                        break;
+
+                    case 'о':
+                        newName.Append("o");
+                        break;
+
+                    case 'п':
+                        newName.Append("p");
+                        break;
+
+                    case 'р':
+                        newName.Append("r");
+                        break;
+
+                    case 'с':
+                        newName.Append("s");
+                        break;
+
+                    case 'т':
+                        newName.Append("t");
+                        break;
+
+                    case 'у':
+                        newName.Append("u");
+                        break;
+
+                    case 'ф':
+                        newName.Append("f");
+                        break;
+
+                    case 'х':
+                        newName.Append("kh");
+                        break;
+
+                    case 'ц':
+                        newName.Append("ts");
+                        break;
+
+                    case 'ч':
+                        newName.Append("ch");
+                        break;
+
+                    case 'ш':
+                        newName.Append("sh");
+                        break;
+
+                    case 'щ':
+                        newName.Append("shch");
+                        break;
+
+                    case 'ы':
+                        newName.Append("y");
+                        break;
+
+                    case 'э':
+                        newName.Append("e");
+                        break;
+
+                    case 'ь':
+                    case 'ъ':
+                        // do nothing
+                        break;
+
+                    case 'ю':
+                        newName.Append("iu");
+                        break;
+
+                    case 'я':
+                        newName.Append("ia");
+                        break;
+
+                    default:
+                        // handle any other characters as needed
+                        break;
+                }
+            }
+            return newName.ToString();
+        }
 
         /// <summary>
         /// Метод для шифрования пароля

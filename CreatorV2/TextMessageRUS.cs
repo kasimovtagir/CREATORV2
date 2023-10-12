@@ -1,4 +1,4 @@
-﻿using CreatorV2.Classes;
+﻿/*using CreatorV2.Classes;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+*/
 namespace CreatorV2
 {
     public partial class TextMessageRUS : Form

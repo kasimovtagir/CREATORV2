@@ -3,13 +3,13 @@
     public class Variables
     {
         // настройки учетной записи для отправки писем на электронную почту
-        private string FIOForSendEMail;
+        private string? FIOForSendEMail;
         public string _FIOForSendEmail
         {
             get { return FIOForSendEMail; }
             set { FIOForSendEMail = value; }
         }
-        
+
         private string EmailForSendEMail;
         public string _EmailForSendEmail
         {
@@ -25,15 +25,15 @@
         }
 
         //поля для текста который будет отправлен пользователю 
-        public string SubjectTextMessageForSendEmail_RUS { get; set; }
-        public string TextMessageForSendEMAIL_RUS { get;set; }
+        public string? SubjectTextMessageForSendEmail_RUS { get; set; }
+        public string? TextMessageForSendEMAIL_RUS { get; set; }
 
-        public string SubjectTextMessageForSendEmail_ENG { get; set; }
-        public string TextMessageForSendEMAIL_ENG { get; set; }
-        
+        public string? SubjectTextMessageForSendEmail_ENG { get; set; }
+        public string? TextMessageForSendEMAIL_ENG { get; set; }
+
         //переменные для списка групп в которые будет добавлен новый пользователь 
         private List<string> ListGroupForAddEmployeer = new List<string>();
-        public List<string> _ListGroupForAddEmployeer 
+        public List<string> _ListGroupForAddEmployeer
         {
             get { return ListGroupForAddEmployeer; }
             set { ListGroupForAddEmployeer = value; }
@@ -47,18 +47,45 @@
         }
 
         private List<string> ListGroupForAddSUZsPF = new List<string>();
-        public List<string> _ListGroupForAddSUZsPF
+        public List<string>? _ListGroupForAddSUZsPF
         {
             get { return ListGroupForAddSUZsPF; }
             set { ListGroupForAddSUZsPF = value; }
         }
 
-
-        public List<string> ListAllGroups = new List<string>();
+        //Список всех групп
+        public List<string>? ListAllGroups = new List<string>();
 
 
         // поле для переменной netbios
-        public string NetBios { get; set; }
+        public string? NetBios;// { get; set; }
+
+        //хрен знает что, но что-то важное 
+        public PrincipalContext principalContext;//= new PrincipalContext(ContextType.Domain, NetBios);
+        public GroupPrincipal group;
+
+
+
+        //паля для заполнения информации об новом сотруднике
+        public string? _nameInAD;
+        public string? _lastNameInAD;
+        public string? _SamAccountInAD;
+        public string? _PasswordInAD;
+
+        public string? _UserlastName;
+        public string?   _UserName;
+        public string? _UserThistName;
+        public string? _UserISU_ID;
+        public string? _UserDescription;
+        public string? _UsersEmail;
+        public string? _TypePost;
+
+        public bool _WithEmail;
+
+
+
+
+
 
     }
 }
