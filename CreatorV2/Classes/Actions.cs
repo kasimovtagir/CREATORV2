@@ -1,7 +1,5 @@
-﻿
-
-
-
+﻿using static System.Runtime.InteropServices.JavaScript.JSType;
+using System.Text.RegularExpressions;
 
 namespace CreatorV2.Classes
 {
@@ -47,6 +45,58 @@ namespace CreatorV2.Classes
         }
 
 
+        public void SaveSettingsV2(string whatNeedSave, string newLine)
+        {
+            string filePath = @"Settings.txt";
+            string[] lines = File.ReadAllLines(filePath); // Читаем все строки из файла
+            int countLineInFile = File.ReadAllLines(filePath).Count();
+
+            for (int i = 0; i < countLineInFile - 1; i++)
+            {
+                string[] line = lines[i].Split("|");
+                string qwe = line[0].ToString().Trim();
+                if (qwe == whatNeedSave)
+                {
+                    lines[i] = $"{whatNeedSave} = {newLine}";
+                }
+                else continue;
+            }
+            File.WriteAllLines(filePath, lines);
+        }
+
+
+
+
+
+        /// <summary>
+        /// метод для выгрузки всей информации из файла 
+        /// </summary>
+        public void UploadAllSettings()
+        {
+            _Variables._FIOForSendEmail = LoadSetting(0);
+            _Variables._EmailForSendEmail = LoadSetting(1);
+            _Variables._PasswordForSendEmail = Encrypt(LoadSetting(2));
+            _Variables.NetBios = LoadSetting(3);
+
+
+
+            LoadText("RUS");
+            LoadText("ENG");
+
+            //string listgroupforEmpliyees = LoadSetting(4)
+            string[] lineEmployeer = LoadSetting(4).Split(";");
+            foreach (string line2 in lineEmployeer)
+            {
+                _Variables._ListGroupForAddEmployeer.Add(line2);
+            }
+
+            string[] lineStudent = LoadSetting(5).Split(";");
+            foreach (string line2 in lineStudent)
+            {
+                _Variables._ListGroupForAddStudent.Add(line2);
+            }
+        }
+
         /// <summary>
         /// метод для выгрузки настроек
         /// </summary>
@@ -55,7 +105,7 @@ namespace CreatorV2.Classes
         public string LoadSetting(int intex)
         {
             string filePath = @"Settings.txt";
-            int targetLineIndex = intex; // Индекс 4-й строки (индексы начинаются с 0)
+            int targetLineIndex = intex;
 
             string line = string.Empty;
             int currentLineIndex = 0;
@@ -80,14 +130,14 @@ namespace CreatorV2.Classes
         public void GetGroups() // метод который получает из АД список всех групп
         {
             //string allGroups = string.Empty;
-            using (_Variables.principalContext)
+            //using (_Variables.principalContext)
             {
                 // Создаем объект для поиска групп
                 PrincipalSearcher searcher = new PrincipalSearcher(_Variables.group);
 
                 // Получаем коллекцию найденных групп
                 PrincipalSearchResult<Principal> groups = searcher.FindAll();
-                
+
                 // Проходимся по каждой группе и выводим ее имя
                 foreach (Principal result in groups)
                 {
@@ -145,7 +195,7 @@ namespace CreatorV2.Classes
         /// <summary>
         /// метод для выгрузки информации из файла textMessage.txt
         /// </summary>
-        /// <param name="language"></param>
+        /// <param name="language">RUS или ENG</param>
         public void LoadText(string language)
         {
             string path = string.Empty;
@@ -175,7 +225,6 @@ namespace CreatorV2.Classes
                     }
                 }
             }
-
         }
 
         /// <summary>
@@ -183,7 +232,7 @@ namespace CreatorV2.Classes
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        public string Transliteration(string name) 
+        public string Transliteration(string name)
         {
             StringBuilder newName = new StringBuilder();
             foreach (char c in name)
@@ -327,6 +376,37 @@ namespace CreatorV2.Classes
         }
 
         /// <summary>
+        ///  Метод для изменения текста и добавления в него логина и пароль нового сотрудника
+        /// </summary>
+        public void ChangeText()
+        {
+            string adName = "ADName";
+            string adPassword = "ADPassword";
+            string full_text_rus = string.Empty;
+            string full_text_eng = string.Empty;
+
+            full_text_rus = Regex.Replace(_Variables.TextMessageForSendEMAIL_RUS, adName, _Variables._SamAccountInAD.ToLower());
+            full_text_rus = Regex.Replace(full_text_rus, adPassword, _Variables._PasswordInAD);
+
+
+            full_text_eng = Regex.Replace(_Variables.TextMessageForSendEMAIL_ENG, adName, _Variables._SamAccountInAD.ToLower());
+            full_text_eng = Regex.Replace(full_text_eng, adPassword, _Variables._PasswordInAD);
+
+            _Variables.TextMessageForSendEMAIL_RUS = full_text_rus;
+            _Variables.TextMessageForSendEMAIL_ENG = full_text_eng;
+        }
+
+
+
+
+
+
+
+
+
+
+
+        /// <summary>
         /// Метод для шифрования пароля
         /// </summary>
         /// <param name="plainText"></param>
@@ -390,5 +470,6 @@ namespace CreatorV2.Classes
                 }
             }
         }
+
     }
 }

@@ -73,7 +73,7 @@
         public string? _PasswordInAD;
 
         public string? _UserlastName;
-        public string?   _UserName;
+        public string?  _UserName;
         public string? _UserThistName;
         public string? _UserISU_ID;
         public string? _UserDescription;

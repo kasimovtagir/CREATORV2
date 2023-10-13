@@ -1,7 +1,10 @@
 /*using CreatorV2.Classes;
 using static System.Windows.Forms.DataFormats;*/
 
+using System.DirectoryServices.ActiveDirectory;
+using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
+using System.Xml.Linq;
 
 namespace CreatorV2
 {
@@ -16,7 +19,30 @@ namespace CreatorV2
             _Variables = new Classes.Variables();
             _Actions = new Classes.Actions(_Variables);
 
-            //_Actions.GetSettings();
+            _Actions.GetSettings();
+            ForTest();
+
+            _Actions.UploadAllSettings();
+        }
+
+
+
+
+        /// <summary>
+        /// метод для теста
+        /// </summary>
+        public void ForTest()
+        {
+            textBoxUserNameInAD.Text = "asd";
+            textBoxLastNameInAD.Text = "asd";
+            textBoxLastName.Text = "asd";
+            textBoxName.Text = "asd";
+            textBoxThirdName.Text = "asd";
+            textBoxISUID.Text = "asd";
+            textBoxDescription.Text = "aasd";
+            textBoxEMAIL.Text = "asdsad@mail.ru";
+            textBoxPassword.Text = "asd";
+            comboBoxTypePost.Text = "Сотрудник";
         }
 
         private void аккаунтДляОтправкиEmailToolStripMenuItem_Click(object sender, EventArgs e)
@@ -85,7 +111,12 @@ namespace CreatorV2
             _Variables._UserDescription = textBoxDescription.Text.Trim();
             _Variables._UsersEmail = textBoxEMAIL.Text.Trim();
             _Variables._PasswordInAD = textBoxPassword.Text.Trim();
-            _Variables._TypePost = comboBoxTypePost.SelectedIndex.ToString();        
+            _Variables._TypePost = comboBoxTypePost.Text;
+
+            PreviewCreateUsersAccountWithSendEmail newUser = new PreviewCreateUsersAccountWithSendEmail();
+            newUser._Variables = _Variables;
+            newUser._Actions = _Actions;
+            newUser.ShowDialog();
         }
     }
 }

@@ -27,8 +27,8 @@ namespace CreatorV2
 
         private void buttonSaveSettingsListGroup_Click(object sender, EventArgs e)
         {
-            SaveList(listBoxListGroupForEmployees, 4, _Variables._ListGroupForAddEmployeer);
-            SaveList(listBoxListGroupForStudent, 5, _Variables._ListGroupForAddStudent);
+            SaveList(listBoxListGroupForEmployees, "ListGroupForEmplyees", _Variables._ListGroupForAddEmployeer);
+            SaveList(listBoxListGroupForStudent, "ListGroupForStudent", _Variables._ListGroupForAddStudent);
             this.Close();
         }
 
@@ -39,7 +39,7 @@ namespace CreatorV2
         /// <param name="listBox"></param>
         /// <param name="IndexLine"></param>
         /// <param name="listGroups"></param>
-        public void SaveList(ListBox listBox, int IndexLine, List<string> listGroups)
+        public void SaveList(ListBox listBox, string IndexLine, List<string> listGroups)
         {
             string list = string.Empty;
             foreach (string item in listBox.Items)
@@ -47,7 +47,8 @@ namespace CreatorV2
                 listGroups.Add(item);
                 list += item + ";";
             }
-            _Actions.SaveSetting(list, IndexLine);
+            _Actions.SaveSettingsV2(IndexLine, list);
+            //_Actions.SaveSetting(list, IndexLine);
         }
 
         /// <summary>

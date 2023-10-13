@@ -30,7 +30,8 @@ namespace CreatorV2
 
         private void buttonSaveNetBios_Click(object sender, EventArgs e)
         {
-            _Actions.SaveSetting(_Variables.NetBios = textBoxNetBios.Text,3);            
+            _Actions.SaveSettingsV2("netbios", _Variables.NetBios = textBoxNetBios.Text);
+            //_Actions.SaveSetting(_Variables.NetBios = textBoxNetBios.Text,3);            
             this.Close();
         }
     }

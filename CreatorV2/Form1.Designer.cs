@@ -60,6 +60,7 @@
             checkBoxWinthEmail = new CheckBox();
             buttonCreateUser = new Button();
             listBoxLog = new ListBox();
+            парольДляПользователяToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -118,6 +119,7 @@
             // 
             // работаСПользователямиToolStripMenuItem
             // 
+            работаСПользователямиToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { парольДляПользователяToolStripMenuItem });
             работаСПользователямиToolStripMenuItem.Name = "работаСПользователямиToolStripMenuItem";
             работаСПользователямиToolStripMenuItem.Size = new Size(358, 42);
             работаСПользователямиToolStripMenuItem.Text = "Работа с пользователями";
@@ -321,6 +323,12 @@
             listBoxLog.Size = new Size(656, 612);
             listBoxLog.TabIndex = 24;
             // 
+            // парольДляПользователяToolStripMenuItem
+            // 
+            парольДляПользователяToolStripMenuItem.Name = "парольДляПользователяToolStripMenuItem";
+            парольДляПользователяToolStripMenuItem.Size = new Size(452, 46);
+            парольДляПользователяToolStripMenuItem.Text = "Пароль для пользователя";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(15F, 38F);
@@ -395,5 +403,6 @@
         private CheckBox checkBoxWinthEmail;
         private Button buttonCreateUser;
         private ListBox listBoxLog;
+        private ToolStripMenuItem парольДляПользователяToolStripMenuItem;
     }
 }

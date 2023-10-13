@@ -4,6 +4,9 @@
     <Compile Update="AccountSettings.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="DefPasswordForUser.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="DomainSettings.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -11,6 +14,9 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="ListGroup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="PreviewCreateUsersAccountWithSendEmail.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="TextMessageRUS.cs">

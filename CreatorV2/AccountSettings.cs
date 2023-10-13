@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;*/
 
+using CreatorV2.Classes;
+
 namespace CreatorV2
 {
     public partial class AccountSettings : Form
@@ -33,10 +35,18 @@ namespace CreatorV2
         private void buttonSaveSettings_Click(object sender, EventArgs e)
         {
             //сохранения в файл 
-            _Actions.SaveSetting(_Variables._FIOForSendEmail = textBoxNameLastName.Text.Trim(),0);
-            _Actions.SaveSetting(_Variables._EmailForSendEmail = textBoxEmail.Text.Trim(),1);
-            _Actions.SaveSetting(_Variables._PasswordForSendEmail = _Actions.Encrypt(textBoxPassword.Text.Trim()),2);
-            
+            /*            
+             *            _Actions.SaveSetting(_Variables._FIOForSendEmail = textBoxNameLastName.Text.Trim(),0);
+             *            
+                        _Actions.SaveSetting(_Variables._EmailForSendEmail = textBoxEmail.Text.Trim(),1);
+                        _Actions.SaveSetting(_Variables._PasswordForSendEmail = _Actions.Encrypt(textBoxPassword.Text.Trim()),2);
+            */
+
+            _Actions.SaveSettingsV2("AdminUserName", _Variables._FIOForSendEmail = textBoxNameLastName.Text.Trim());
+            _Actions.SaveSettingsV2("AdminUserName", _Variables._EmailForSendEmail = textBoxEmail.Text.Trim());
+            _Actions.SaveSettingsV2("AdminUserName", _Variables._PasswordForSendEmail = _Actions.Encrypt(textBoxPassword.Text.Trim()));
+
+
             this.Close();
         }
     }
