@@ -27,9 +27,11 @@ namespace CreatorV2
         private void AccountSettings_Load(object sender, EventArgs e)
         {
             //выгрузить данный из файла 
-            textBoxNameLastName.Text = _Variables._FIOForSendEmail = _Actions.LoadSetting(0);
-            textBoxEmail.Text = _Variables._EmailForSendEmail = _Actions.LoadSetting(1);
-            textBoxPassword.Text = _Actions.Decrypt(_Variables._PasswordForSendEmail = _Actions.LoadSetting(2));
+            textBoxNameLastName.Text = _Variables._FIOForSendEmail = _Actions.LoadSettings2("AdminUserName");
+            textBoxEmail.Text = _Variables._EmailForSendEmail = _Actions.LoadSettings2("AdminEmail");
+            textBoxPassword.Text = _Actions.Decrypt(_Variables._PasswordForSendEmail = _Actions.LoadSettings2("AdminPassword"));
+
+
         }
 
         private void buttonSaveSettings_Click(object sender, EventArgs e)

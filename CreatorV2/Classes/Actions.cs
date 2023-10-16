@@ -21,30 +21,6 @@ namespace CreatorV2.Classes
         /// </summary>
         /// <param name="newValue"> переменная в которой будет записано новое значение</param>
         /// <param name="targetLineIndex"> переменная в которой написан индекс строки которая будет перезаписана новым значением</param>
-        public void SaveSetting(string newValue, int targetLineIndex)
-        {
-            string filePath = @"Settings.txt";
-
-            string[] lines = File.ReadAllLines(filePath); // Читаем все строки из файла
-
-            if (targetLineIndex >= 0 && targetLineIndex < lines.Length)
-            {
-                lines[targetLineIndex] = newValue; // Записываем новое значение в целевую строку
-            }
-            else if (targetLineIndex == lines.Length)
-            {
-                Array.Resize(ref lines, lines.Length + 1); // Увеличиваем размер массива строк
-                lines[targetLineIndex] = newValue; // Добавляем новую строку
-            }
-            else
-            {
-                MessageBox.Show("Недопустимый индекс строки.");
-            }
-
-            File.WriteAllLines(filePath, lines); // Записываем все строки обратно в файл
-        }
-
-
         public void SaveSettingsV2(string whatNeedSave, string newLine)
         {
             string filePath = @"Settings.txt";
@@ -73,24 +49,24 @@ namespace CreatorV2.Classes
         /// </summary>
         public void UploadAllSettings()
         {
-            _Variables._FIOForSendEmail = LoadSetting(0);
-            _Variables._EmailForSendEmail = LoadSetting(1);
-            _Variables._PasswordForSendEmail = Encrypt(LoadSetting(2));
-            _Variables.NetBios = LoadSetting(3);
-
+            //string[] upload = { "AdminUserName", "AdminEmail", "AdminPassword", "netbios", "ListGroupForEmplyees", "ListGroupForStudent" };
+            _Variables._FIOForSendEmail = LoadSettings2("AdminUserName");
+            _Variables._EmailForSendEmail = LoadSettings2("AdminEmail");
+            _Variables._PasswordForSendEmail = Encrypt(LoadSettings2("AdminPassword"));
+            _Variables.NetBios = LoadSettings2("netbios");
 
 
             LoadText("RUS");
             LoadText("ENG");
 
             //string listgroupforEmpliyees = LoadSetting(4)
-            string[] lineEmployeer = LoadSetting(4).Split(";");
+            string[] lineEmployeer = LoadSettings2("ListGroupForEmplyees").Split(";");
             foreach (string line2 in lineEmployeer)
             {
                 _Variables._ListGroupForAddEmployeer.Add(line2);
             }
 
-            string[] lineStudent = LoadSetting(5).Split(";");
+            string[] lineStudent = LoadSettings2("ListGroupForStudent").Split(";");
             foreach (string line2 in lineStudent)
             {
                 _Variables._ListGroupForAddStudent.Add(line2);
@@ -98,31 +74,33 @@ namespace CreatorV2.Classes
         }
 
         /// <summary>
-        /// метод для выгрузки настроек
+        /// метод для выгрузки настроек из текстового файла 
         /// </summary>
-        /// <param name="intex">переменная которая будет выгружена</param>
+        /// <param name="WhatNeed">что нужно выгрузить? </param>
         /// <returns></returns>
-        public string LoadSetting(int intex)
+        public string LoadSettings2(string WhatNeed)
         {
             string filePath = @"Settings.txt";
-            int targetLineIndex = intex;
-
             string line = string.Empty;
-            int currentLineIndex = 0;
-
+            string otvet = string.Empty;
             using (StreamReader sr = new StreamReader(filePath))
             {
                 while ((line = sr.ReadLine()) != null)
                 {
-                    if (currentLineIndex == targetLineIndex)
+                    string[] devide = line.Split("|");
+                    string qwe = devide[0].ToString().Trim();
+                    if (qwe == WhatNeed)
                     {
-                        break;
+                        otvet = devide[1].ToString().Trim();
                     }
-                    currentLineIndex++;
                 }
             }
-            return line;
+            return otvet;
         }
+
+
+
+
 
         /// <summary>
         /// метод которые получает список всех групп из АД

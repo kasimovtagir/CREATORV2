@@ -25,7 +25,7 @@ namespace CreatorV2
 
         private void DomainSettings_Load(object sender, EventArgs e)
         {
-            textBoxNetBios.Text = _Variables.NetBios=_Actions.LoadSetting(3);            
+            textBoxNetBios.Text = _Variables.NetBios = _Actions.LoadSettings2("netbios");
         }
 
         private void buttonSaveNetBios_Click(object sender, EventArgs e)

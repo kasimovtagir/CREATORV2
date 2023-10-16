@@ -57,10 +57,11 @@ namespace CreatorV2
         /// <param name="listGroup"></param>
         /// <param name="listBoxGroup"></param>
         /// <param name="indexLine"></param>
-        public void uploadListGroup(List<string> listGroup, ListBox listBoxGroup, int indexLine)
+        public void uploadListGroup(List<string> listGroup, ListBox listBoxGroup, string whatneed)
         {
             //выгрузка списка групп для сотрудника
-            string[] listGroups = _Actions.LoadSetting(indexLine).Split(";");
+            //string[] listGroups = _Actions.LoadSetting(indexLine).Split(";");
+            string[] listGroups = _Actions.LoadSettings2(whatneed).Split(";");
             Array.Sort(listGroups);
             foreach (string item in listGroups)
             {
@@ -79,11 +80,9 @@ namespace CreatorV2
         private void ListGroup_Load(object sender, EventArgs e)
         {
             _Actions.GetGroups();
-           
 
-            
-            uploadListGroup(_Variables._ListGroupForAddEmployeer, listBoxListGroupForEmployees, 4);
-            uploadListGroup(_Variables._ListGroupForAddStudent, listBoxListGroupForStudent, 5);
+            uploadListGroup(_Variables._ListGroupForAddEmployeer, listBoxListGroupForEmployees, "ListGroupForEmplyees");
+            uploadListGroup(_Variables._ListGroupForAddStudent, listBoxListGroupForStudent, "ListGroupForStudent");
 
             label7.Text = "*Нажми 2 раза на группу в списке и она буде удалена из списка.";
             label7.BackColor = Color.Red;
