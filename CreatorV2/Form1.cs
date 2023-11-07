@@ -33,15 +33,15 @@ namespace CreatorV2
         /// </summary>
         public void ForTest()
         {
-            textBoxUserNameInAD.Text = "asd";
-            textBoxLastNameInAD.Text = "asd";
-            textBoxLastName.Text = "asd";
-            textBoxName.Text = "asd";
-            textBoxThirdName.Text = "asd";
-            textBoxISUID.Text = "asd";
-            textBoxDescription.Text = "aasd";
-            textBoxEMAIL.Text = "asdsad@mail.ru";
-            textBoxPassword.Text = "asd";
+            textBoxUserNameInAD.Text = "NameForAD";
+            textBoxLastNameInAD.Text = "LastNameForAD";
+            textBoxLastName.Text = "LastNameRUS";
+            textBoxName.Text = "NameRUS";
+            textBoxThirdName.Text = "thirNameRUS";
+            textBoxISUID.Text = "ISUID";
+            textBoxDescription.Text = "";
+            textBoxEMAIL.Text = "tagir.kasimov@metalab.ifmo.ru";
+            textBoxPassword.Text = _Variables._PasswordInAD;
             comboBoxTypePost.Text = "Сотрудник";
         }
 
@@ -75,7 +75,7 @@ namespace CreatorV2
             ListGroup listGroup = new ListGroup();
             listGroup._Variables = _Variables;
             listGroup._Actions = _Actions;
-            _Actions.GetSettings();
+            //_Actions.GetSettings();
             listGroup.ShowDialog();
         }
 
@@ -104,6 +104,11 @@ namespace CreatorV2
             // Устанавливаем имя и фамилию
             _Variables._nameInAD = name;
             _Variables._lastNameInAD = lastName;
+            if (name.Length + lastName.Length > 17)
+            {
+                _Variables._SamAccountInAD = $"{name[0]}.{lastName}";
+            }
+            else _Variables._SamAccountInAD = $"{name}.{lastName}";
             _Variables._UserlastName = textBoxName.Text.Trim();
             _Variables._UserName = textBoxLastName.Text.Trim();
             _Variables._UserThistName = textBoxThirdName.Text.Trim();
@@ -117,6 +122,29 @@ namespace CreatorV2
             newUser._Variables = _Variables;
             newUser._Actions = _Actions;
             newUser.ShowDialog();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void парольДляПользователяToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            listBox1.Items.Clear();
+            DefPasswordForUser defPasswordForUser = new DefPasswordForUser();
+            defPasswordForUser._Variables = _Variables;
+            defPasswordForUser._Actions = _Actions;
+            defPasswordForUser.ShowDialog();
+            foreach (var item in _Variables.Log)
+            {
+                listBox1.Items.Add(item);
+            }
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

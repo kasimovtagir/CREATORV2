@@ -29,7 +29,7 @@
         public string? TextMessageForSendEMAIL_RUS { get; set; }
 
         public string? SubjectTextMessageForSendEmail_ENG { get; set; }
-        public string? TextMessageForSendEMAIL_ENG { get; set; }
+        public string TextMessageForSendEMAIL_ENG { get; set; }
 
         //переменные для списка групп в которые будет добавлен новый пользователь 
         private List<string> ListGroupForAddEmployeer = new List<string>();
@@ -54,7 +54,7 @@
         }
 
         //Список всех групп
-        public List<string>? ListAllGroups = new List<string>();
+        public List<string>? ListAllGroups = new();
 
 
         // поле для переменной netbios
@@ -83,7 +83,10 @@
         public bool _WithEmail;
 
 
-
+        public List<string>? Log = new()
+            
+            
+            ;
 
 
 

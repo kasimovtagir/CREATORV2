@@ -1,8 +1,33 @@
 ﻿using static System.Runtime.InteropServices.JavaScript.JSType;
 using System.Text.RegularExpressions;
+using System.DirectoryServices.AccountManagement;
+using System.Globalization;
 
 namespace CreatorV2.Classes
 {
+    public class UserPrincipalEx : UserPrincipal
+    {
+        public UserPrincipalEx(PrincipalContext context) : base(context) { }
+
+        public UserPrincipalEx(PrincipalContext context, string samAccountName, string password, bool enabled) :
+            base(context, samAccountName, password, enabled)
+        { }
+
+        // Add a method to set extensionAttribute1
+        public void SetExtensionAttribute(string? valueName, string? valueLastName, string? valueMiddleName, string? valueISUID)
+        {
+            valueName = string.IsNullOrEmpty(valueName) ? null : valueName;
+            valueLastName = string.IsNullOrEmpty(valueLastName) ? null : valueLastName;
+            valueMiddleName = string.IsNullOrEmpty(valueMiddleName) ? null : valueMiddleName;
+            valueISUID = string.IsNullOrEmpty(valueISUID) ? null : valueISUID;
+
+            ExtensionSet("extensionAttribute2", valueLastName);
+            ExtensionSet("extensionAttribute3", valueName);
+            ExtensionSet("extensionAttribute4", valueMiddleName);
+            ExtensionSet("extensionAttribute5", valueISUID);
+        }
+    }
+
     public class Actions
     {
         public Variables _Variables;
@@ -26,6 +51,7 @@ namespace CreatorV2.Classes
             string filePath = @"Settings.txt";
             string[] lines = File.ReadAllLines(filePath); // Читаем все строки из файла
             int countLineInFile = File.ReadAllLines(filePath).Count();
+            bool found = false;
 
             for (int i = 0; i < countLineInFile - 1; i++)
             {
@@ -33,15 +59,22 @@ namespace CreatorV2.Classes
                 string qwe = line[0].ToString().Trim();
                 if (qwe == whatNeedSave)
                 {
-                    lines[i] = $"{whatNeedSave} = {newLine}";
+                    lines[i] = $"{whatNeedSave} | {newLine}";
+                    found = true;
+                    break;
                 }
-                else continue;
             }
+
+            if (!found)
+            {
+                // Если переменной не было в файле, добавляем новую строку
+                string newEntry = $"{whatNeedSave} | {newLine}";
+                Array.Resize(ref lines, lines.Length + 1);
+                lines[lines.Length - 1] = newEntry;
+            }
+
             File.WriteAllLines(filePath, lines);
         }
-
-
-
 
 
         /// <summary>
@@ -54,6 +87,7 @@ namespace CreatorV2.Classes
             _Variables._EmailForSendEmail = LoadSettings2("AdminEmail");
             _Variables._PasswordForSendEmail = Encrypt(LoadSettings2("AdminPassword"));
             _Variables.NetBios = LoadSettings2("netbios");
+            _Variables._PasswordInAD = LoadSettings2("DefPasswordUser");
 
 
             LoadText("RUS");
@@ -73,6 +107,7 @@ namespace CreatorV2.Classes
             }
         }
 
+
         /// <summary>
         /// метод для выгрузки настроек из текстового файла 
         /// </summary>
@@ -81,25 +116,20 @@ namespace CreatorV2.Classes
         public string LoadSettings2(string WhatNeed)
         {
             string filePath = @"Settings.txt";
-            string line = string.Empty;
-            string otvet = string.Empty;
-            using (StreamReader sr = new StreamReader(filePath))
+
+            var settings = File
+                .ReadLines(filePath)
+                .Select(line => line.Split('|'))
+                .Where(parts => parts.Length == 2)
+                .ToDictionary(parts => parts[0].Trim(), parts => parts[1].Trim());
+
+            if (settings.TryGetValue(WhatNeed, out var value))
             {
-                while ((line = sr.ReadLine()) != null)
-                {
-                    string[] devide = line.Split("|");
-                    string qwe = devide[0].ToString().Trim();
-                    if (qwe == WhatNeed)
-                    {
-                        otvet = devide[1].ToString().Trim();
-                    }
-                }
+                return value;
             }
-            return otvet;
+
+            return string.Empty;
         }
-
-
-
 
 
         /// <summary>
@@ -111,7 +141,7 @@ namespace CreatorV2.Classes
             //using (_Variables.principalContext)
             {
                 // Создаем объект для поиска групп
-                PrincipalSearcher searcher = new PrincipalSearcher(_Variables.group);
+                PrincipalSearcher searcher = new(_Variables.group);
 
                 // Получаем коллекцию найденных групп
                 PrincipalSearchResult<Principal> groups = searcher.FindAll();
@@ -125,6 +155,7 @@ namespace CreatorV2.Classes
             }
         }
 
+
         /// <summary>
         /// метод которые получает главные из АД
         /// </summary>
@@ -133,6 +164,7 @@ namespace CreatorV2.Classes
             _Variables.principalContext = new PrincipalContext(ContextType.Domain, _Variables.NetBios);
             _Variables.group = new GroupPrincipal(_Variables.principalContext);
         }
+
 
         /// <summary>
         /// метод для сохранения текста для отправки письма на почту новому пользователю
@@ -150,7 +182,7 @@ namespace CreatorV2.Classes
                 path = @"textMessageENG.txt";
             }
 
-            using (StreamWriter sw = new StreamWriter(path))
+            using (StreamWriter sw = new(path))
             {
                 try
                 {
@@ -204,6 +236,7 @@ namespace CreatorV2.Classes
                 }
             }
         }
+
 
         /// <summary>
         /// Метод для транслитерации строки
@@ -353,29 +386,78 @@ namespace CreatorV2.Classes
             return newName.ToString();
         }
 
+
         /// <summary>
         ///  Метод для изменения текста и добавления в него логина и пароль нового сотрудника
         /// </summary>
-        public void ChangeText()
+        public string ChangeText(string language)
         {
             string adName = "ADName";
             string adPassword = "ADPassword";
-            string full_text_rus = string.Empty;
+            string? full_text_rus = string.Empty;
             string full_text_eng = string.Empty;
 
-            full_text_rus = Regex.Replace(_Variables.TextMessageForSendEMAIL_RUS, adName, _Variables._SamAccountInAD.ToLower());
+            full_text_rus = _Variables.TextMessageForSendEMAIL_RUS;
+            full_text_rus = Regex.Replace(full_text_rus, adName, _Variables._SamAccountInAD.ToLower());
             full_text_rus = Regex.Replace(full_text_rus, adPassword, _Variables._PasswordInAD);
 
-
-            full_text_eng = Regex.Replace(_Variables.TextMessageForSendEMAIL_ENG, adName, _Variables._SamAccountInAD.ToLower());
+            full_text_eng = _Variables.TextMessageForSendEMAIL_ENG;
+            full_text_eng = Regex.Replace(full_text_eng, adName, _Variables._SamAccountInAD.ToLower());
             full_text_eng = Regex.Replace(full_text_eng, adPassword, _Variables._PasswordInAD);
 
-            _Variables.TextMessageForSendEMAIL_RUS = full_text_rus;
-            _Variables.TextMessageForSendEMAIL_ENG = full_text_eng;
+
+            if (language == "RUS")
+            {
+                return full_text_rus;
+            }
+            else return full_text_eng;
         }
 
 
+        /// <summary>
+        /// Метод для создания учетной записи 
+        /// </summary>
+        public void CreateADAccount() //метод по созданию корп учетной записи в АД
+        {
+            try
+            {
+                using (_Variables.principalContext)
+                {
+                    UserPrincipalEx up = new(_Variables.principalContext);
+                    up.SamAccountName = _Variables._SamAccountInAD.ToLower();
+                    up.Surname = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(_Variables._lastNameInAD);
+                    up.DisplayName = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(_Variables._nameInAD + " " + _Variables._lastNameInAD);
+                    up.EmailAddress = _Variables._SamAccountInAD.ToLower() + "@metalab.ifmo.ru";
+                    up.GivenName = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(_Variables._nameInAD);
+                    up.Name = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(_Variables._nameInAD + " " + _Variables._lastNameInAD);
+                    if (_Variables._UserDescription == string.Empty)
+                    {
+                        up.Description = null;
+                    }
+                    else
+                    {
+                        up.Description = _Variables._UserDescription;
+                    }
 
+                    up.Enabled = true;
+                    up.SetPassword(_Variables._PasswordInAD);
+                    up.UserPrincipalName = _Variables._SamAccountInAD.ToLower() + "@metalab.ifmo.ru";
+
+                    //up.ExtensionSet("extensionAttribute1", data.LastNameRUS); // не работате 
+                    up.SetExtensionAttribute(_Variables._UserName, _Variables._UserlastName, _Variables._UserThistName, _Variables._UserISU_ID);
+
+                    up.Enabled = true;
+
+                    up.Save();
+                }
+                _Variables.Log.Add($"Пользователь {_Variables._nameInAD} {_Variables._lastNameInAD} создан");
+            }
+            catch (Exception ex)
+            {
+                _Variables.Log.Add($"Error\n{ex.Message}");
+            }
+
+        }
 
 
 

@@ -27,7 +27,7 @@ namespace CreatorV2
 
         private void PreviewCreateUsersAccountWithSendEmail_Load(object sender, EventArgs e)
         {
-            _Actions.ChangeText();
+            
             checkBoxRUS.Checked = true;
             textBoxTo.Text = _Variables._UsersEmail;
             textBoxFrom.Text = $"{_Variables._FIOForSendEmail}, {_Variables._EmailForSendEmail}";
@@ -54,12 +54,12 @@ namespace CreatorV2
                     else textBoxListGroup.Text += item + "; ";
                 }
             }
-            textBoxMessageMetxt.Text = _Variables.TextMessageForSendEMAIL_RUS;
+            textBoxMessageMetxt.Text = _Actions.ChangeText("RUS"); // _Variables.TextMessageForSendEMAIL_RUS;
         }
 
         private void buttonCreateUserinAD_Click(object sender, EventArgs e)
         {
-
+            _Actions.CreateADAccount();
         }
 
         private void checkBoxENG_CheckedChanged(object sender, EventArgs e)
@@ -70,7 +70,7 @@ namespace CreatorV2
                 label3.Text = "Subject: ";
                 label4.Text = "List group: ";
                 textBoxSubject.Text = _Variables.SubjectTextMessageForSendEmail_ENG;
-                textBoxMessageMetxt.Text = _Variables.TextMessageForSendEMAIL_ENG;
+                textBoxMessageMetxt.Text = _Actions.ChangeText("ENG"); //_Variables.TextMessageForSendEMAIL_ENG;
             }
         }
 
@@ -82,7 +82,7 @@ namespace CreatorV2
                 label3.Text = "Тема письма: ";
                 label4.Text = "Список групп: ";
                 textBoxSubject.Text = _Variables.SubjectTextMessageForSendEmail_RUS;
-                textBoxMessageMetxt.Text = _Variables.TextMessageForSendEMAIL_RUS;
+                textBoxMessageMetxt.Text = _Actions.ChangeText("RUS");// _Variables.TextMessageForSendEMAIL_RUS;
             }
         }
     }
