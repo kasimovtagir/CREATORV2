@@ -117,18 +117,20 @@ namespace CreatorV2.Classes
         {
             string filePath = @"Settings.txt";
 
-            var settings = File
-                .ReadLines(filePath)
-                .Select(line => line.Split('|'))
-                .Where(parts => parts.Length == 2)
-                .ToDictionary(parts => parts[0].Trim(), parts => parts[1].Trim());
-
-            if (settings.TryGetValue(WhatNeed, out var value))
+            if (File.Exists(filePath))
             {
-                return value;
-            }
+                var settings = File
+                    .ReadLines(filePath)
+                    .Select(line => line.Split('|'))
+                    .Where(parts => parts.Length == 2)
+                    .ToDictionary(parts => parts[0].Trim(), parts => parts[1].Trim());
 
-            return string.Empty;
+                if (settings.TryGetValue(WhatNeed, out var value))
+                {
+                    return value;
+                }
+            }
+                return string.Empty;            
         }
 
 
@@ -241,7 +243,7 @@ namespace CreatorV2.Classes
         /// <summary>
         /// Метод для транслитерации строки
         /// </summary>
-        /// <param name="name"></param>
+        /// <param name="name">Эта переменная получает имя на русском Языке а возвращает уже на английском</param>
         /// <returns></returns>
         public string Transliteration(string name)
         {
@@ -459,9 +461,70 @@ namespace CreatorV2.Classes
 
         }
 
+        public void AddUserToGroup(string username, string choosedGroup)
+        {
+            //string[] splituserName = username.Split(".");
+            try
+            {
+                using (_Variables.principalContext)
+                {
+                    UserPrincipal user = UserPrincipal.FindByIdentity(_Variables.principalContext, IdentityType.SamAccountName, username);
+                    GroupPrincipal group = GroupPrincipal.FindByIdentity(_Variables.principalContext, IdentityType.SamAccountName, choosedGroup);
 
+                    if (user != null && group != null)
+                    {
+                        if (!group.Members.Contains(user))
+                        {
+                            group.Members.Add(user);
+                            group.Save();
+                            _Variables.Log.Add($"Пользователь {username} добавлен в группу {choosedGroup}.");
+                            MessageBox.Show($"Пользователь {username} добавлен в группу {choosedGroup}.");
+                        }
+                        else
+                        {
+                            _Variables.Log.Add($"Пользователь {username} уже состоит в группе {choosedGroup}.");
+                            MessageBox.Show($"Пользователь {username} уже состоит в группе {choosedGroup}.");
+                            //Console.WriteLine($"Пользователь {data.NameUser + "." + data.SurnameUser} уже состоит в группе {item}.");
+                        }
+                    }
+                    else
+                    {
+                        _Variables.Log.Add($"Пользователь {username} или группа {choosedGroup} не найдены.");
+                        MessageBox.Show($"Пользователь {username}  или группа  {choosedGroup} не найдены.");
+                        //Console.WriteLine($"Пользователь {data.NameUser + "." + data.SurnameUser} или группа {item} не найдены.");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                _Variables.Log.Add("Ошибка во время добавления пользователя в группу.\n" + ex.ToString());
+            }
+        }
 
-
+        public void GetAllUser()//метод который получает из АД список всех пользоватлелей 
+        {
+            try
+            {
+                using (PrincipalContext context = _Variables.principalContext)//new PrincipalContext(ContextType.Domain, "metalab.ifmo.ru", "OU=Accounts,DC=metalab,DC=ifmo,DC=ru"))
+                {
+                    UserPrincipal userPrincipal = new UserPrincipal(context);
+                    using (PrincipalSearcher searcher = new PrincipalSearcher(userPrincipal))
+                    {
+                        foreach (Principal result in searcher.FindAll())
+                        {
+                            // Получение свойства "SamAccountName" (логина пользователя)
+                            string username = result.SamAccountName;
+                            _Variables.AllUsersInAD.Add(username);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ошибка при получении списка пользователей: " + ex.Message);
+                Console.WriteLine("Ошибка при получении списка пользователей: " + ex.Message);
+            }
+        }
 
 
 

@@ -146,5 +146,17 @@ namespace CreatorV2
         {
 
         }
+
+        private void äîáàâèòüÏîëüçîâàòåëÿÂÃğóïïóToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void îäèíàíûéToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AddUserInGroup addUserInGroup = new AddUserInGroup();
+            addUserInGroup._Variables = _Variables;
+            addUserInGroup._Actions = _Actions;
+            addUserInGroup.ShowDialog();
+        }
     }
 }

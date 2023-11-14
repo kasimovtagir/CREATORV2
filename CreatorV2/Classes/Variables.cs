@@ -62,7 +62,7 @@
 
         //хрен знает что, но что-то важное 
         public PrincipalContext principalContext;//= new PrincipalContext(ContextType.Domain, NetBios);
-        public GroupPrincipal group;
+        public GroupPrincipal group { get; set; }
 
 
 
@@ -83,11 +83,15 @@
         public bool _WithEmail;
 
 
-        public List<string>? Log = new()
-            
-            
-            ;
+        public List<string>? Log = new();
 
+        // Список всех пользователей в AD
+        private List<string> listAllUsers = new List<string>();
+        public List<string> AllUsersInAD //{ get; set; }
+        {
+            get { return listAllUsers; }
+            set { listAllUsers = value; }
+        }
 
 
     }
