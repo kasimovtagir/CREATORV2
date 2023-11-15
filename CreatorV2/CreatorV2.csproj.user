@@ -19,6 +19,9 @@
     <Compile Update="ListGroup.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="MainSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="PreviewCreateUsersAccountWithSendEmail.cs">
       <SubType>Form</SubType>
     </Compile>

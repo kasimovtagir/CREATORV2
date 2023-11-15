@@ -2,6 +2,7 @@
 using static System.Windows.Forms.DataFormats;*/
 
 using System.DirectoryServices.ActiveDirectory;
+using System.IO;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
@@ -19,10 +20,22 @@ namespace CreatorV2
             _Variables = new Classes.Variables();
             _Actions = new Classes.Actions(_Variables);
 
-            _Actions.GetSettings();
-            ForTest();
+            if (!File.Exists("Settings.txt"))
+            {
+                MessageBox.Show("У вас нет конфигурационного файла, сейчас откроется окно в котором необходимо заполнить все поля для корректной работы программы! Спасибо");
+                MainSettings newMainSett = new MainSettings();
+                newMainSett._Variables = _Variables;
+                newMainSett._Actions = _Actions;
+                
+                using (FileStream fs = File.Create("Settings.txt"))
+                {
+                    //File.Create();                    
+                }
+                newMainSett.ShowDialog();
+            }
+            else  _Actions.UploadAllSettings();
 
-            _Actions.UploadAllSettings();
+            //ForTest();
         }
 
 
@@ -51,7 +64,6 @@ namespace CreatorV2
             accountSettings._Variables = _Variables;
             accountSettings._Actions = _Actions;
             accountSettings.ShowDialog();
-
         }
 
         private void доменToolStripMenuItem_Click(object sender, EventArgs e)
@@ -126,7 +138,6 @@ namespace CreatorV2
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
         }
 
         private void парольДляПользователяToolStripMenuItem_Click(object sender, EventArgs e)

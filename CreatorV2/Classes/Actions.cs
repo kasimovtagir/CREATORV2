@@ -85,7 +85,7 @@ namespace CreatorV2.Classes
             //string[] upload = { "AdminUserName", "AdminEmail", "AdminPassword", "netbios", "ListGroupForEmplyees", "ListGroupForStudent" };
             _Variables._FIOForSendEmail = LoadSettings2("AdminUserName");
             _Variables._EmailForSendEmail = LoadSettings2("AdminEmail");
-            _Variables._PasswordForSendEmail = Encrypt(LoadSettings2("AdminPassword"));
+            _Variables._PasswordForSendEmail = LoadSettings2("AdminPassword") == string.Empty ? string.Empty : Encrypt(LoadSettings2("AdminPassword"));
             _Variables.NetBios = LoadSettings2("netbios");
             _Variables._PasswordInAD = LoadSettings2("DefPasswordUser");
 
@@ -103,7 +103,11 @@ namespace CreatorV2.Classes
             string[] lineStudent = LoadSettings2("ListGroupForStudent").Split(";");
             foreach (string line2 in lineStudent)
             {
-                _Variables._ListGroupForAddStudent.Add(line2);
+                if (line2 == "")
+                {
+                    continue;
+                }
+                else _Variables._ListGroupForAddStudent.Add(line2);
             }
         }
 
@@ -130,7 +134,7 @@ namespace CreatorV2.Classes
                     return value;
                 }
             }
-                return string.Empty;            
+            return string.Empty;
         }
 
 
@@ -569,30 +573,38 @@ namespace CreatorV2.Classes
         /// <returns></returns>
         public string Decrypt(string cipherText)//метод дешифровки пароля пользователя
         {
-            byte[] cipherBytes = Convert.FromBase64String(cipherText);
-            byte[] keyBytes = Convert.FromBase64String(Key);
-            byte[] iv = new byte[BlockSize / 8];
-
-            using (Aes aes = Aes.Create())
+            try
             {
-                aes.KeySize = KeySize;
-                aes.BlockSize = BlockSize;
-                aes.Key = keyBytes;
-                aes.IV = iv;
-                aes.Mode = CipherMode.CBC;
-                aes.Padding = PaddingMode.PKCS7;
+                byte[] cipherBytes = Convert.FromBase64String(cipherText);
+                byte[] keyBytes = Convert.FromBase64String(Key);
+                byte[] iv = new byte[BlockSize / 8];
 
-                using (MemoryStream memoryStream = new MemoryStream(cipherBytes))
+                using (Aes aes = Aes.Create())
                 {
-                    ICryptoTransform decryptor = aes.CreateDecryptor();
-                    CryptoStream cryptoStream = new CryptoStream(memoryStream, decryptor, CryptoStreamMode.Read);
-                    byte[] plainBytes = new byte[cipherBytes.Length];
+                    aes.KeySize = KeySize;
+                    aes.BlockSize = BlockSize;
+                    aes.Key = keyBytes;
+                    aes.IV = iv;
+                    aes.Mode = CipherMode.CBC;
+                    aes.Padding = PaddingMode.PKCS7;
 
-                    int decryptedByteCount = cryptoStream.Read(plainBytes, 0, plainBytes.Length);
-                    return Encoding.UTF8.GetString(plainBytes, 0, decryptedByteCount);
+                    using (MemoryStream memoryStream = new MemoryStream(cipherBytes))
+                    {
+                        ICryptoTransform decryptor = aes.CreateDecryptor();
+                        CryptoStream cryptoStream = new CryptoStream(memoryStream, decryptor, CryptoStreamMode.Read);
+                        byte[] plainBytes = new byte[cipherBytes.Length];
+
+                        int decryptedByteCount = cryptoStream.Read(plainBytes, 0, plainBytes.Length);
+                        return Encoding.UTF8.GetString(plainBytes, 0, decryptedByteCount);
+                    }
                 }
+
+            }
+            catch (Exception ex)
+            {
+                _Variables.Log.Add($"Ошибка {ex}");
+                return string.Empty;
             }
         }
-
     }
 }

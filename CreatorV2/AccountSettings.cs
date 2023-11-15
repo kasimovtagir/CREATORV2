@@ -30,8 +30,6 @@ namespace CreatorV2
             textBoxNameLastName.Text = _Variables._FIOForSendEmail = _Actions.LoadSettings2("AdminUserName");
             textBoxEmail.Text = _Variables._EmailForSendEmail = _Actions.LoadSettings2("AdminEmail");
             textBoxPassword.Text = _Actions.Decrypt(_Variables._PasswordForSendEmail = _Actions.LoadSettings2("AdminPassword"));
-
-
         }
 
         private void buttonSaveSettings_Click(object sender, EventArgs e)
@@ -45,8 +43,8 @@ namespace CreatorV2
             */
 
             _Actions.SaveSettingsV2("AdminUserName", _Variables._FIOForSendEmail = textBoxNameLastName.Text.Trim());
-            _Actions.SaveSettingsV2("AdminUserName", _Variables._EmailForSendEmail = textBoxEmail.Text.Trim());
-            _Actions.SaveSettingsV2("AdminUserName", _Variables._PasswordForSendEmail = _Actions.Encrypt(textBoxPassword.Text.Trim()));
+            _Actions.SaveSettingsV2("AdminEmail", _Variables._EmailForSendEmail = textBoxEmail.Text.Trim());
+            _Actions.SaveSettingsV2("AdminPassword", _Variables._PasswordForSendEmail = _Actions.Encrypt(textBoxPassword.Text.Trim()));
 
 
             this.Close();
