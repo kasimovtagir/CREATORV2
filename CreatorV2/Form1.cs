@@ -184,7 +184,7 @@ namespace CreatorV2
             listBox1.Items.Clear();
             foreach (var item in _Variables.Log)
             {
-                listBox1.Items.Add(item);
+                listBox1.Items.Add(item); 
             }
         }
     }

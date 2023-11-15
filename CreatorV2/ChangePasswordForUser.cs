@@ -27,7 +27,7 @@ namespace CreatorV2
 
         private void buttonSaveNewPasswordForUser_Click(object sender, EventArgs e)
         {
-
+             
             //Actions.ChangePasswordForDefault(comboBox1.Text, txtBoxPassword.Text);
             this.Close();
         }
