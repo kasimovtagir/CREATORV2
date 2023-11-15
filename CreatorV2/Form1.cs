@@ -26,14 +26,14 @@ namespace CreatorV2
                 MainSettings newMainSett = new MainSettings();
                 newMainSett._Variables = _Variables;
                 newMainSett._Actions = _Actions;
-                
+
                 using (FileStream fs = File.Create("Settings.txt"))
                 {
                     //File.Create();                    
                 }
                 newMainSett.ShowDialog();
             }
-            else  _Actions.UploadAllSettings();
+            else _Actions.UploadAllSettings();
 
             //ForTest();
         }
@@ -74,20 +74,14 @@ namespace CreatorV2
             domainSettings.ShowDialog();
         }
 
-        private void òåêñòÏèñüìàToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            TextMessageRUS textMessageRUS = new TextMessageRUS();
-            textMessageRUS._Variables = _Variables;
-            textMessageRUS._Actions = _Actions;
-            textMessageRUS.ShowDialog();
-        }
+
 
         private void ãğóïïûÏîÓìîë÷àíèşToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ListGroup listGroup = new ListGroup();
             listGroup._Variables = _Variables;
             listGroup._Actions = _Actions;
-            //_Actions.GetSettings();
+
             listGroup.ShowDialog();
         }
 
@@ -138,19 +132,7 @@ namespace CreatorV2
 
         private void Form1_Load(object sender, EventArgs e)
         {
-        }
-
-        private void ïàğîëüÄëÿÏîëüçîâàòåëÿToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            listBox1.Items.Clear();
-            DefPasswordForUser defPasswordForUser = new DefPasswordForUser();
-            defPasswordForUser._Variables = _Variables;
-            defPasswordForUser._Actions = _Actions;
-            defPasswordForUser.ShowDialog();
-            foreach (var item in _Variables.Log)
-            {
-                listBox1.Items.Add(item);
-            }
+            _Actions.GetSettings();
         }
 
         private void label2_Click(object sender, EventArgs e)
@@ -168,6 +150,42 @@ namespace CreatorV2
             addUserInGroup._Variables = _Variables;
             addUserInGroup._Actions = _Actions;
             addUserInGroup.ShowDialog();
+        }
+
+        private void òåêñòÏèñüìàToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            TextMessage textMessage = new TextMessage();
+            textMessage._Variables = _Variables;
+            textMessage._Actions = _Actions;
+            textMessage.ShowDialog();
+        }
+
+
+        private void óñòàíîâèòüÏàğîëüÏîëüçîâàòåëÿÏîÓìîë÷àíèşToolStripMenuItem_Click(object sender, EventArgs e)
+        {            
+            DefPasswordForUser defPasswordForUser = new DefPasswordForUser();
+            defPasswordForUser._Variables = _Variables;
+            defPasswordForUser._Actions = _Actions;
+            defPasswordForUser.ShowDialog();
+            listBox1.Items.Clear();
+            foreach (var item in _Variables.Log)
+            {
+                listBox1.Items.Add(item);
+            }
+        }
+
+        private void ïàğîëüÄëÿÏîëüçîâàòåëÿToolStripMenuItem_Click(object sender, EventArgs e)
+        {            
+            ChangePasswordForUser changePasswordForUser = new ChangePasswordForUser();
+            changePasswordForUser._Variables = _Variables;
+            changePasswordForUser._Actions = _Actions;
+            _Actions.GetAllUser();
+            changePasswordForUser.ShowDialog();
+            listBox1.Items.Clear();
+            foreach (var item in _Variables.Log)
+            {
+                listBox1.Items.Add(item);
+            }
         }
     }
 }

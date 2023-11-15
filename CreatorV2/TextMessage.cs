@@ -11,11 +11,11 @@ using System.Windows.Forms;
 */
 namespace CreatorV2
 {
-    public partial class TextMessageRUS : Form
+    public partial class TextMessage : Form
     {
         public Classes.Variables _Variables;// {get;set;}
         public Classes.Actions _Actions;// { get;set;}
-        public TextMessageRUS()
+        public TextMessage()
         {
             InitializeComponent();
         }

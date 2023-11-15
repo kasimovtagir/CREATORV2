@@ -33,7 +33,6 @@
             label2 = new Label();
             label3 = new Label();
             label4 = new Label();
-            label5 = new Label();
             textBoxUserName = new TextBox();
             textBoxEmail = new TextBox();
             textBoxUserPassword = new TextBox();
@@ -42,10 +41,10 @@
             // 
             // buttonSaveMainSettings
             // 
-            buttonSaveMainSettings.Location = new Point(13, 284);
+            buttonSaveMainSettings.Location = new Point(621, 228);
             buttonSaveMainSettings.Margin = new Padding(4, 5, 4, 5);
             buttonSaveMainSettings.Name = "buttonSaveMainSettings";
-            buttonSaveMainSettings.Size = new Size(844, 81);
+            buttonSaveMainSettings.Size = new Size(227, 81);
             buttonSaveMainSettings.TabIndex = 0;
             buttonSaveMainSettings.Text = "Сохранить";
             buttonSaveMainSettings.UseVisualStyleBackColor = true;
@@ -87,15 +86,6 @@
             label4.TabIndex = 4;
             label4.Text = "NETBIOS";
             // 
-            // label5
-            // 
-            label5.AutoSize = true;
-            label5.Location = new Point(12, 241);
-            label5.Name = "label5";
-            label5.Size = new Size(91, 38);
-            label5.TabIndex = 5;
-            label5.Text = "label5";
-            // 
             // textBoxUserName
             // 
             textBoxUserName.Location = new Point(271, 12);
@@ -129,12 +119,11 @@
             // 
             AutoScaleDimensions = new SizeF(15F, 38F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(878, 381);
+            ClientSize = new Size(862, 320);
             Controls.Add(textBoxNetbios);
             Controls.Add(textBoxUserPassword);
             Controls.Add(textBoxEmail);
             Controls.Add(textBoxUserName);
-            Controls.Add(label5);
             Controls.Add(label4);
             Controls.Add(label3);
             Controls.Add(label2);
@@ -155,7 +144,6 @@
         private Label label2;
         private Label label3;
         private Label label4;
-        private Label label5;
         private TextBox textBoxUserName;
         private TextBox textBoxEmail;
         private TextBox textBoxUserPassword;

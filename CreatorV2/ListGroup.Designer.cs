@@ -144,6 +144,7 @@
             listBoxListGroupForEmployees.Name = "listBoxListGroupForEmployees";
             listBoxListGroupForEmployees.Size = new Size(435, 422);
             listBoxListGroupForEmployees.TabIndex = 9;
+            listBoxListGroupForEmployees.MouseDoubleClick += listBoxListGroupForEmployees_MouseDoubleClick;
             // 
             // listBoxListGroupForStudent
             // 
@@ -154,6 +155,7 @@
             listBoxListGroupForStudent.Name = "listBoxListGroupForStudent";
             listBoxListGroupForStudent.Size = new Size(436, 422);
             listBoxListGroupForStudent.TabIndex = 10;
+            listBoxListGroupForStudent.MouseDoubleClick += listBoxListGroupForStudent_MouseDoubleClick;
             // 
             // listBoxGroupForSUZsPF
             // 
@@ -163,6 +165,8 @@
             listBoxGroupForSUZsPF.Name = "listBoxGroupForSUZsPF";
             listBoxGroupForSUZsPF.Size = new Size(436, 422);
             listBoxGroupForSUZsPF.TabIndex = 11;
+            listBoxGroupForSUZsPF.SelectedIndexChanged += listBoxGroupForSUZsPF_SelectedIndexChanged;
+            listBoxGroupForSUZsPF.MouseDoubleClick += listBoxGroupForSUZsPF_MouseDoubleClick;
             // 
             // label6
             // 
@@ -211,6 +215,7 @@
             buttonAddToListGroupForSUZsPF.TabIndex = 16;
             buttonAddToListGroupForSUZsPF.Text = "Добавить в список";
             buttonAddToListGroupForSUZsPF.UseVisualStyleBackColor = true;
+            buttonAddToListGroupForSUZsPF.Click += buttonAddToListGroupForSUZsPF_Click;
             // 
             // ListGroup
             // 

@@ -1,6 +1,6 @@
 ﻿namespace CreatorV2
 {
-    partial class TextMessageRUS
+    partial class TextMessage
     {
         /// <summary>
         /// Required designer variable.

@@ -53,7 +53,7 @@ namespace CreatorV2.Classes
             int countLineInFile = File.ReadAllLines(filePath).Count();
             bool found = false;
 
-            for (int i = 0; i < countLineInFile - 1; i++)
+            for (int i = 0; i < countLineInFile ; i++)
             {
                 string[] line = lines[i].Split("|");
                 string qwe = line[0].ToString().Trim();
@@ -505,7 +505,10 @@ namespace CreatorV2.Classes
             }
         }
 
-        public void GetAllUser()//метод который получает из АД список всех пользоватлелей 
+        /// <summary>
+        /// метод который получает из АД список всех пользоватлелей 
+        /// </summary>
+        public void GetAllUser()
         {
             try
             {

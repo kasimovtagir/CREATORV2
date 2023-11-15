@@ -11,6 +11,8 @@ using System.Windows.Forms;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;*/
 
+using System.Windows.Forms;
+
 namespace CreatorV2
 {
     public partial class ListGroup : Form
@@ -122,11 +124,13 @@ namespace CreatorV2
         private void buttonAddToListGroupForEmployees_Click(object sender, EventArgs e)
         {
             AddGroupInList(listBoxListGroupForEmployees, comboBoxListGroupForEmployees, label4);
+            comboBoxListGroupForEmployees.Text = string.Empty;
         }
 
         private void buttonAddGroupToListGroupForStudent_Click(object sender, EventArgs e)
         {
             AddGroupInList(listBoxListGroupForStudent, comboBoxListGroupForStudent, label5);
+            comboBoxListGroupForStudent.Text = string.Empty;
         }
 
 
@@ -155,6 +159,47 @@ namespace CreatorV2
             {
                 MessageBox.Show("Выбери группу.");
             }
+        }
+
+        private void buttonAddToListGroupForSUZsPF_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void listBoxListGroupForEmployees_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            int selectedIndex = listBoxListGroupForEmployees.SelectedIndex;
+
+            // Проверяем, что позиция была выбрана и двойной щелчок выполнен
+            if (selectedIndex != -1 && e.Button == MouseButtons.Left)
+            {
+                // Удаляем позицию из ListBox
+                listBoxListGroupForEmployees.Items.RemoveAt(selectedIndex);
+            }
+            label4.Text = $"Количество группу {listBoxListGroupForEmployees.Items.Count}";
+        }
+
+        private void listBoxListGroupForStudent_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            int selectedIndex = listBoxListGroupForStudent.SelectedIndex;
+
+            // Проверяем, что позиция была выбрана и двойной щелчок выполнен
+            if (selectedIndex != -1 && e.Button == MouseButtons.Left)
+            {
+                // Удаляем позицию из ListBox
+                listBoxListGroupForStudent.Items.RemoveAt(selectedIndex);
+            }
+            label5.Text = $"Количество группу {listBoxListGroupForStudent.Items.Count}";
+        }
+
+        private void listBoxGroupForSUZsPF_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void listBoxGroupForSUZsPF_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+
         }
     }
 }

@@ -25,8 +25,7 @@ namespace CreatorV2
 
         private void DefPasswordForUser_Load(object sender, EventArgs e)
         {
-            textBoxDefPassForUser.Text =_Variables._PasswordInAD = _Actions.LoadSettings2("DefPasswordUser");
-            
+            textBoxDefPassForUser.Text =_Variables._PasswordInAD = _Actions.LoadSettings2("DefPasswordUser");            
         }
 
         private void buttonSavePAssForUser_Click(object sender, EventArgs e)
@@ -34,7 +33,6 @@ namespace CreatorV2
             _Actions.SaveSettingsV2("DefPasswordUser", _Variables._PasswordInAD = textBoxDefPassForUser.Text);
             _Variables.Log.Add("Произведена смена пароля по умолчанию для пользователя.");
             this.Close();
-            //_Variables._PasswordInAD 
         }
     }
 }

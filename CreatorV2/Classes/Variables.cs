@@ -60,8 +60,8 @@
         // поле для переменной netbios
         public string? NetBios;// { get; set; }
 
-        //хрен знает что, но что-то важное 
-        public PrincipalContext principalContext;//= new PrincipalContext(ContextType.Domain, NetBios);
+        //паля для подключения к АД
+        public PrincipalContext principalContext;
         public GroupPrincipal group { get; set; }
 
 
