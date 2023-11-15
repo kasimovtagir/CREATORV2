@@ -31,11 +31,12 @@
             buttonSavePAssForUser = new Button();
             label1 = new Label();
             textBoxDefPassForUser = new TextBox();
+            checkBox1 = new CheckBox();
             SuspendLayout();
             // 
             // buttonSavePAssForUser
             // 
-            buttonSavePAssForUser.Location = new Point(12, 101);
+            buttonSavePAssForUser.Location = new Point(12, 158);
             buttonSavePAssForUser.Name = "buttonSavePAssForUser";
             buttonSavePAssForUser.Size = new Size(359, 73);
             buttonSavePAssForUser.TabIndex = 0;
@@ -58,12 +59,25 @@
             textBoxDefPassForUser.Name = "textBoxDefPassForUser";
             textBoxDefPassForUser.Size = new Size(359, 45);
             textBoxDefPassForUser.TabIndex = 2;
+            textBoxDefPassForUser.UseSystemPasswordChar = true;
+            // 
+            // checkBox1
+            // 
+            checkBox1.AutoSize = true;
+            checkBox1.Location = new Point(12, 110);
+            checkBox1.Name = "checkBox1";
+            checkBox1.Size = new Size(257, 42);
+            checkBox1.TabIndex = 3;
+            checkBox1.Text = "Показать пароль";
+            checkBox1.UseVisualStyleBackColor = true;
+            checkBox1.CheckedChanged += checkBox1_CheckedChanged;
             // 
             // DefPasswordForUser
             // 
             AutoScaleDimensions = new SizeF(15F, 38F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(378, 184);
+            ClientSize = new Size(378, 244);
+            Controls.Add(checkBox1);
             Controls.Add(textBoxDefPassForUser);
             Controls.Add(label1);
             Controls.Add(buttonSavePAssForUser);
@@ -81,5 +95,6 @@
         private Button buttonSavePAssForUser;
         private Label label1;
         private TextBox textBoxDefPassForUser;
+        private CheckBox checkBox1;
     }
 }

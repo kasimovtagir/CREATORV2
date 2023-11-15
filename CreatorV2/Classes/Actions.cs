@@ -2,6 +2,7 @@
 using System.Text.RegularExpressions;
 using System.DirectoryServices.AccountManagement;
 using System.Globalization;
+using System.DirectoryServices;
 
 namespace CreatorV2.Classes
 {
@@ -53,7 +54,7 @@ namespace CreatorV2.Classes
             int countLineInFile = File.ReadAllLines(filePath).Count();
             bool found = false;
 
-            for (int i = 0; i < countLineInFile ; i++)
+            for (int i = 0; i < countLineInFile; i++)
             {
                 string[] line = lines[i].Split("|");
                 string qwe = line[0].ToString().Trim();
@@ -534,6 +535,56 @@ namespace CreatorV2.Classes
         }
 
 
+        public void ChangePasswordUser(string username, string newPassword)
+        {
+            try
+            {
+                using (PrincipalContext context = new PrincipalContext(ContextType.Domain, "metalab.ifmo.ru", "OU=Accounts,DC=metalab,DC=ifmo,DC=ru"))
+                {
+                    UserPrincipal user = UserPrincipal.FindByIdentity(context, IdentityType.SamAccountName, username);
+
+                    if (user != null)
+                    {
+                        // Изменение пароля
+                        user.SetPassword(newPassword);
+                        user.Save();
+                        _Variables.Log.Add($"Пароль пользователя {username} успешно изменен.");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Пользователь не найден в Active Directory.");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                _Variables.Log.Add($"Произошла ошибка: {ex.Message}");
+            }
+        }
+
+
+        public List<string> ListOU() 
+        {
+            List<string> ous = new List<string>();
+            using (DirectoryEntry root = new DirectoryEntry($"LDAP://dc={_Variables.NetBios}"))
+            {
+                DirectorySearcher searcher = new DirectorySearcher(root);
+                // Get all Groups
+                searcher.Filter = "(&(objectClass=group))";
+                searcher.SearchScope = SearchScope.Subtree;
+                searcher.PropertiesToLoad.Add("distinguishedName");
+
+                SearchResultCollection result = searcher.FindAll();
+                foreach (SearchResult entry in result)
+                {
+                    ous.Add(entry.GetDirectoryEntry().Properties["distinguishedName"].Value.ToString());
+                }
+
+                result.Dispose();
+                searcher.Dispose();
+            }
+            return ous;
+        }
 
 
         /// <summary>

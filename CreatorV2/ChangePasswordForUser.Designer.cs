@@ -31,8 +31,9 @@
             buttonSaveNewPasswordForUser = new Button();
             label1 = new Label();
             label2 = new Label();
-            comboBox1 = new ComboBox();
-            textBox1 = new TextBox();
+            comboBoxUserName = new ComboBox();
+            textBoxNewPassword = new TextBox();
+            checkBoxShowPassword = new CheckBox();
             SuspendLayout();
             // 
             // buttonSaveNewPasswordForUser
@@ -63,28 +64,41 @@
             label2.TabIndex = 2;
             label2.Text = "Новый пароль";
             // 
-            // comboBox1
+            // comboBoxUserName
             // 
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(271, 12);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(686, 46);
-            comboBox1.TabIndex = 3;
+            comboBoxUserName.FormattingEnabled = true;
+            comboBoxUserName.Location = new Point(271, 12);
+            comboBoxUserName.Name = "comboBoxUserName";
+            comboBoxUserName.Size = new Size(686, 46);
+            comboBoxUserName.TabIndex = 3;
             // 
-            // textBox1
+            // textBoxNewPassword
             // 
-            textBox1.Location = new Point(271, 64);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(686, 45);
-            textBox1.TabIndex = 4;
+            textBoxNewPassword.Location = new Point(271, 64);
+            textBoxNewPassword.Name = "textBoxNewPassword";
+            textBoxNewPassword.Size = new Size(686, 45);
+            textBoxNewPassword.TabIndex = 4;
+            textBoxNewPassword.UseSystemPasswordChar = true;
+            // 
+            // checkBoxShowPassword
+            // 
+            checkBoxShowPassword.AutoSize = true;
+            checkBoxShowPassword.Location = new Point(48, 151);
+            checkBoxShowPassword.Name = "checkBoxShowPassword";
+            checkBoxShowPassword.Size = new Size(257, 42);
+            checkBoxShowPassword.TabIndex = 5;
+            checkBoxShowPassword.Text = "Показать пароль";
+            checkBoxShowPassword.UseVisualStyleBackColor = true;
+            checkBoxShowPassword.CheckedChanged += checkBox1_CheckedChanged;
             // 
             // ChangePasswordForUser
             // 
             AutoScaleDimensions = new SizeF(15F, 38F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(968, 221);
-            Controls.Add(textBox1);
-            Controls.Add(comboBox1);
+            Controls.Add(checkBoxShowPassword);
+            Controls.Add(textBoxNewPassword);
+            Controls.Add(comboBoxUserName);
             Controls.Add(label2);
             Controls.Add(label1);
             Controls.Add(buttonSaveNewPasswordForUser);
@@ -102,7 +116,8 @@
         private Button buttonSaveNewPasswordForUser;
         private Label label1;
         private Label label2;
-        private ComboBox comboBox1;
-        private TextBox textBox1;
+        private ComboBox comboBoxUserName;
+        private TextBox textBoxNewPassword;
+        private CheckBox checkBoxShowPassword;
     }
 }
