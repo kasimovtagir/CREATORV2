@@ -14,6 +14,7 @@ namespace CreatorV2
     {
         public Classes.Variables _Variables;// {get;set;}
         public Classes.Actions _Actions;// { get;set;}
+
         public DomainSettings()
         {
             InitializeComponent();
@@ -26,13 +27,36 @@ namespace CreatorV2
         private void DomainSettings_Load(object sender, EventArgs e)
         {
             textBoxNetBios.Text = _Variables.NetBios = _Actions.LoadSettings2("netbios");
+                       
+            string[] namesOU = _Actions.ListOU(textBoxNetBios.Text).ToArray();
+            Array.Sort(namesOU);
+            // Заполнение ComboBox вариантами
+            comboBoxListOU.Items.AddRange(namesOU);
+
+            // Настройка автодополнения
+            comboBoxListOU.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            comboBoxListOU.AutoCompleteSource = AutoCompleteSource.CustomSource;
+
+            // Создание и заполнение источника автодополнения
+            AutoCompleteStringCollection autoCompleteCollection = new AutoCompleteStringCollection();
+            autoCompleteCollection.AddRange(namesOU);
+
+            // Установка источника автодополнения ComboBox
+            comboBoxListOU.AutoCompleteCustomSource = autoCompleteCollection;
+
+            comboBoxListOU.Text = _Variables.OU = _Actions.LoadSettings2("OU"); 
         }
 
         private void buttonSaveNetBios_Click(object sender, EventArgs e)
         {
             _Actions.SaveSettingsV2("netbios", _Variables.NetBios = textBoxNetBios.Text);
-            //_Actions.SaveSetting(_Variables.NetBios = textBoxNetBios.Text,3);            
+            _Actions.SaveSettingsV2("OU", _Variables.NetBios = comboBoxListOU.Text);      
             this.Close();
+        }
+
+        private void textBoxNetBios_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

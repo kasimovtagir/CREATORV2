@@ -68,7 +68,7 @@ namespace CreatorV2
 
         private void buttonAddUserToGroup_Click(object sender, EventArgs e)
         {
-            if(comboBoxUserName.Text == string.Empty | comboBoxGroup.Text == string.Empty)
+            if (comboBoxUserName.Text == string.Empty | comboBoxGroup.Text == string.Empty)
             {
                 MessageBox.Show("Поля пустые, пожалуйста введите необходимые данные.");
             }

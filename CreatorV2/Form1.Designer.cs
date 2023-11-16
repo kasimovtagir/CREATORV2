@@ -65,7 +65,7 @@
             comboBoxTypePost = new ComboBox();
             checkBoxWinthEmail = new CheckBox();
             buttonCreateUser = new Button();
-            listBox1 = new ListBox();
+            listBoxAllLog = new ListBox();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -362,22 +362,22 @@
             buttonCreateUser.UseVisualStyleBackColor = true;
             buttonCreateUser.Click += buttonCreateUser_Click;
             // 
-            // listBox1
+            // listBoxAllLog
             // 
-            listBox1.FormattingEnabled = true;
-            listBox1.HorizontalScrollbar = true;
-            listBox1.ItemHeight = 38;
-            listBox1.Location = new Point(600, 51);
-            listBox1.Name = "listBox1";
-            listBox1.Size = new Size(654, 574);
-            listBox1.TabIndex = 24;
+            listBoxAllLog.FormattingEnabled = true;
+            listBoxAllLog.HorizontalScrollbar = true;
+            listBoxAllLog.ItemHeight = 38;
+            listBoxAllLog.Location = new Point(600, 51);
+            listBoxAllLog.Name = "listBoxAllLog";
+            listBoxAllLog.Size = new Size(654, 574);
+            listBoxAllLog.TabIndex = 24;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(15F, 38F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1266, 698);
-            Controls.Add(listBox1);
+            Controls.Add(listBoxAllLog);
             Controls.Add(buttonCreateUser);
             Controls.Add(checkBoxWinthEmail);
             Controls.Add(comboBoxTypePost);
@@ -447,7 +447,7 @@
         private CheckBox checkBoxWinthEmail;
         private Button buttonCreateUser;
         private ToolStripMenuItem парольДляПользователяToolStripMenuItem;
-        private ListBox listBox1;
+        private ListBox listBoxAllLog;
         private ToolStripMenuItem добавитьПользователяВГруппуToolStripMenuItem;
         private ToolStripMenuItem одинаныйToolStripMenuItem;
         private ToolStripMenuItem множественныйToolStripMenuItem;

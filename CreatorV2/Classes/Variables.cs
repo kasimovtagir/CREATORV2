@@ -59,6 +59,8 @@
 
         // поле для переменной netbios
         public string? NetBios;// { get; set; }
+        public string OU;
+        public List<string> _ListOU;
 
         //паля для подключения к АД
         public PrincipalContext principalContext;

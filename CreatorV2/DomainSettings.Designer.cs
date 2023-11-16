@@ -31,11 +31,13 @@
             buttonSaveNetBios = new Button();
             textBoxNetBios = new TextBox();
             label1 = new Label();
+            label2 = new Label();
+            comboBoxListOU = new ComboBox();
             SuspendLayout();
             // 
             // buttonSaveNetBios
             // 
-            buttonSaveNetBios.Location = new Point(12, 57);
+            buttonSaveNetBios.Location = new Point(12, 115);
             buttonSaveNetBios.Name = "buttonSaveNetBios";
             buttonSaveNetBios.Size = new Size(597, 125);
             buttonSaveNetBios.TabIndex = 0;
@@ -45,9 +47,9 @@
             // 
             // textBoxNetBios
             // 
-            textBoxNetBios.Location = new Point(126, 12);
+            textBoxNetBios.Location = new Point(144, 12);
             textBoxNetBios.Name = "textBoxNetBios";
-            textBoxNetBios.Size = new Size(483, 39);
+            textBoxNetBios.Size = new Size(465, 45);
             textBoxNetBios.TabIndex = 1;
             // 
             // label1
@@ -55,15 +57,34 @@
             label1.AutoSize = true;
             label1.Location = new Point(12, 15);
             label1.Name = "label1";
-            label1.Size = new Size(108, 32);
+            label1.Size = new Size(126, 38);
             label1.TabIndex = 2;
             label1.Text = "NETBIOS";
             // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(12, 66);
+            label2.Name = "label2";
+            label2.Size = new Size(57, 38);
+            label2.TabIndex = 3;
+            label2.Text = "OU";
+            // 
+            // comboBoxListOU
+            // 
+            comboBoxListOU.FormattingEnabled = true;
+            comboBoxListOU.Location = new Point(144, 63);
+            comboBoxListOU.Name = "comboBoxListOU";
+            comboBoxListOU.Size = new Size(465, 46);
+            comboBoxListOU.TabIndex = 4;
+            // 
             // DomainSettings
             // 
-            AutoScaleDimensions = new SizeF(13F, 31F);
+            AutoScaleDimensions = new SizeF(15F, 38F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(621, 209);
+            ClientSize = new Size(621, 257);
+            Controls.Add(comboBoxListOU);
+            Controls.Add(label2);
             Controls.Add(label1);
             Controls.Add(textBoxNetBios);
             Controls.Add(buttonSaveNetBios);
@@ -81,5 +102,7 @@
         private Button buttonSaveNetBios;
         private TextBox textBoxNetBios;
         private Label label1;
+        private Label label2;
+        private ComboBox comboBoxListOU;
     }
 }

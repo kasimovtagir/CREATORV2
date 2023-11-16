@@ -37,11 +37,14 @@
             textBoxEmail = new TextBox();
             textBoxUserPassword = new TextBox();
             textBoxNetbios = new TextBox();
+            label5 = new Label();
+            label6 = new Label();
+            comboBoxListOU = new ComboBox();
             SuspendLayout();
             // 
             // buttonSaveMainSettings
             // 
-            buttonSaveMainSettings.Location = new Point(621, 228);
+            buttonSaveMainSettings.Location = new Point(621, 310);
             buttonSaveMainSettings.Margin = new Padding(4, 5, 4, 5);
             buttonSaveMainSettings.Name = "buttonSaveMainSettings";
             buttonSaveMainSettings.Size = new Size(227, 81);
@@ -115,11 +118,41 @@
             textBoxNetbios.Size = new Size(577, 45);
             textBoxNetbios.TabIndex = 9;
             // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            label5.Location = new Point(12, 206);
+            label5.Name = "label5";
+            label5.Size = new Size(508, 28);
+            label5.TabIndex = 10;
+            label5.Text = "Если поле NETBIOS введен не коретно, поменяйте его";
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Location = new Point(12, 248);
+            label6.Name = "label6";
+            label6.Size = new Size(57, 38);
+            label6.TabIndex = 11;
+            label6.Text = "OU";
+            // 
+            // comboBoxListOU
+            // 
+            comboBoxListOU.FormattingEnabled = true;
+            comboBoxListOU.Location = new Point(271, 245);
+            comboBoxListOU.Name = "comboBoxListOU";
+            comboBoxListOU.Size = new Size(577, 46);
+            comboBoxListOU.TabIndex = 12;
+            // 
             // MainSettings
             // 
             AutoScaleDimensions = new SizeF(15F, 38F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(862, 320);
+            ClientSize = new Size(862, 433);
+            Controls.Add(comboBoxListOU);
+            Controls.Add(label6);
+            Controls.Add(label5);
             Controls.Add(textBoxNetbios);
             Controls.Add(textBoxUserPassword);
             Controls.Add(textBoxEmail);
@@ -133,6 +166,7 @@
             Margin = new Padding(4, 5, 4, 5);
             Name = "MainSettings";
             Text = "MainSettings";
+            Load += MainSettings_Load;
             ResumeLayout(false);
             PerformLayout();
         }
@@ -148,5 +182,8 @@
         private TextBox textBoxEmail;
         private TextBox textBoxUserPassword;
         private TextBox textBoxNetbios;
+        private Label label5;
+        private Label label6;
+        private ComboBox comboBoxListOU;
     }
 }

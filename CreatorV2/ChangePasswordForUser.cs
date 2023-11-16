@@ -27,15 +27,14 @@ namespace CreatorV2
 
         private void buttonSaveNewPasswordForUser_Click(object sender, EventArgs e)
         {
-             
-            //Actions.ChangePasswordForDefault(comboBox1.Text, txtBoxPassword.Text);
+            _Actions.ChangePasswordUser(comboBoxUserName.Text, textBoxNewPassword.Text);
             this.Close();
         }
 
         private void ChangePasswordForUser_Load(object sender, EventArgs e)
         {
             textBoxNewPassword.Text = _Variables._PasswordInAD;
-            string[] names = _Variables.AllUsersInAD.ToArray();  
+            string[] names = _Variables.AllUsersInAD.ToArray();
             Array.Sort(names);
             // Заполнение ComboBox вариантами
             comboBoxUserName.Items.AddRange(names);

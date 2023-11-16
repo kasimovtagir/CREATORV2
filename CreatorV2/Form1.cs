@@ -162,29 +162,29 @@ namespace CreatorV2
 
 
         private void установитьѕарольѕользовател€ѕо”молчаниюToolStripMenuItem_Click(object sender, EventArgs e)
-        {            
+        {
             DefPasswordForUser defPasswordForUser = new DefPasswordForUser();
             defPasswordForUser._Variables = _Variables;
             defPasswordForUser._Actions = _Actions;
             defPasswordForUser.ShowDialog();
-            listBox1.Items.Clear();
+            listBoxAllLog.Items.Clear();
             foreach (var item in _Variables.Log)
             {
-                listBox1.Items.Add(item);
+                listBoxAllLog.Items.Add(item);
             }
         }
 
         private void парольƒл€ѕользовател€ToolStripMenuItem_Click(object sender, EventArgs e)
-        {            
+        {
             ChangePasswordForUser changePasswordForUser = new ChangePasswordForUser();
             changePasswordForUser._Variables = _Variables;
             changePasswordForUser._Actions = _Actions;
             _Actions.GetAllUser();
             changePasswordForUser.ShowDialog();
-            listBox1.Items.Clear();
+            listBoxAllLog.Items.Clear();
             foreach (var item in _Variables.Log)
             {
-                listBox1.Items.Add(item); 
+                listBoxAllLog.Items.Add(item);
             }
         }
     }

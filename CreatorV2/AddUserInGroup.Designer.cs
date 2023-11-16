@@ -39,16 +39,16 @@
             // 
             comboBoxUserName.FormattingEnabled = true;
             comboBoxUserName.Items.AddRange(new object[] { "1", "2", "3", "4", "5", "6", "7" });
-            comboBoxUserName.Location = new Point(237, 12);
+            comboBoxUserName.Location = new Point(271, 12);
             comboBoxUserName.Name = "comboBoxUserName";
-            comboBoxUserName.Size = new Size(349, 39);
+            comboBoxUserName.Size = new Size(455, 46);
             comboBoxUserName.TabIndex = 1;
             // 
             // buttonAddUserToGroup
             // 
-            buttonAddUserToGroup.Location = new Point(12, 109);
+            buttonAddUserToGroup.Location = new Point(459, 109);
             buttonAddUserToGroup.Name = "buttonAddUserToGroup";
-            buttonAddUserToGroup.Size = new Size(574, 66);
+            buttonAddUserToGroup.Size = new Size(267, 66);
             buttonAddUserToGroup.TabIndex = 2;
             buttonAddUserToGroup.Text = "Добавить";
             buttonAddUserToGroup.UseVisualStyleBackColor = true;
@@ -59,7 +59,7 @@
             label1.AutoSize = true;
             label1.Location = new Point(12, 9);
             label1.Name = "label1";
-            label1.Size = new Size(219, 32);
+            label1.Size = new Size(253, 38);
             label1.TabIndex = 3;
             label1.Text = "Имя пользователя";
             // 
@@ -68,7 +68,7 @@
             label2.AutoSize = true;
             label2.Location = new Point(12, 60);
             label2.Name = "label2";
-            label2.Size = new Size(91, 32);
+            label2.Size = new Size(106, 38);
             label2.TabIndex = 4;
             label2.Text = "Группа";
             // 
@@ -76,16 +76,16 @@
             // 
             comboBoxGroup.FormattingEnabled = true;
             comboBoxGroup.Items.AddRange(new object[] { "1", "2", "3", "4", "5", "6", "7" });
-            comboBoxGroup.Location = new Point(237, 57);
+            comboBoxGroup.Location = new Point(271, 57);
             comboBoxGroup.Name = "comboBoxGroup";
-            comboBoxGroup.Size = new Size(349, 39);
+            comboBoxGroup.Size = new Size(455, 46);
             comboBoxGroup.TabIndex = 5;
             // 
             // AddUserInGroup
             // 
-            AutoScaleDimensions = new SizeF(13F, 31F);
+            AutoScaleDimensions = new SizeF(15F, 38F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(603, 195);
+            ClientSize = new Size(739, 195);
             Controls.Add(comboBoxGroup);
             Controls.Add(label2);
             Controls.Add(label1);

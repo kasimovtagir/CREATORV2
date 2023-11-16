@@ -38,11 +38,11 @@
             // 
             // buttonSaveNewPasswordForUser
             // 
-            buttonSaveNewPasswordForUser.Location = new Point(722, 127);
+            buttonSaveNewPasswordForUser.Location = new Point(553, 127);
             buttonSaveNewPasswordForUser.Name = "buttonSaveNewPasswordForUser";
-            buttonSaveNewPasswordForUser.Size = new Size(235, 75);
+            buttonSaveNewPasswordForUser.Size = new Size(404, 75);
             buttonSaveNewPasswordForUser.TabIndex = 0;
-            buttonSaveNewPasswordForUser.Text = "Сохранить";
+            buttonSaveNewPasswordForUser.Text = "Поменять пароль";
             buttonSaveNewPasswordForUser.UseVisualStyleBackColor = true;
             buttonSaveNewPasswordForUser.Click += buttonSaveNewPasswordForUser_Click;
             // 

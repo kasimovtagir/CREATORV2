@@ -3,6 +3,7 @@ using System.Text.RegularExpressions;
 using System.DirectoryServices.AccountManagement;
 using System.Globalization;
 using System.DirectoryServices;
+using Microsoft.AspNetCore.Authentication;
 
 namespace CreatorV2.Classes
 {
@@ -89,7 +90,7 @@ namespace CreatorV2.Classes
             _Variables._PasswordForSendEmail = LoadSettings2("AdminPassword") == string.Empty ? string.Empty : Encrypt(LoadSettings2("AdminPassword"));
             _Variables.NetBios = LoadSettings2("netbios");
             _Variables._PasswordInAD = LoadSettings2("DefPasswordUser");
-
+            _Variables.OU = LoadSettings2("OU");
 
             LoadText("RUS");
             LoadText("ENG");
@@ -146,9 +147,11 @@ namespace CreatorV2.Classes
         {
             //string allGroups = string.Empty;
             //using (_Variables.principalContext)
+            using (PrincipalContext principalContext = _Variables.principalContext)
             {
+                GroupPrincipal group = new GroupPrincipal(principalContext);
                 // Создаем объект для поиска групп
-                PrincipalSearcher searcher = new(_Variables.group);
+                PrincipalSearcher searcher = new(group);
 
                 // Получаем коллекцию найденных групп
                 PrincipalSearchResult<Principal> groups = searcher.FindAll();
@@ -466,6 +469,12 @@ namespace CreatorV2.Classes
 
         }
 
+
+        /// <summary>
+        /// метод для добавления пользователя в группу
+        /// </summary>
+        /// <param name="username">получаем имя пользователя</param>
+        /// <param name="choosedGroup">получает группу в которую будет добавлен пользователь</param>
         public void AddUserToGroup(string username, string choosedGroup)
         {
             //string[] splituserName = username.Split(".");
@@ -506,6 +515,7 @@ namespace CreatorV2.Classes
             }
         }
 
+
         /// <summary>
         /// метод который получает из АД список всех пользоватлелей 
         /// </summary>
@@ -537,9 +547,11 @@ namespace CreatorV2.Classes
 
         public void ChangePasswordUser(string username, string newPassword)
         {
+
             try
             {
-                using (PrincipalContext context = new PrincipalContext(ContextType.Domain, "metalab.ifmo.ru", "OU=Accounts,DC=metalab,DC=ifmo,DC=ru"))
+                // using (PrincipalContext context = new PrincipalContext(ContextType.Domain, "metalab.ifmo.ru", "OU=Accounts,DC=metalab,DC=ifmo,DC=ru"))
+                using (PrincipalContext context = _Variables.principalContext)
                 {
                     UserPrincipal user = UserPrincipal.FindByIdentity(context, IdentityType.SamAccountName, username);
 
@@ -563,27 +575,44 @@ namespace CreatorV2.Classes
         }
 
 
-        public List<string> ListOU() 
+        public List<string> ListOU(string netbios)  //List<string>
         {
-            List<string> ous = new List<string>();
-            using (DirectoryEntry root = new DirectoryEntry($"LDAP://dc={_Variables.NetBios}"))
+            List<string> listou = new List<string>();
+            // Установите путь к корневому OU вашего домена
+            string rootPath = "LDAP://";
+            string[] splitNetBios = netbios.Split(".");
+            foreach (string net in splitNetBios)
             {
-                DirectorySearcher searcher = new DirectorySearcher(root);
-                // Get all Groups
-                searcher.Filter = "(&(objectClass=group))";
-                searcher.SearchScope = SearchScope.Subtree;
-                searcher.PropertiesToLoad.Add("distinguishedName");
-
-                SearchResultCollection result = searcher.FindAll();
-                foreach (SearchResult entry in result)
-                {
-                    ous.Add(entry.GetDirectoryEntry().Properties["distinguishedName"].Value.ToString());
-                }
-
-                result.Dispose();
-                searcher.Dispose();
+                rootPath += $"DC={net},";
             }
-            return ous;
+            rootPath = rootPath.Remove(rootPath.Length - 1);
+
+            // Установите путь к корневому OU вашего домена
+            //string rootPath = "LDAP://DC=example,DC=com";
+
+            // Создайте объект DirectoryEntry с указанием пути к корневому OU
+            using (DirectoryEntry entry = new DirectoryEntry(rootPath))
+            {
+                // Создайте объект DirectorySearcher для поиска OU
+                using (DirectorySearcher searcher = new DirectorySearcher(entry))
+                {
+                    // Установите фильтр для поиска объектов OU
+                    searcher.Filter = "(objectClass=organizationalUnit)";
+
+                    // Выполните поиск
+                    SearchResultCollection results = searcher.FindAll();
+
+                    // Выведите информацию о каждом найденном OU
+                    foreach (SearchResult result in results)
+                    {
+                        DirectoryEntry directoryEntry = result.GetDirectoryEntry();
+                        listou.Add(directoryEntry.Name.Replace("OU=", ""));
+                        // Console.WriteLine("OU Name: " + directoryEntry.Name);
+                    }
+                }
+            }
+            _Variables._ListOU = listou;
+            return listou;
         }
 
 
