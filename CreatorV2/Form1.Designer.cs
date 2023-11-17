@@ -41,8 +41,15 @@
             добавитьПользователяВГруппуToolStripMenuItem = new ToolStripMenuItem();
             одинаныйToolStripMenuItem = new ToolStripMenuItem();
             множественныйToolStripMenuItem = new ToolStripMenuItem();
+            удалитьПользователяИзГруппыToolStripMenuItem = new ToolStripMenuItem();
+            заблокироватьРазблокироватьПользователяToolStripMenuItem = new ToolStripMenuItem();
             работаСГруппамиToolStripMenuItem = new ToolStripMenuItem();
             создатьГруппуToolStripMenuItem = new ToolStripMenuItem();
+            создатьВременнуюГруппуToolStripMenuItem = new ToolStripMenuItem();
+            выгрузитьToolStripMenuItem = new ToolStripMenuItem();
+            списокГруппуУПользователяToolStripMenuItem = new ToolStripMenuItem();
+            списокПользователейВГруппеToolStripMenuItem = new ToolStripMenuItem();
+            всЁToolStripMenuItem = new ToolStripMenuItem();
             label1 = new Label();
             label2 = new Label();
             label3 = new Label();
@@ -66,7 +73,6 @@
             checkBoxWinthEmail = new CheckBox();
             buttonCreateUser = new Button();
             listBoxAllLog = new ListBox();
-            удалитьПользователяИзГруппыToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -74,11 +80,11 @@
             // 
             menuStrip1.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point);
             menuStrip1.ImageScalingSize = new Size(20, 20);
-            menuStrip1.Items.AddRange(new ToolStripItem[] { настройкиToolStripMenuItem, работаСПользователямиToolStripMenuItem, работаСГруппамиToolStripMenuItem });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { настройкиToolStripMenuItem, работаСПользователямиToolStripMenuItem, работаСГруппамиToolStripMenuItem, выгрузитьToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Padding = new Padding(10, 3, 0, 3);
-            menuStrip1.Size = new Size(1266, 48);
+            menuStrip1.Size = new Size(1568, 48);
             menuStrip1.TabIndex = 0;
             menuStrip1.Text = "menuStrip1";
             // 
@@ -132,7 +138,7 @@
             // 
             // работаСПользователямиToolStripMenuItem
             // 
-            работаСПользователямиToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { парольДляПользователяToolStripMenuItem, добавитьПользователяВГруппуToolStripMenuItem, удалитьПользователяИзГруппыToolStripMenuItem });
+            работаСПользователямиToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { парольДляПользователяToolStripMenuItem, добавитьПользователяВГруппуToolStripMenuItem, удалитьПользователяИзГруппыToolStripMenuItem, заблокироватьРазблокироватьПользователяToolStripMenuItem });
             работаСПользователямиToolStripMenuItem.Name = "работаСПользователямиToolStripMenuItem";
             работаСПользователямиToolStripMenuItem.Size = new Size(358, 42);
             работаСПользователямиToolStripMenuItem.Text = "Работа с пользователями";
@@ -140,7 +146,7 @@
             // парольДляПользователяToolStripMenuItem
             // 
             парольДляПользователяToolStripMenuItem.Name = "парольДляПользователяToolStripMenuItem";
-            парольДляПользователяToolStripMenuItem.Size = new Size(544, 46);
+            парольДляПользователяToolStripMenuItem.Size = new Size(713, 46);
             парольДляПользователяToolStripMenuItem.Text = "Поменять пароль пользователя";
             парольДляПользователяToolStripMenuItem.Click += парольДляПользователяToolStripMenuItem_Click;
             // 
@@ -148,7 +154,7 @@
             // 
             добавитьПользователяВГруппуToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { одинаныйToolStripMenuItem, множественныйToolStripMenuItem });
             добавитьПользователяВГруппуToolStripMenuItem.Name = "добавитьПользователяВГруппуToolStripMenuItem";
-            добавитьПользователяВГруппуToolStripMenuItem.Size = new Size(544, 46);
+            добавитьПользователяВГруппуToolStripMenuItem.Size = new Size(713, 46);
             добавитьПользователяВГруппуToolStripMenuItem.Text = "Добавить пользователя в группу";
             добавитьПользователяВГруппуToolStripMenuItem.Click += добавитьПользователяВГруппуToolStripMenuItem_Click;
             // 
@@ -165,9 +171,23 @@
             множественныйToolStripMenuItem.Size = new Size(339, 46);
             множественныйToolStripMenuItem.Text = "Множественный";
             // 
+            // удалитьПользователяИзГруппыToolStripMenuItem
+            // 
+            удалитьПользователяИзГруппыToolStripMenuItem.Name = "удалитьПользователяИзГруппыToolStripMenuItem";
+            удалитьПользователяИзГруппыToolStripMenuItem.Size = new Size(713, 46);
+            удалитьПользователяИзГруппыToolStripMenuItem.Text = "Удалить пользователя из группы";
+            удалитьПользователяИзГруппыToolStripMenuItem.Click += удалитьПользователяИзГруппыToolStripMenuItem_Click;
+            // 
+            // заблокироватьРазблокироватьПользователяToolStripMenuItem
+            // 
+            заблокироватьРазблокироватьПользователяToolStripMenuItem.Name = "заблокироватьРазблокироватьПользователяToolStripMenuItem";
+            заблокироватьРазблокироватьПользователяToolStripMenuItem.Size = new Size(713, 46);
+            заблокироватьРазблокироватьПользователяToolStripMenuItem.Text = "Заблокировать\\Разблокировать пользователя";
+            заблокироватьРазблокироватьПользователяToolStripMenuItem.Click += заблокироватьРазблокироватьПользователяToolStripMenuItem_Click;
+            // 
             // работаСГруппамиToolStripMenuItem
             // 
-            работаСГруппамиToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { создатьГруппуToolStripMenuItem });
+            работаСГруппамиToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { создатьГруппуToolStripMenuItem, создатьВременнуюГруппуToolStripMenuItem });
             работаСГруппамиToolStripMenuItem.Name = "работаСГруппамиToolStripMenuItem";
             работаСГруппамиToolStripMenuItem.Size = new Size(272, 42);
             работаСГруппамиToolStripMenuItem.Text = "Работа с группами";
@@ -175,8 +195,41 @@
             // создатьГруппуToolStripMenuItem
             // 
             создатьГруппуToolStripMenuItem.Name = "создатьГруппуToolStripMenuItem";
-            создатьГруппуToolStripMenuItem.Size = new Size(318, 46);
+            создатьГруппуToolStripMenuItem.Size = new Size(476, 46);
             создатьГруппуToolStripMenuItem.Text = "Создать группу";
+            создатьГруппуToolStripMenuItem.Click += создатьГруппуToolStripMenuItem_Click;
+            // 
+            // создатьВременнуюГруппуToolStripMenuItem
+            // 
+            создатьВременнуюГруппуToolStripMenuItem.Name = "создатьВременнуюГруппуToolStripMenuItem";
+            создатьВременнуюГруппуToolStripMenuItem.Size = new Size(476, 46);
+            создатьВременнуюГруппуToolStripMenuItem.Text = "Создать временную группу";
+            создатьВременнуюГруппуToolStripMenuItem.Click += создатьВременнуюГруппуToolStripMenuItem_Click;
+            // 
+            // выгрузитьToolStripMenuItem
+            // 
+            выгрузитьToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { списокГруппуУПользователяToolStripMenuItem, списокПользователейВГруппеToolStripMenuItem, всЁToolStripMenuItem });
+            выгрузитьToolStripMenuItem.Name = "выгрузитьToolStripMenuItem";
+            выгрузитьToolStripMenuItem.Size = new Size(163, 42);
+            выгрузитьToolStripMenuItem.Text = "Выгрузить";
+            // 
+            // списокГруппуУПользователяToolStripMenuItem
+            // 
+            списокГруппуУПользователяToolStripMenuItem.Name = "списокГруппуУПользователяToolStripMenuItem";
+            списокГруппуУПользователяToolStripMenuItem.Size = new Size(533, 46);
+            списокГруппуУПользователяToolStripMenuItem.Text = "Список группу у пользователя";
+            // 
+            // списокПользователейВГруппеToolStripMenuItem
+            // 
+            списокПользователейВГруппеToolStripMenuItem.Name = "списокПользователейВГруппеToolStripMenuItem";
+            списокПользователейВГруппеToolStripMenuItem.Size = new Size(533, 46);
+            списокПользователейВГруппеToolStripMenuItem.Text = "Список пользователей в группе";
+            // 
+            // всЁToolStripMenuItem
+            // 
+            всЁToolStripMenuItem.Name = "всЁToolStripMenuItem";
+            всЁToolStripMenuItem.Size = new Size(533, 46);
+            всЁToolStripMenuItem.Text = "ой ВсЁ";
             // 
             // label1
             // 
@@ -357,7 +410,7 @@
             // 
             buttonCreateUser.Location = new Point(12, 618);
             buttonCreateUser.Name = "buttonCreateUser";
-            buttonCreateUser.Size = new Size(347, 68);
+            buttonCreateUser.Size = new Size(582, 53);
             buttonCreateUser.TabIndex = 23;
             buttonCreateUser.Text = "Создать учетную запись";
             buttonCreateUser.UseVisualStyleBackColor = true;
@@ -365,26 +418,21 @@
             // 
             // listBoxAllLog
             // 
+            listBoxAllLog.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             listBoxAllLog.FormattingEnabled = true;
             listBoxAllLog.HorizontalScrollbar = true;
-            listBoxAllLog.ItemHeight = 38;
+            listBoxAllLog.ItemHeight = 28;
             listBoxAllLog.Location = new Point(600, 51);
             listBoxAllLog.Name = "listBoxAllLog";
-            listBoxAllLog.Size = new Size(654, 574);
+            listBoxAllLog.ScrollAlwaysVisible = true;
+            listBoxAllLog.Size = new Size(956, 620);
             listBoxAllLog.TabIndex = 24;
-            // 
-            // удалитьПользователяИзГруппыToolStripMenuItem
-            // 
-            удалитьПользователяИзГруппыToolStripMenuItem.Name = "удалитьПользователяИзГруппыToolStripMenuItem";
-            удалитьПользователяИзГруппыToolStripMenuItem.Size = new Size(544, 46);
-            удалитьПользователяИзГруппыToolStripMenuItem.Text = "Удалить пользователя из группы";
-            удалитьПользователяИзГруппыToolStripMenuItem.Click += удалитьПользователяИзГруппыToolStripMenuItem_Click;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(15F, 38F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1266, 698);
+            ClientSize = new Size(1568, 681);
             Controls.Add(listBoxAllLog);
             Controls.Add(buttonCreateUser);
             Controls.Add(checkBoxWinthEmail);
@@ -462,5 +510,11 @@
         private ToolStripMenuItem создатьГруппуToolStripMenuItem;
         private ToolStripMenuItem установитьПарольПользователяПоУмолчаниюToolStripMenuItem;
         private ToolStripMenuItem удалитьПользователяИзГруппыToolStripMenuItem;
+        private ToolStripMenuItem создатьВременнуюГруппуToolStripMenuItem;
+        private ToolStripMenuItem заблокироватьРазблокироватьПользователяToolStripMenuItem;
+        private ToolStripMenuItem выгрузитьToolStripMenuItem;
+        private ToolStripMenuItem списокГруппуУПользователяToolStripMenuItem;
+        private ToolStripMenuItem списокПользователейВГруппеToolStripMenuItem;
+        private ToolStripMenuItem всЁToolStripMenuItem;
     }
 }

@@ -8,6 +8,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace CreatorV2
 {
@@ -26,7 +28,12 @@ namespace CreatorV2
 
         private void buttonDeleteUserFromGroup_Click(object sender, EventArgs e)
         {
+            string username = comboBoxUserName.Text; // Замените на имя пользователя, которого вы хотите удалить из группы
+            string groupName = comboBoxListGroup.Text; // Замените на имя группы, из которой вы хотите удалить пользователя
 
+            _Actions.RemoveUserFroumGroup(username, groupName);
+            this.Close();
+            //comboBoxc.Text = string.Empty; comboBox2.Text = string.Empty;
         }
 
         private void DeleteUserFromGroup_Load(object sender, EventArgs e)
@@ -48,30 +55,39 @@ namespace CreatorV2
 
             // Установка источника автодополнения ComboBox
             comboBoxUserName.AutoCompleteCustomSource = autoCompleteCollection;
-
-
-            _Actions.GetGroups();
-            string[] group_names = _Variables.ListAllGroups.ToArray(); // Data.AllGroupsInAD.ToArray();
-            Array.Sort(group_names);
-            // Заполнение ComboBox вариантами
-            comboBoxGroup.Items.AddRange(group_names);
-
-            // Настройка автодополнения
-            comboBoxGroup.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-            comboBoxGroup.AutoCompleteSource = AutoCompleteSource.CustomSource;
-
-            // Создание и заполнение источника автодополнения
-            AutoCompleteStringCollection autoCompleteCollection2 = new AutoCompleteStringCollection();
-            autoCompleteCollection2.AddRange(group_names);
-
-            // Установка источника автодополнения ComboBox
-            comboBoxGroup.AutoCompleteCustomSource = autoCompleteCollection2;
         }
 
         private void DeleteUserFromGroup_FormClosed(object sender, FormClosedEventArgs e)
         {
             _Variables.ListAllGroups.Clear();
             _Variables.AllUsersInAD.Clear();
+        }
+
+        private void comboBoxUserName_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ListBox list = new ListBox();
+            List<string> listgoups = new List<string>();
+            list = _Actions.GetListGroupUsers(comboBoxUserName.Text);
+            list.Sorted = true;
+            foreach (var item in list.Items)
+            {
+                string nameGroup = item.ToString();
+                nameGroup = nameGroup.Replace("CN=", "");
+                //listBox1.Items.Add(nameGroup);
+                listgoups.Add(nameGroup);
+            }
+            string[] listAllUser = listgoups.ToArray();
+            Array.Sort(listAllUser);
+            comboBoxListGroup.Items.AddRange(listAllUser);
+            comboBoxListGroup.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            comboBoxListGroup.AutoCompleteSource = AutoCompleteSource.CustomSource;
+
+            // Создание и заполнение источника автодополнения
+            AutoCompleteStringCollection autoCompleteCollectionForGroups = new AutoCompleteStringCollection();
+            autoCompleteCollectionForGroups.AddRange(listAllUser);
+
+            // Установка источника автодополнения ComboBox
+            comboBoxListGroup.AutoCompleteCustomSource = autoCompleteCollectionForGroups;
         }
     }
 }

@@ -72,6 +72,7 @@ namespace CreatorV2
             domainSettings._Variables = _Variables;
             domainSettings._Actions = _Actions;
             domainSettings.ShowDialog();
+            showLog();
         }
 
 
@@ -195,6 +196,29 @@ namespace CreatorV2
             {
                 listBoxAllLog.Items.Add(item);
             }
+        }
+
+        private void создать¬ременную√руппуToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CreateTempGroups createTempGroups = new CreateTempGroups();
+            createTempGroups._Variables = _Variables;
+            createTempGroups._Actions = _Actions;
+            createTempGroups.ShowDialog();
+            showLog();
+        }
+
+        private void заблокировать–азблокироватьѕользовател€ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            UnlockLockUser unlockLockUser = new UnlockLockUser();
+            unlockLockUser._Variables = _Variables;
+            unlockLockUser._Actions = _Actions;
+            unlockLockUser.ShowDialog();
+            showLog();
+        }
+
+        private void создать√руппуToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("¬ременно не доступно.");
         }
     }
 }

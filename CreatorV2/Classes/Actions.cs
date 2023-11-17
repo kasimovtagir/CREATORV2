@@ -5,6 +5,9 @@ using System.Globalization;
 using System.DirectoryServices;
 using Microsoft.AspNetCore.Authentication;
 using System;
+using System.Xml.Serialization;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
+using System.Windows.Forms;
 
 namespace CreatorV2.Classes
 {
@@ -112,10 +115,6 @@ namespace CreatorV2.Classes
                 }
                 else _Variables._ListGroupForAddStudent.Add(line2);
             }
-
-            //GetAllUser();
-            //GetGroups();
-
         }
 
 
@@ -171,6 +170,181 @@ namespace CreatorV2.Classes
             }
         }
 
+        /// <summary>
+        /// метод получает список групп пользователя 
+        /// </summary>
+        /// <param name="userName">имя пользователя список групп которого нужно получить </param>
+        public ListBox GetListGroupUsers(string username)
+        {
+            ListBox listgroup = new ListBox();
+            string rootPath = string.Empty;
+            string[] splitNetBios = _Variables.NetBios.Split(".");
+            foreach (string net in splitNetBios)
+            {
+                rootPath += $"DC={net}, ";
+            }
+            _Variables.splitNetBios = _ = rootPath.Remove(rootPath.Length - 2);
+            try
+            {
+                using (PrincipalContext context = new PrincipalContext(ContextType.Domain, _Variables.NetBios, $"OU={_Variables.OU}, {_Variables.splitNetBios}"))
+                {
+                    UserPrincipal user = UserPrincipal.FindByIdentity(context, IdentityType.SamAccountName, username);
+
+                    if (user != null)
+                    {
+                        // Получение объекта DirectoryEntry для пользователя
+                        DirectoryEntry directoryEntry = (DirectoryEntry)user.GetUnderlyingObject();
+
+                        // Получение списка групп пользователя
+                        foreach (object group in directoryEntry.Properties["memberOf"])
+                        {
+                            string groupName = new DirectoryEntry($"LDAP://{group}").Name;
+                            listgroup.Items.Add(groupName);
+                            //Console.WriteLine(groupName);
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Пользователь не найден в Active Directory.");
+                        //Console.WriteLine("Пользователь не найден в Active Directory.");
+                    }
+                }
+                return listgroup;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Произошла ошибка: {ex.Message}");
+                //Console.WriteLine($"Произошла ошибка: {ex.Message}");
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// метод для удаления пользователя из группы
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="groupName"></param>
+        public void RemoveUserFroumGroup(string username, string groupName)
+        {
+            string rootPath = string.Empty;
+            string[] splitNetBios = _Variables.NetBios.Split(".");
+            foreach (string net in splitNetBios)
+            {
+                rootPath += $"DC={net}, ";
+            }
+            _Variables.splitNetBios = _ = rootPath.Remove(rootPath.Length - 2);
+            try
+            {
+                using (PrincipalContext context = new PrincipalContext(ContextType.Domain, _Variables.NetBios, $"OU={_Variables.OU}, {_Variables.splitNetBios}"))
+                {
+                    // Получаем пользователя и группу по их именам
+                    UserPrincipal user = UserPrincipal.FindByIdentity(context, username);
+                    GroupPrincipal group = GroupPrincipal.FindByIdentity(context, groupName);
+
+                    if (user != null && group != null)
+                    {
+                        // Проверяем, является ли пользователь членом группы перед удалением
+                        if (group.Members.Contains(user))
+                        {
+                            group.Members.Remove(user);
+                            group.Save();
+                            _Variables.Log.Add($"Пользователь {username} успешно удален из группы {groupName}.");
+                        }
+                        else
+                        {
+                            MessageBox.Show($"Пользователь {username} не является членом этой группы.");
+                            //_Variables.Log.Add($"Пользователь {username} не является членом этой группы.");
+                            //Console.WriteLine("Пользователь не является членом этой группы.");
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Пользователь или группа не найдены.");
+                        //_Variables.Log.Add("Пользователь или группа не найдены.");
+                        //Console.WriteLine("Пользователь или группа не найдены.");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Произошла ошибка: " + ex.Message);
+                //Console.WriteLine("Произошла ошибка: " + ex.Message);
+            }
+        }
+
+
+
+        /// <summary>
+        /// метод для создания временной группы для доступа в группу
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <param name="targetGroupName"></param>
+        /// <param name="endDate"></param>
+        /// <returns></returns>
+        public string CreateTempGroup(string userName, string targetGroupName, DateTime endDate)
+        {
+            string entryTTL = getTime(endDate).ToString();
+            string groupCommonName = $"temp_access_{userName}_{targetGroupName}";
+
+            string ldapPath = "LDAP://OU=Technical accounts,DC=metalab,DC=ifmo,DC=ru";
+            string newGroupName = "temp_access_" + userName + "_" + targetGroupName;
+            string newGroupPath = "CN=" + newGroupName + ",OU=Technical accounts,DC=metalab,DC=ifmo,DC=ru";
+
+            using (DirectoryEntry ouEntry = new DirectoryEntry(ldapPath))
+            {
+                using (DirectoryEntry group = ouEntry.Children.Add("CN=" + newGroupName, "group"))
+                {
+                    group.Properties["objectClass"].Value = new string[] { "dynamicObject", "group" };
+                    group.Properties["entryTTL"].Value = entryTTL;
+                    group.CommitChanges();
+
+                    // Получение пользователя из OU Accounts
+                    using (DirectoryEntry accounts = new DirectoryEntry("LDAP://OU=Accounts,DC=metalab,DC=ifmo,DC=ru"))
+                    {
+                        DirectorySearcher searcher = new DirectorySearcher(accounts);
+                        searcher.Filter = "(sAMAccountName=" + userName + ")";
+                        SearchResult result = searcher.FindOne();
+
+                        if (result != null)
+                        {
+                            DirectoryEntry userEntry = result.GetDirectoryEntry();
+
+                            // Добавление пользователя в новую группу
+                            group.Invoke("Add", new object[] { userEntry.Path });
+                            group.CommitChanges();
+                        }
+                    }
+
+                    // Add new group to target group
+                    string targetGroupPath = "CN=" + targetGroupName + ",OU=Accounts,DC=metalab,DC=ifmo,DC=ru";
+                    AddMemberToGroup(newGroupPath, targetGroupPath);
+                }
+            }
+            _Variables.Log.Add($"Временная группа для пользователя {userName} создана. Группа {newGroupName} ");
+            return "done";
+        }
+
+        public int getTime(DateTime futTime)
+        {
+            DateTime currentTime = DateTime.Now;
+            DateTime date1 = futTime;
+            DateTime date2 = DateTime.Now;
+
+            TimeSpan difference = date1 - date2;
+            int secondsDifference = (int)difference.TotalSeconds;
+
+            string qwe = "Разница в секундах: " + secondsDifference;
+            string asd = qwe;
+            return secondsDifference;
+        }
+        static void AddMemberToGroup(string memberDn, string groupDn)//добавление пользоватлея в группу 
+        {
+            using (DirectoryEntry group = new DirectoryEntry("LDAP://" + groupDn))
+            {
+                group.Properties["member"].Add(memberDn);
+                group.CommitChanges();
+            }
+        }
 
         /// <summary>
         /// метод которые получает главные из АД
@@ -180,6 +354,92 @@ namespace CreatorV2.Classes
             _Variables.principalContext = new PrincipalContext(ContextType.Domain, _Variables.NetBios);
             _Variables.group = new GroupPrincipal(_Variables.principalContext);
         }
+
+
+
+        public void LockUnlockUser(string username, string LockUnlock)
+        {
+            //string username = "ИмяПользователя"; // Замените на имя пользователя, учетную запись которого вы хотите разблокировать
+            string rootPath = string.Empty;
+            string[] splitNetBios = _Variables.NetBios.Split(".");
+            foreach (string net in splitNetBios)
+            {
+                rootPath += $"DC={net}, ";
+            }
+            _Variables.splitNetBios = _ = rootPath.Remove(rootPath.Length - 2);
+            try
+            {
+                PrincipalContext context = new PrincipalContext(ContextType.Domain, _Variables.NetBios, $"OU={_Variables.OU}, {_Variables.splitNetBios}");
+
+                UserPrincipal userPrincipal = UserPrincipal.FindByIdentity(context, username);
+
+                if (LockUnlock == "unlock")
+                {
+                    userPrincipal.Enabled = true;
+                    _Variables.Log.Add($"Учетная запись пользователя {username} успешно разблокирована.");
+                }
+                else
+                {
+                    userPrincipal.Enabled = false;
+                    _Variables.Log.Add($"Учетная запись пользователя {username} успешно заблокирована.");
+                }
+
+                userPrincipal.Save();
+
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Произошла ошибка: " + ex.Message);
+                //Console.WriteLine("Произошла ошибка: " + ex.Message);
+            }
+        }
+
+        public bool checkLockOrUnLockUser(string username)
+        {
+            string rootPath = string.Empty;
+            string[] splitNetBios = _Variables.NetBios.Split(".");
+            foreach (string net in splitNetBios)
+            {
+                rootPath += $"DC={net}, ";
+            }
+            _Variables.splitNetBios = _ = rootPath.Remove(rootPath.Length - 2);
+            try
+            {
+                using (PrincipalContext context = new PrincipalContext(ContextType.Domain, _Variables.NetBios, $"OU={_Variables.OU}, {_Variables.splitNetBios}"))
+                {
+                    // Получаем пользователя по его имени
+                    UserPrincipal user = UserPrincipal.FindByIdentity(context, username);
+
+                    if (user != null)
+                    {
+                        string displayName = user.DisplayName;
+
+                        if ((bool)user.Enabled)
+                        {
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Пользователь не найден.");
+                        return false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Произошла ошибка: " + ex.Message);
+                return false;
+            }
+        }
+
+
+
 
 
         /// <summary>
@@ -536,8 +796,8 @@ namespace CreatorV2.Classes
             _Variables.splitNetBios = _ = rootPath.Remove(rootPath.Length - 2);
             try
             {
-                using (PrincipalContext context = new PrincipalContext(ContextType.Domain, _Variables.NetBios, $"OU={_Variables.OU}, {_Variables.splitNetBios}")) 
-                    //"metalab.ifmo.ru", "OU=Accounts,DC=metalab,DC=ifmo,DC=ru"))
+                using (PrincipalContext context = new PrincipalContext(ContextType.Domain, _Variables.NetBios, $"OU={_Variables.OU}, {_Variables.splitNetBios}"))
+                //"metalab.ifmo.ru", "OU=Accounts,DC=metalab,DC=ifmo,DC=ru"))
                 {
                     UserPrincipal userPrincipal = new UserPrincipal(context);
                     using (PrincipalSearcher searcher = new PrincipalSearcher(userPrincipal))
@@ -554,11 +814,14 @@ namespace CreatorV2.Classes
             catch (Exception ex)
             {
                 MessageBox.Show("Ошибка при получении списка пользователей: " + ex.Message);
-                //Console.WriteLine("Ошибка при получении списка пользователей: " + ex.Message);
             }
         }
 
-
+        /// <summary>
+        /// метод для смены пароля пользователя
+        /// </summary>
+        /// <param name="username">получает имя пользователя которому нужно поменять пароль</param>
+        /// <param name="newPassword">новый пароль</param>
         public void ChangePasswordUser(string username, string newPassword)
         {
             string rootPath = string.Empty;
@@ -571,7 +834,6 @@ namespace CreatorV2.Classes
             try
             {
                 using (PrincipalContext context = new PrincipalContext(ContextType.Domain, _Variables.NetBios, $"OU={_Variables.OU}, {_Variables.splitNetBios}"))
-                //using (PrincipalContext context = _Variables.principalContext)
                 {
                     UserPrincipal user = UserPrincipal.FindByIdentity(context, IdentityType.SamAccountName, username);
 
@@ -594,7 +856,11 @@ namespace CreatorV2.Classes
             }
         }
 
-
+        /// <summary>
+        /// метод для вывода всех OU из AD 
+        /// </summary>
+        /// <param name="netbios"></param>
+        /// <returns></returns>
         public List<string> ListOU(string netbios)  //List<string>
         {
             List<string> listou = new List<string>();
@@ -605,7 +871,7 @@ namespace CreatorV2.Classes
             {
                 rootPath += $"DC={net},";
             }
-            _Variables.splitNetBios= rootPath = rootPath.Remove(rootPath.Length - 1);
+            _Variables.splitNetBios = rootPath = rootPath.Remove(rootPath.Length - 1);
 
             // Установите путь к корневому OU вашего домена
             //string rootPath = "LDAP://DC=example,DC=com";

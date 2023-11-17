@@ -28,20 +28,20 @@
         /// </summary>
         private void InitializeComponent()
         {
-            comboBoxGroup = new ComboBox();
+            comboBoxListGroup = new ComboBox();
             label2 = new Label();
             label1 = new Label();
             buttonDeleteUserFromGroup = new Button();
             comboBoxUserName = new ComboBox();
             SuspendLayout();
             // 
-            // comboBoxGroup
+            // comboBoxListGroup
             // 
-            comboBoxGroup.FormattingEnabled = true;
-            comboBoxGroup.Location = new Point(270, 64);
-            comboBoxGroup.Name = "comboBoxGroup";
-            comboBoxGroup.Size = new Size(455, 46);
-            comboBoxGroup.TabIndex = 10;
+            comboBoxListGroup.FormattingEnabled = true;
+            comboBoxListGroup.Location = new Point(270, 64);
+            comboBoxListGroup.Name = "comboBoxListGroup";
+            comboBoxListGroup.Size = new Size(455, 46);
+            comboBoxListGroup.TabIndex = 10;
             // 
             // label2
             // 
@@ -78,13 +78,14 @@
             comboBoxUserName.Name = "comboBoxUserName";
             comboBoxUserName.Size = new Size(455, 46);
             comboBoxUserName.TabIndex = 6;
+            comboBoxUserName.SelectedIndexChanged += comboBoxUserName_SelectedIndexChanged;
             // 
             // DeleteUserFromGroup
             // 
             AutoScaleDimensions = new SizeF(15F, 38F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(742, 197);
-            Controls.Add(comboBoxGroup);
+            Controls.Add(comboBoxListGroup);
             Controls.Add(label2);
             Controls.Add(label1);
             Controls.Add(buttonDeleteUserFromGroup);
@@ -101,7 +102,7 @@
 
         #endregion
 
-        private ComboBox comboBoxGroup;
+        private ComboBox comboBoxListGroup;
         private Label label2;
         private Label label1;
         private Button buttonDeleteUserFromGroup;
