@@ -106,6 +106,7 @@
             Margin = new Padding(4, 5, 4, 5);
             Name = "ChangePasswordForUser";
             Text = "ChangePasswordForUser";
+            FormClosed += ChangePasswordForUser_FormClosed;
             Load += ChangePasswordForUser_Load;
             ResumeLayout(false);
             PerformLayout();

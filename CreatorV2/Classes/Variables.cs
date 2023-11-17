@@ -59,6 +59,7 @@
 
         // поле для переменной netbios
         public string? NetBios;// { get; set; }
+        public string? splitNetBios;
         public string OU;
         public List<string> _ListOU;
 

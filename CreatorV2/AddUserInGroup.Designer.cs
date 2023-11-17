@@ -38,7 +38,6 @@
             // comboBoxUserName
             // 
             comboBoxUserName.FormattingEnabled = true;
-            comboBoxUserName.Items.AddRange(new object[] { "1", "2", "3", "4", "5", "6", "7" });
             comboBoxUserName.Location = new Point(271, 12);
             comboBoxUserName.Name = "comboBoxUserName";
             comboBoxUserName.Size = new Size(455, 46);
@@ -46,9 +45,9 @@
             // 
             // buttonAddUserToGroup
             // 
-            buttonAddUserToGroup.Location = new Point(459, 109);
+            buttonAddUserToGroup.Location = new Point(504, 116);
             buttonAddUserToGroup.Name = "buttonAddUserToGroup";
-            buttonAddUserToGroup.Size = new Size(267, 66);
+            buttonAddUserToGroup.Size = new Size(223, 66);
             buttonAddUserToGroup.TabIndex = 2;
             buttonAddUserToGroup.Text = "Добавить";
             buttonAddUserToGroup.UseVisualStyleBackColor = true;
@@ -66,7 +65,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(12, 60);
+            label2.Location = new Point(12, 67);
             label2.Name = "label2";
             label2.Size = new Size(106, 38);
             label2.TabIndex = 4;
@@ -75,8 +74,7 @@
             // comboBoxGroup
             // 
             comboBoxGroup.FormattingEnabled = true;
-            comboBoxGroup.Items.AddRange(new object[] { "1", "2", "3", "4", "5", "6", "7" });
-            comboBoxGroup.Location = new Point(271, 57);
+            comboBoxGroup.Location = new Point(271, 64);
             comboBoxGroup.Name = "comboBoxGroup";
             comboBoxGroup.Size = new Size(455, 46);
             comboBoxGroup.TabIndex = 5;
@@ -85,7 +83,7 @@
             // 
             AutoScaleDimensions = new SizeF(15F, 38F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(739, 195);
+            ClientSize = new Size(739, 199);
             Controls.Add(comboBoxGroup);
             Controls.Add(label2);
             Controls.Add(label1);
@@ -95,6 +93,7 @@
             Margin = new Padding(5);
             Name = "AddUserInGroup";
             Text = "AddUserInGroup";
+            FormClosed += AddUserInGroup_FormClosed;
             Load += AddUserInGroup_Load;
             ResumeLayout(false);
             PerformLayout();

@@ -132,7 +132,7 @@ namespace CreatorV2
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            _Actions.GetSettings();
+            //_Actions.GetSettings();
         }
 
         private void label2_Click(object sender, EventArgs e)
@@ -167,11 +167,7 @@ namespace CreatorV2
             defPasswordForUser._Variables = _Variables;
             defPasswordForUser._Actions = _Actions;
             defPasswordForUser.ShowDialog();
-            listBoxAllLog.Items.Clear();
-            foreach (var item in _Variables.Log)
-            {
-                listBoxAllLog.Items.Add(item);
-            }
+            showLog();
         }
 
         private void парольƒл€ѕользовател€ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -179,8 +175,21 @@ namespace CreatorV2
             ChangePasswordForUser changePasswordForUser = new ChangePasswordForUser();
             changePasswordForUser._Variables = _Variables;
             changePasswordForUser._Actions = _Actions;
-            _Actions.GetAllUser();
             changePasswordForUser.ShowDialog();
+            showLog();
+        }
+
+        private void удалитьѕользовател€»з√руппыToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DeleteUserFromGroup deleteUserFromGroup = new DeleteUserFromGroup();
+            deleteUserFromGroup._Variables = _Variables;
+            deleteUserFromGroup._Actions = _Actions;
+            deleteUserFromGroup.ShowDialog();
+            showLog();
+        }
+
+        public void showLog()
+        {
             listBoxAllLog.Items.Clear();
             foreach (var item in _Variables.Log)
             {

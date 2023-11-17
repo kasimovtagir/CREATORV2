@@ -50,7 +50,7 @@ namespace CreatorV2
         private void buttonSaveNetBios_Click(object sender, EventArgs e)
         {
             _Actions.SaveSettingsV2("netbios", _Variables.NetBios = textBoxNetBios.Text);
-            _Actions.SaveSettingsV2("OU", _Variables.NetBios = comboBoxListOU.Text);      
+            _Actions.SaveSettingsV2("OU", _Variables.OU = comboBoxListOU.Text);      
             this.Close();
         }
 

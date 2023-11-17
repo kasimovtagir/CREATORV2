@@ -4,6 +4,7 @@ using System.DirectoryServices.AccountManagement;
 using System.Globalization;
 using System.DirectoryServices;
 using Microsoft.AspNetCore.Authentication;
+using System;
 
 namespace CreatorV2.Classes
 {
@@ -111,6 +112,10 @@ namespace CreatorV2.Classes
                 }
                 else _Variables._ListGroupForAddStudent.Add(line2);
             }
+
+            //GetAllUser();
+            //GetGroups();
+
         }
 
 
@@ -145,13 +150,14 @@ namespace CreatorV2.Classes
         /// </summary>
         public void GetGroups() // метод который получает из АД список всех групп
         {
-            //string allGroups = string.Empty;
-            //using (_Variables.principalContext)
-            using (PrincipalContext principalContext = _Variables.principalContext)
+            string allGroups = string.Empty;
+            using (PrincipalContext principalContext = new PrincipalContext(ContextType.Domain, _Variables.NetBios))
             {
+                // Создаем объект группы
                 GroupPrincipal group = new GroupPrincipal(principalContext);
+
                 // Создаем объект для поиска групп
-                PrincipalSearcher searcher = new(group);
+                PrincipalSearcher searcher = new PrincipalSearcher(group);
 
                 // Получаем коллекцию найденных групп
                 PrincipalSearchResult<Principal> groups = searcher.FindAll();
@@ -159,7 +165,7 @@ namespace CreatorV2.Classes
                 // Проходимся по каждой группе и выводим ее имя
                 foreach (Principal result in groups)
                 {
-                    string allGroups = result.Name;
+                    allGroups = result.Name;
                     _Variables.ListAllGroups.Add(allGroups);
                 }
             }
@@ -521,9 +527,17 @@ namespace CreatorV2.Classes
         /// </summary>
         public void GetAllUser()
         {
+            string rootPath = string.Empty;
+            string[] splitNetBios = _Variables.NetBios.Split(".");
+            foreach (string net in splitNetBios)
+            {
+                rootPath += $"DC={net}, ";
+            }
+            _Variables.splitNetBios = _ = rootPath.Remove(rootPath.Length - 2);
             try
             {
-                using (PrincipalContext context = _Variables.principalContext)//new PrincipalContext(ContextType.Domain, "metalab.ifmo.ru", "OU=Accounts,DC=metalab,DC=ifmo,DC=ru"))
+                using (PrincipalContext context = new PrincipalContext(ContextType.Domain, _Variables.NetBios, $"OU={_Variables.OU}, {_Variables.splitNetBios}")) 
+                    //"metalab.ifmo.ru", "OU=Accounts,DC=metalab,DC=ifmo,DC=ru"))
                 {
                     UserPrincipal userPrincipal = new UserPrincipal(context);
                     using (PrincipalSearcher searcher = new PrincipalSearcher(userPrincipal))
@@ -540,18 +554,24 @@ namespace CreatorV2.Classes
             catch (Exception ex)
             {
                 MessageBox.Show("Ошибка при получении списка пользователей: " + ex.Message);
-                Console.WriteLine("Ошибка при получении списка пользователей: " + ex.Message);
+                //Console.WriteLine("Ошибка при получении списка пользователей: " + ex.Message);
             }
         }
 
 
         public void ChangePasswordUser(string username, string newPassword)
         {
-
+            string rootPath = string.Empty;
+            string[] splitNetBios = _Variables.NetBios.Split(".");
+            foreach (string net in splitNetBios)
+            {
+                rootPath += $"DC={net}, ";
+            }
+            _Variables.splitNetBios = rootPath = rootPath.Remove(rootPath.Length - 2);
             try
             {
-                // using (PrincipalContext context = new PrincipalContext(ContextType.Domain, "metalab.ifmo.ru", "OU=Accounts,DC=metalab,DC=ifmo,DC=ru"))
-                using (PrincipalContext context = _Variables.principalContext)
+                using (PrincipalContext context = new PrincipalContext(ContextType.Domain, _Variables.NetBios, $"OU={_Variables.OU}, {_Variables.splitNetBios}"))
+                //using (PrincipalContext context = _Variables.principalContext)
                 {
                     UserPrincipal user = UserPrincipal.FindByIdentity(context, IdentityType.SamAccountName, username);
 
@@ -585,7 +605,7 @@ namespace CreatorV2.Classes
             {
                 rootPath += $"DC={net},";
             }
-            rootPath = rootPath.Remove(rootPath.Length - 1);
+            _Variables.splitNetBios= rootPath = rootPath.Remove(rootPath.Length - 1);
 
             // Установите путь к корневому OU вашего домена
             //string rootPath = "LDAP://DC=example,DC=com";

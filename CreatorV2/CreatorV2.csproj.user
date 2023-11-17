@@ -13,6 +13,9 @@
     <Compile Update="DefPasswordForUser.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="DeleteUserFromGroup.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="DomainSettings.cs">
       <SubType>Form</SubType>
     </Compile>

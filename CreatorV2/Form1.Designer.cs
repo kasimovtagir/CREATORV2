@@ -66,6 +66,7 @@
             checkBoxWinthEmail = new CheckBox();
             buttonCreateUser = new Button();
             listBoxAllLog = new ListBox();
+            удалитьПользователяИзГруппыToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -131,7 +132,7 @@
             // 
             // работаСПользователямиToolStripMenuItem
             // 
-            работаСПользователямиToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { парольДляПользователяToolStripMenuItem, добавитьПользователяВГруппуToolStripMenuItem });
+            работаСПользователямиToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { парольДляПользователяToolStripMenuItem, добавитьПользователяВГруппуToolStripMenuItem, удалитьПользователяИзГруппыToolStripMenuItem });
             работаСПользователямиToolStripMenuItem.Name = "работаСПользователямиToolStripMenuItem";
             работаСПользователямиToolStripMenuItem.Size = new Size(358, 42);
             работаСПользователямиToolStripMenuItem.Text = "Работа с пользователями";
@@ -372,6 +373,13 @@
             listBoxAllLog.Size = new Size(654, 574);
             listBoxAllLog.TabIndex = 24;
             // 
+            // удалитьПользователяИзГруппыToolStripMenuItem
+            // 
+            удалитьПользователяИзГруппыToolStripMenuItem.Name = "удалитьПользователяИзГруппыToolStripMenuItem";
+            удалитьПользователяИзГруппыToolStripMenuItem.Size = new Size(544, 46);
+            удалитьПользователяИзГруппыToolStripMenuItem.Text = "Удалить пользователя из группы";
+            удалитьПользователяИзГруппыToolStripMenuItem.Click += удалитьПользователяИзГруппыToolStripMenuItem_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(15F, 38F);
@@ -453,5 +461,6 @@
         private ToolStripMenuItem множественныйToolStripMenuItem;
         private ToolStripMenuItem создатьГруппуToolStripMenuItem;
         private ToolStripMenuItem установитьПарольПользователяПоУмолчаниюToolStripMenuItem;
+        private ToolStripMenuItem удалитьПользователяИзГруппыToolStripMenuItem;
     }
 }

@@ -8,16 +8,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Runtime.InteropServices.JavaScript.JSType;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace CreatorV2
 {
-    public partial class AddUserInGroup : Form
+    public partial class DeleteUserFromGroup : Form
     {
         public Variables _Variables;
         public Actions _Actions;
-        public AddUserInGroup()
+        public DeleteUserFromGroup()
         {
             InitializeComponent();
 
@@ -25,7 +23,13 @@ namespace CreatorV2
             _Actions = new Actions(_Variables);
         }
 
-        private void AddUserInGroup_Load(object sender, EventArgs e)
+
+        private void buttonDeleteUserFromGroup_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void DeleteUserFromGroup_Load(object sender, EventArgs e)
         {
             _Actions.GetAllUser();
             string[] names = _Variables.AllUsersInAD.ToArray(); //Data.AllUsersInAD.ToArray();
@@ -64,22 +68,7 @@ namespace CreatorV2
             comboBoxGroup.AutoCompleteCustomSource = autoCompleteCollection2;
         }
 
-        private void buttonAddUserToGroup_Click(object sender, EventArgs e)
-        {
-            if (comboBoxUserName.Text == string.Empty | comboBoxGroup.Text == string.Empty)
-            {
-                MessageBox.Show("Поля пустые, пожалуйста введите необходимые данные.");
-            }
-            else
-            {
-                _Actions.AddUserToGroup(comboBoxUserName.Text, comboBoxGroup.Text);
-            }
-
-            comboBoxGroup.Text = string.Empty;
-            comboBoxUserName.Text = string.Empty;
-        }
-
-        private void AddUserInGroup_FormClosed(object sender, FormClosedEventArgs e)
+        private void DeleteUserFromGroup_FormClosed(object sender, FormClosedEventArgs e)
         {
             _Variables.ListAllGroups.Clear();
             _Variables.AllUsersInAD.Clear();

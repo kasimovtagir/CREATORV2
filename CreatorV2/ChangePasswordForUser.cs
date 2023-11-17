@@ -33,6 +33,8 @@ namespace CreatorV2
 
         private void ChangePasswordForUser_Load(object sender, EventArgs e)
         {
+            _Actions.GetAllUser();
+
             textBoxNewPassword.Text = _Variables._PasswordInAD;
             string[] names = _Variables.AllUsersInAD.ToArray();
             Array.Sort(names);
@@ -58,6 +60,11 @@ namespace CreatorV2
                 textBoxNewPassword.UseSystemPasswordChar = false;
             }
             else textBoxNewPassword.UseSystemPasswordChar = true;
+        }
+
+        private void ChangePasswordForUser_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            _Variables.AllUsersInAD.Clear();
         }
     }
 }
