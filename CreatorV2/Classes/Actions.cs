@@ -356,7 +356,43 @@ namespace CreatorV2.Classes
         }
 
 
+        public void SetExpirateDate(string userName, string expirateDate)//DateTime expirateDate)
+        {
+            try
+            {
+                using (PrincipalContext context = new PrincipalContext(ContextType.Domain, _Variables.NetBios))
+                {
+                    UserPrincipal user = UserPrincipal.FindByIdentity(context, IdentityType.SamAccountName, userName);
 
+                    if (user != null)
+                    {
+                        // Задаем дату истечения срока действия учетной записи
+                        user.AccountExpirationDate = Convert.ToDateTime( expirateDate);
+                        user.Save();
+                        string Log = $"Пользователь {userName} будет заблокирован {expirateDate}";
+
+                        _Variables.Log.Add(Log);
+                        MessageBox.Show(Log);
+                    }
+                    else
+                    {
+                        _Variables.Log.Add($"Пользователь {userName} не найден");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка: {ex.Message}");
+            }
+        }
+
+
+
+        /// <summary>
+        /// заблокировать\разблокировать учетную запись пользователя 
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="LockUnlock"></param>
         public void LockUnlockUser(string username, string LockUnlock)
         {
             //string username = "ИмяПользователя"; // Замените на имя пользователя, учетную запись которого вы хотите разблокировать
@@ -377,21 +413,19 @@ namespace CreatorV2.Classes
                 {
                     userPrincipal.Enabled = true;
                     _Variables.Log.Add($"Учетная запись пользователя {username} успешно разблокирована.");
+                    userPrincipal.Save();
                 }
                 else
                 {
                     userPrincipal.Enabled = false;
                     _Variables.Log.Add($"Учетная запись пользователя {username} успешно заблокирована.");
+                    userPrincipal.Save();
                 }
-
-                userPrincipal.Save();
-
-
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Произошла ошибка: " + ex.Message);
-                //Console.WriteLine("Произошла ошибка: " + ex.Message);
+                _Variables.Log.Add("Произошла ошибка: " + ex.Message);
             }
         }
 

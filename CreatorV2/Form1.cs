@@ -209,6 +209,16 @@ namespace CreatorV2
 
         private void заблокировать–азблокироватьѕользовател€ToolStripMenuItem_Click(object sender, EventArgs e)
         {
+
+        }
+
+        private void создать√руппуToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("¬ременно не доступно.");
+        }
+
+        private void заблокировать–азблокироватьѕользовател€ToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
             UnlockLockUser unlockLockUser = new UnlockLockUser();
             unlockLockUser._Variables = _Variables;
             unlockLockUser._Actions = _Actions;
@@ -216,9 +226,13 @@ namespace CreatorV2
             showLog();
         }
 
-        private void создать√руппуToolStripMenuItem_Click(object sender, EventArgs e)
+        private void установитьƒату»стечени€ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("¬ременно не доступно.");
+            SetExpirationDate setExpirationDate = new SetExpirationDate();
+            setExpirationDate._Variables = _Variables;
+            setExpirationDate._Actions = _Actions;
+            setExpirationDate.ShowDialog();
+            showLog();
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace CreatorV2
 {
-    partial class UnlockLockUser
+    partial class SetExpirationDate
     {
         /// <summary>
         /// Required designer variable.
@@ -28,21 +28,23 @@
         /// </summary>
         private void InitializeComponent()
         {
-            buttonLock = new Button();
+            buttonSaveExpirateDate = new Button();
             label1 = new Label();
             comboBoxUserName = new ComboBox();
-            buttonUnLock = new Button();
+            dateTimePickerExpirationDate = new DateTimePicker();
+            label2 = new Label();
             SuspendLayout();
             // 
-            // buttonLock
+            // buttonSaveExpirateDate
             // 
-            buttonLock.Location = new Point(12, 73);
-            buttonLock.Name = "buttonLock";
-            buttonLock.Size = new Size(358, 102);
-            buttonLock.TabIndex = 0;
-            buttonLock.Text = "Заблокировать";
-            buttonLock.UseVisualStyleBackColor = true;
-            buttonLock.Click += button1_Click;
+            buttonSaveExpirateDate.Location = new Point(388, 117);
+            buttonSaveExpirateDate.Margin = new Padding(4, 5, 4, 5);
+            buttonSaveExpirateDate.Name = "buttonSaveExpirateDate";
+            buttonSaveExpirateDate.Size = new Size(317, 68);
+            buttonSaveExpirateDate.TabIndex = 0;
+            buttonSaveExpirateDate.Text = "Установить дату";
+            buttonSaveExpirateDate.UseVisualStyleBackColor = true;
+            buttonSaveExpirateDate.Click += buttonSaveExpirateDate_Click;
             // 
             // label1
             // 
@@ -58,43 +60,51 @@
             comboBoxUserName.FormattingEnabled = true;
             comboBoxUserName.Location = new Point(271, 12);
             comboBoxUserName.Name = "comboBoxUserName";
-            comboBoxUserName.Size = new Size(468, 46);
+            comboBoxUserName.Size = new Size(434, 46);
             comboBoxUserName.TabIndex = 2;
-            comboBoxUserName.SelectedIndexChanged += comboBoxUserName_SelectedIndexChanged;
             // 
-            // buttonUnLock
+            // dateTimePickerExpirationDate
             // 
-            buttonUnLock.Location = new Point(381, 73);
-            buttonUnLock.Name = "buttonUnLock";
-            buttonUnLock.Size = new Size(358, 99);
-            buttonUnLock.TabIndex = 3;
-            buttonUnLock.Text = "Разблокировать";
-            buttonUnLock.UseVisualStyleBackColor = true;
-            buttonUnLock.Click += button2_Click;
+            dateTimePickerExpirationDate.CustomFormat = "dd.mm.yyyy";
+            dateTimePickerExpirationDate.Location = new Point(388, 64);
+            dateTimePickerExpirationDate.Name = "dateTimePickerExpirationDate";
+            dateTimePickerExpirationDate.Size = new Size(317, 45);
+            dateTimePickerExpirationDate.TabIndex = 3;
             // 
-            // UnlockLockUser
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(12, 69);
+            label2.Name = "label2";
+            label2.Size = new Size(370, 38);
+            label2.TabIndex = 4;
+            label2.Text = "Установить дату истечение ";
+            // 
+            // SetExpirationDate
             // 
             AutoScaleDimensions = new SizeF(15F, 38F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(752, 184);
-            Controls.Add(buttonUnLock);
+            ClientSize = new Size(715, 194);
+            Controls.Add(label2);
+            Controls.Add(dateTimePickerExpirationDate);
             Controls.Add(comboBoxUserName);
             Controls.Add(label1);
-            Controls.Add(buttonLock);
+            Controls.Add(buttonSaveExpirateDate);
             Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point);
             Margin = new Padding(4, 5, 4, 5);
-            Name = "UnlockLockUser";
-            Text = "UnlockLockUser";
-            Load += UnlockLockUser_Load;
+            Name = "SetExpirationDate";
+            Text = "SetExpirationDate";
+            Load += SetExpirationDate_Load;
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
-        private Button buttonLock;
+        private Button buttonSaveExpirateDate;
         private Label label1;
         private ComboBox comboBoxUserName;
-        private Button buttonUnLock;
+        private DateTimePicker dateTimePickerExpirationDate;
+        private Label label2;
     }
 }

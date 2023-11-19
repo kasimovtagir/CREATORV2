@@ -43,6 +43,8 @@
             множественныйToolStripMenuItem = new ToolStripMenuItem();
             удалитьПользователяИзГруппыToolStripMenuItem = new ToolStripMenuItem();
             заблокироватьРазблокироватьПользователяToolStripMenuItem = new ToolStripMenuItem();
+            установитьДатуИстеченияToolStripMenuItem = new ToolStripMenuItem();
+            заблокироватьРазблокироватьПользователяToolStripMenuItem1 = new ToolStripMenuItem();
             работаСГруппамиToolStripMenuItem = new ToolStripMenuItem();
             создатьГруппуToolStripMenuItem = new ToolStripMenuItem();
             создатьВременнуюГруппуToolStripMenuItem = new ToolStripMenuItem();
@@ -180,10 +182,25 @@
             // 
             // заблокироватьРазблокироватьПользователяToolStripMenuItem
             // 
+            заблокироватьРазблокироватьПользователяToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { установитьДатуИстеченияToolStripMenuItem, заблокироватьРазблокироватьПользователяToolStripMenuItem1 });
             заблокироватьРазблокироватьПользователяToolStripMenuItem.Name = "заблокироватьРазблокироватьПользователяToolStripMenuItem";
             заблокироватьРазблокироватьПользователяToolStripMenuItem.Size = new Size(713, 46);
             заблокироватьРазблокироватьПользователяToolStripMenuItem.Text = "Заблокировать\\Разблокировать пользователя";
             заблокироватьРазблокироватьПользователяToolStripMenuItem.Click += заблокироватьРазблокироватьПользователяToolStripMenuItem_Click;
+            // 
+            // установитьДатуИстеченияToolStripMenuItem
+            // 
+            установитьДатуИстеченияToolStripMenuItem.Name = "установитьДатуИстеченияToolStripMenuItem";
+            установитьДатуИстеченияToolStripMenuItem.Size = new Size(721, 46);
+            установитьДатуИстеченияToolStripMenuItem.Text = "Установить дату истечения ";
+            установитьДатуИстеченияToolStripMenuItem.Click += установитьДатуИстеченияToolStripMenuItem_Click;
+            // 
+            // заблокироватьРазблокироватьПользователяToolStripMenuItem1
+            // 
+            заблокироватьРазблокироватьПользователяToolStripMenuItem1.Name = "заблокироватьРазблокироватьПользователяToolStripMenuItem1";
+            заблокироватьРазблокироватьПользователяToolStripMenuItem1.Size = new Size(721, 46);
+            заблокироватьРазблокироватьПользователяToolStripMenuItem1.Text = "Заблокировать\\Разблокировать пользователя ";
+            заблокироватьРазблокироватьПользователяToolStripMenuItem1.Click += заблокироватьРазблокироватьПользователяToolStripMenuItem1_Click;
             // 
             // работаСГруппамиToolStripMenuItem
             // 
@@ -516,5 +533,7 @@
         private ToolStripMenuItem списокГруппуУПользователяToolStripMenuItem;
         private ToolStripMenuItem списокПользователейВГруппеToolStripMenuItem;
         private ToolStripMenuItem всЁToolStripMenuItem;
+        private ToolStripMenuItem установитьДатуИстеченияToolStripMenuItem;
+        private ToolStripMenuItem заблокироватьРазблокироватьПользователяToolStripMenuItem1;
     }
 }
