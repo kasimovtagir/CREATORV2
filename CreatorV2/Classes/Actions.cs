@@ -253,15 +253,11 @@ namespace CreatorV2.Classes
                         else
                         {
                             MessageBox.Show($"Пользователь {username} не является членом этой группы.");
-                            //_Variables.Log.Add($"Пользователь {username} не является членом этой группы.");
-                            //Console.WriteLine("Пользователь не является членом этой группы.");
                         }
                     }
                     else
                     {
                         MessageBox.Show("Пользователь или группа не найдены.");
-                        //_Variables.Log.Add("Пользователь или группа не найдены.");
-                        //Console.WriteLine("Пользователь или группа не найдены.");
                     }
                 }
             }
@@ -355,8 +351,12 @@ namespace CreatorV2.Classes
             _Variables.group = new GroupPrincipal(_Variables.principalContext);
         }
 
-
-        public void SetExpirateDate(string userName, string expirateDate)//DateTime expirateDate)
+        /// <summary>
+        /// метод для блокировки пользователя методом установки истечения 
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <param name="expirateDate"></param>
+        public void SetExpirateDate(string userName, string expirateDate)
         {
             try
             {
@@ -387,6 +387,55 @@ namespace CreatorV2.Classes
         }
 
 
+        public List<string> showUsersInGroup(string groupName)
+        {
+            List<string> result = new List<string>();
+            string rootPath = string.Empty;
+            string[] splitNetBios = _Variables.NetBios.Split(".");
+            foreach (string net in splitNetBios)
+            {
+                rootPath += $"DC={net}, ";
+            }
+            _Variables.splitNetBios = _ = rootPath.Remove(rootPath.Length - 2);
+            try
+            {
+                using (PrincipalContext context = new PrincipalContext(ContextType.Domain, _Variables.NetBios, $"OU={_Variables.OU}, {_Variables.splitNetBios}"))
+                {
+                    // Получаем группу по ее имени
+                    GroupPrincipal group = GroupPrincipal.FindByIdentity(context, groupName);
+
+                    if (group != null)
+                    {
+                        // Получаем список пользователей в группе
+                        PrincipalSearchResult<Principal> members = group.GetMembers();
+
+                        foreach (Principal member in members)
+                        {
+                            // Проверяем, является ли член группы пользователем
+                            if (member is UserPrincipal user)
+                            {
+                                if (user.EmailAddress == null)
+                                {
+                                    continue;
+                                }
+                                else result.Add(user.EmailAddress.ToString()); //вывод электронных почт 
+                            }
+                        }
+                        return result;
+                    }
+                    else
+                    {
+                        result.Add("Группа не найдена или пуста.");
+                        return result;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                result.Add("Произошла ошибка: " + ex.Message);
+                return result;
+            }
+        }
 
         /// <summary>
         /// заблокировать\разблокировать учетную запись пользователя 

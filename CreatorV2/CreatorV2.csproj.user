@@ -43,5 +43,11 @@
     <Compile Update="UnlockLockUser.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="UploadListUserFromAllGroup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="UploadListUsersFromGroup.cs">
+      <SubType>Form</SubType>
+    </Compile>
   </ItemGroup>
 </Project>

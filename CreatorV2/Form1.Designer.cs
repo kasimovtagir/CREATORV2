@@ -51,6 +51,8 @@
             выгрузитьToolStripMenuItem = new ToolStripMenuItem();
             списокГруппуУПользователяToolStripMenuItem = new ToolStripMenuItem();
             списокПользователейВГруппеToolStripMenuItem = new ToolStripMenuItem();
+            конкретнуюToolStripMenuItem = new ToolStripMenuItem();
+            всЁToolStripMenuItem1 = new ToolStripMenuItem();
             всЁToolStripMenuItem = new ToolStripMenuItem();
             label1 = new Label();
             label2 = new Label();
@@ -238,9 +240,24 @@
             // 
             // списокПользователейВГруппеToolStripMenuItem
             // 
+            списокПользователейВГруппеToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { конкретнуюToolStripMenuItem, всЁToolStripMenuItem1 });
             списокПользователейВГруппеToolStripMenuItem.Name = "списокПользователейВГруппеToolStripMenuItem";
             списокПользователейВГруппеToolStripMenuItem.Size = new Size(533, 46);
             списокПользователейВГруппеToolStripMenuItem.Text = "Список пользователей в группе";
+            // 
+            // конкретнуюToolStripMenuItem
+            // 
+            конкретнуюToolStripMenuItem.Name = "конкретнуюToolStripMenuItem";
+            конкретнуюToolStripMenuItem.Size = new Size(281, 46);
+            конкретнуюToolStripMenuItem.Text = "Конкретную";
+            конкретнуюToolStripMenuItem.Click += конкретнуюToolStripMenuItem_Click;
+            // 
+            // всЁToolStripMenuItem1
+            // 
+            всЁToolStripMenuItem1.Name = "всЁToolStripMenuItem1";
+            всЁToolStripMenuItem1.Size = new Size(281, 46);
+            всЁToolStripMenuItem1.Text = "ВсЁ";
+            всЁToolStripMenuItem1.Click += всЁToolStripMenuItem1_Click;
             // 
             // всЁToolStripMenuItem
             // 
@@ -535,5 +552,7 @@
         private ToolStripMenuItem всЁToolStripMenuItem;
         private ToolStripMenuItem установитьДатуИстеченияToolStripMenuItem;
         private ToolStripMenuItem заблокироватьРазблокироватьПользователяToolStripMenuItem1;
+        private ToolStripMenuItem конкретнуюToolStripMenuItem;
+        private ToolStripMenuItem всЁToolStripMenuItem1;
     }
 }

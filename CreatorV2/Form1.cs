@@ -1,11 +1,14 @@
 /*using CreatorV2.Classes;
 using static System.Windows.Forms.DataFormats;*/
 
+using CreatorV2.Classes;
 using System.DirectoryServices.ActiveDirectory;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
+using System.Windows.Forms;
 using System.Xml.Linq;
+using static System.Windows.Forms.DataFormats;
 
 namespace CreatorV2
 {
@@ -232,6 +235,24 @@ namespace CreatorV2
             setExpirationDate._Variables = _Variables;
             setExpirationDate._Actions = _Actions;
             setExpirationDate.ShowDialog();
+            showLog();
+        }
+
+        private void êîíêðåòíóþToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            UploadListUsersFromGroup uploadListUsersFromGroup = new UploadListUsersFromGroup();
+            uploadListUsersFromGroup._Variables = _Variables;
+            uploadListUsersFromGroup._Actions = _Actions;
+            uploadListUsersFromGroup.ShowDialog();
+            showLog();
+        }
+
+        private void âñ¨ToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            UploadListUserFromAllGroup upload=new UploadListUserFromAllGroup();
+            upload._Variables = _Variables;
+            upload._Actions = _Actions;
+            upload.ShowDialog();
             showLog();
         }
     }
