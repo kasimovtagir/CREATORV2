@@ -73,10 +73,13 @@ namespace CreatorV2
             else
             {
                 _Actions.AddUserToGroup(comboBoxUserName.Text, comboBoxGroup.Text);
+                //_Variables.Log.Add($"Пользователь {comboBoxUserName.Text} добавлен в группу {comboBoxGroup.Text}") ;
             }
 
-            comboBoxGroup.Text = string.Empty;
-            comboBoxUserName.Text = string.Empty;
+            /*comboBoxGroup.Text = string.Empty;
+            comboBoxUserName.Text = string.Empty;*/
+            this.Close();
+
         }
 
         private void AddUserInGroup_FormClosed(object sender, FormClosedEventArgs e)

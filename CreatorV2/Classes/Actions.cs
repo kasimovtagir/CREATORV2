@@ -826,13 +826,19 @@ namespace CreatorV2.Classes
         /// <param name="choosedGroup">получает группу в которую будет добавлен пользователь</param>
         public void AddUserToGroup(string username, string choosedGroup)
         {
-            //string[] splituserName = username.Split(".");
+            string rootPath = string.Empty;
+            string[] splitNetBios = _Variables.NetBios.Split(".");
+            foreach (string net in splitNetBios)
+            {
+                rootPath += $"DC={net}, ";
+            }
+            _Variables.splitNetBios = _ = rootPath.Remove(rootPath.Length - 2);
             try
             {
-                using (_Variables.principalContext)
+                using (PrincipalContext context = new PrincipalContext(ContextType.Domain, _Variables.NetBios, $"OU={_Variables.OU}, {_Variables.splitNetBios}"))
                 {
-                    UserPrincipal user = UserPrincipal.FindByIdentity(_Variables.principalContext, IdentityType.SamAccountName, username);
-                    GroupPrincipal group = GroupPrincipal.FindByIdentity(_Variables.principalContext, IdentityType.SamAccountName, choosedGroup);
+                    UserPrincipal user = UserPrincipal.FindByIdentity(context, IdentityType.SamAccountName, username);
+                    GroupPrincipal group = GroupPrincipal.FindByIdentity(context, IdentityType.SamAccountName, choosedGroup);
 
                     if (user != null && group != null)
                     {
