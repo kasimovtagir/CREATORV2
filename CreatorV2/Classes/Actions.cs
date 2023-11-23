@@ -264,7 +264,6 @@ namespace CreatorV2.Classes
             catch (Exception ex)
             {
                 MessageBox.Show("Произошла ошибка: " + ex.Message);
-                //Console.WriteLine("Произошла ошибка: " + ex.Message);
             }
         }
 
@@ -477,7 +476,7 @@ namespace CreatorV2.Classes
                 _Variables.Log.Add("Произошла ошибка: " + ex.Message);
             }
         }
-
+        
         public bool checkLockOrUnLockUser(string username)
         {
             string rootPath = string.Empty;
@@ -894,7 +893,8 @@ namespace CreatorV2.Classes
                         foreach (Principal result in searcher.FindAll())
                         {
                             // Получение свойства "SamAccountName" (логина пользователя)
-                            string username = result.SamAccountName;
+                            //string username = result.SamAccountName;
+                            string username = result.DisplayName==null? result.SamAccountName: result.DisplayName;
                             _Variables.AllUsersInAD.Add(username);
                         }
                     }
@@ -905,6 +905,8 @@ namespace CreatorV2.Classes
                 MessageBox.Show("Ошибка при получении списка пользователей: " + ex.Message);
             }
         }
+
+
 
         /// <summary>
         /// метод для смены пароля пользователя

@@ -33,7 +33,6 @@ namespace CreatorV2
 
             _Actions.RemoveUserFroumGroup(username, groupName);
             this.Close();
-            //comboBoxc.Text = string.Empty; comboBox2.Text = string.Empty;
         }
 
         private void DeleteUserFromGroup_Load(object sender, EventArgs e)

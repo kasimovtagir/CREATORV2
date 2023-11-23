@@ -154,6 +154,7 @@ namespace CreatorV2
             addUserInGroup._Variables = _Variables;
             addUserInGroup._Actions = _Actions;
             addUserInGroup.ShowDialog();
+            showLog();
         }
 
         private void òåêñòÏèñüìàToolStripMenuItem1_Click(object sender, EventArgs e)
