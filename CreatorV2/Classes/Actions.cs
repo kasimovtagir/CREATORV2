@@ -1,13 +1,4 @@
-﻿using static System.Runtime.InteropServices.JavaScript.JSType;
-using System.Text.RegularExpressions;
-using System.DirectoryServices.AccountManagement;
-using System.Globalization;
-using System.DirectoryServices;
-using Microsoft.AspNetCore.Authentication;
-using System;
-using System.Xml.Serialization;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
-using System.Windows.Forms;
+﻿
 
 namespace CreatorV2.Classes
 {
@@ -184,6 +175,7 @@ namespace CreatorV2.Classes
                 rootPath += $"DC={net}, ";
             }
             _Variables.splitNetBios = _ = rootPath.Remove(rootPath.Length - 2);
+            username = GetSamAccountNameByDisplayName(username);
             try
             {
                 using (PrincipalContext context = new PrincipalContext(ContextType.Domain, _Variables.NetBios, $"OU={_Variables.OU}, {_Variables.splitNetBios}"))
@@ -237,6 +229,7 @@ namespace CreatorV2.Classes
             {
                 using (PrincipalContext context = new PrincipalContext(ContextType.Domain, _Variables.NetBios, $"OU={_Variables.OU}, {_Variables.splitNetBios}"))
                 {
+                    username = GetSamAccountNameByDisplayName(username);
                     // Получаем пользователя и группу по их именам
                     UserPrincipal user = UserPrincipal.FindByIdentity(context, username);
                     GroupPrincipal group = GroupPrincipal.FindByIdentity(context, groupName);
@@ -267,7 +260,34 @@ namespace CreatorV2.Classes
             }
         }
 
+        /// <summary>
+        /// Метод который получает SamAccountName
+        /// </summary>
+        /// <param name="displayName"></param>
+        /// <returns></returns>
+        static string GetSamAccountNameByDisplayName(string displayName)
+        {
+            using (PrincipalContext context = new PrincipalContext(ContextType.Domain))
+            {
+                UserPrincipal userPrincipal = new UserPrincipal(context);
+                userPrincipal.DisplayName = displayName;
 
+                PrincipalSearcher searcher = new PrincipalSearcher(userPrincipal);
+                UserPrincipal foundUser = searcher.FindOne() as UserPrincipal;
+
+                if (foundUser != null)
+                {
+                    DirectoryEntry directoryEntry = foundUser.GetUnderlyingObject() as DirectoryEntry;
+                    if (directoryEntry != null)
+                    {
+                        // Получить значение samaccountname
+                        return directoryEntry.Properties["samaccountname"].Value.ToString();
+                    }
+                }
+
+                return null;
+            }
+        }
 
         /// <summary>
         /// метод для создания временной группы для доступа в группу
@@ -832,6 +852,7 @@ namespace CreatorV2.Classes
                 rootPath += $"DC={net}, ";
             }
             _Variables.splitNetBios = _ = rootPath.Remove(rootPath.Length - 2);
+            username = GetSamAccountNameByDisplayName(username);
             try
             {
                 using (PrincipalContext context = new PrincipalContext(ContextType.Domain, _Variables.NetBios, $"OU={_Variables.OU}, {_Variables.splitNetBios}"))

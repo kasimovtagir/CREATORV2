@@ -8,6 +8,16 @@ global using System.Windows.Forms;
 
 global using System.DirectoryServices.AccountManagement;
 global using Microsoft.AspNetCore.Authentication;
+global using static System.Runtime.InteropServices.JavaScript.JSType;
+global using System.Text.RegularExpressions;
+global using System.DirectoryServices.AccountManagement;
+global using System.Globalization;
+global using System.DirectoryServices;
+global using Microsoft.AspNetCore.Authentication;
+global using System;
+global using System.Xml.Serialization;
+global using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
+global using System.Windows.Forms;
 
 //global using static System.Runtime.InteropServices.JavaScript.JSType;
 
