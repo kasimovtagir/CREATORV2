@@ -87,8 +87,8 @@ namespace CreatorV2.Classes
             _Variables._PasswordInAD = LoadSettings2("DefPasswordUser");
             _Variables.OU = LoadSettings2("OU");
 
-            LoadText("RUS");
-            LoadText("ENG");
+            //LoadText("RUS");
+            //LoadText("ENG");
 
             //string listgroupforEmpliyees = LoadSetting(4)
             string[] lineEmployeer = LoadSettings2("ListGroupForEmplyees").Split(";");

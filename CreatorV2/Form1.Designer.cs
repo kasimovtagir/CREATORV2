@@ -34,7 +34,6 @@
             текстПисьмаToolStripMenuItem = new ToolStripMenuItem();
             группыПоУмолчаниюToolStripMenuItem = new ToolStripMenuItem();
             доменToolStripMenuItem = new ToolStripMenuItem();
-            текстПисьмаToolStripMenuItem1 = new ToolStripMenuItem();
             установитьПарольПользователяПоУмолчаниюToolStripMenuItem = new ToolStripMenuItem();
             работаСПользователямиToolStripMenuItem = new ToolStripMenuItem();
             парольДляПользователяToolStripMenuItem = new ToolStripMenuItem();
@@ -94,7 +93,7 @@
             // 
             // настройкиToolStripMenuItem
             // 
-            настройкиToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { аккаунтДляОтправкиEmailToolStripMenuItem, текстПисьмаToolStripMenuItem, группыПоУмолчаниюToolStripMenuItem, доменToolStripMenuItem, текстПисьмаToolStripMenuItem1, установитьПарольПользователяПоУмолчаниюToolStripMenuItem });
+            настройкиToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { аккаунтДляОтправкиEmailToolStripMenuItem, текстПисьмаToolStripMenuItem, группыПоУмолчаниюToolStripMenuItem, доменToolStripMenuItem, установитьПарольПользователяПоУмолчаниюToolStripMenuItem });
             настройкиToolStripMenuItem.Name = "настройкиToolStripMenuItem";
             настройкиToolStripMenuItem.Size = new Size(169, 42);
             настройкиToolStripMenuItem.Text = "Настройки";
@@ -111,6 +110,7 @@
             текстПисьмаToolStripMenuItem.Name = "текстПисьмаToolStripMenuItem";
             текстПисьмаToolStripMenuItem.Size = new Size(744, 46);
             текстПисьмаToolStripMenuItem.Text = "Текст письма";
+            текстПисьмаToolStripMenuItem.Click += текстПисьмаToolStripMenuItem_Click;
             // 
             // группыПоУмолчаниюToolStripMenuItem
             // 
@@ -125,13 +125,6 @@
             доменToolStripMenuItem.Size = new Size(744, 46);
             доменToolStripMenuItem.Text = "Домен";
             доменToolStripMenuItem.Click += доменToolStripMenuItem_Click;
-            // 
-            // текстПисьмаToolStripMenuItem1
-            // 
-            текстПисьмаToolStripMenuItem1.Name = "текстПисьмаToolStripMenuItem1";
-            текстПисьмаToolStripMenuItem1.Size = new Size(744, 46);
-            текстПисьмаToolStripMenuItem1.Text = "Текст письма";
-            текстПисьмаToolStripMenuItem1.Click += текстПисьмаToolStripMenuItem1_Click;
             // 
             // установитьПарольПользователяПоУмолчаниюToolStripMenuItem
             // 
@@ -188,7 +181,6 @@
             заблокироватьРазблокироватьПользователяToolStripMenuItem.Name = "заблокироватьРазблокироватьПользователяToolStripMenuItem";
             заблокироватьРазблокироватьПользователяToolStripMenuItem.Size = new Size(713, 46);
             заблокироватьРазблокироватьПользователяToolStripMenuItem.Text = "Заблокировать\\Разблокировать пользователя";
-            заблокироватьРазблокироватьПользователяToolStripMenuItem.Click += заблокироватьРазблокироватьПользователяToolStripMenuItem_Click;
             // 
             // установитьДатуИстеченияToolStripMenuItem
             // 
@@ -513,7 +505,6 @@
         private ToolStripMenuItem работаСПользователямиToolStripMenuItem;
         private ToolStripMenuItem работаСГруппамиToolStripMenuItem;
         private ToolStripMenuItem доменToolStripMenuItem;
-        private ToolStripMenuItem текстПисьмаToolStripMenuItem1;
         private Label label1;
         private Label label2;
         private Label label3;

@@ -20,25 +20,34 @@ namespace CreatorV2
         {
             InitializeComponent();
 
-            _Variables = new Classes.Variables();
-            _Actions = new Classes.Actions(_Variables);
+            _Variables = new Variables();
+            _Actions = new Actions(_Variables);
+            MainSettings newMainSett = new MainSettings();
+            newMainSett._Variables = _Variables;
+            newMainSett._Actions = _Actions;
 
             if (!File.Exists("Settings.txt"))
             {
                 MessageBox.Show("” вас нет конфигурационного файла, сейчас откроетс€ окно в котором необходимо заполнить все пол€ дл€ корректной работы программы! —пасибо");
-                MainSettings newMainSett = new MainSettings();
-                newMainSett._Variables = _Variables;
-                newMainSett._Actions = _Actions;
 
                 using (FileStream fs = File.Create("Settings.txt"))
                 {
-                    //File.Create();                    
+                    //File.Create
                 }
                 newMainSett.ShowDialog();
             }
-            else _Actions.UploadAllSettings();
-
-            //ForTest();
+            else
+            {
+                using (StreamReader reader = new StreamReader("Settings.txt"))
+                {
+                    string settings = reader.ReadToEnd();
+                    if (string.IsNullOrEmpty(settings))
+                    {
+                        newMainSett.ShowDialog();
+                    }
+                    else _Actions.UploadAllSettings();
+                }
+            }
         }
 
 
@@ -55,7 +64,7 @@ namespace CreatorV2
             textBoxName.Text = "NameRUS";
             textBoxThirdName.Text = "thirNameRUS";
             textBoxISUID.Text = "ISUID";
-            textBoxDescription.Text = "";
+            textBoxDescription.Text = "тестовый пользователь";
             textBoxEMAIL.Text = "tagir.kasimov@metalab.ifmo.ru";
             textBoxPassword.Text = _Variables._PasswordInAD;
             comboBoxTypePost.Text = "—отрудник";
@@ -136,6 +145,7 @@ namespace CreatorV2
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            ForTest();
             //_Actions.GetSettings();
         }
 
@@ -156,15 +166,6 @@ namespace CreatorV2
             addUserInGroup.ShowDialog();
             showLog();
         }
-
-        private void текстѕисьмаToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            TextMessage textMessage = new TextMessage();
-            textMessage._Variables = _Variables;
-            textMessage._Actions = _Actions;
-            textMessage.ShowDialog();
-        }
-
 
         private void установитьѕарольѕользовател€ѕо”молчаниюToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -211,11 +212,6 @@ namespace CreatorV2
             showLog();
         }
 
-        private void заблокировать–азблокироватьѕользовател€ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void создать√руппуToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MessageBox.Show("¬ременно не доступно.");
@@ -250,11 +246,19 @@ namespace CreatorV2
 
         private void вс®ToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            UploadListUserFromAllGroup upload=new UploadListUserFromAllGroup();
+            UploadListUserFromAllGroup upload = new UploadListUserFromAllGroup();
             upload._Variables = _Variables;
             upload._Actions = _Actions;
             upload.ShowDialog();
             showLog();
+        }
+
+        private void текстѕисьмаToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            TextMessage textMessage = new TextMessage();
+            textMessage._Variables = _Variables;
+            textMessage._Actions = _Actions;
+            textMessage.ShowDialog();
         }
     }
 }

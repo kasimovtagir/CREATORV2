@@ -36,11 +36,12 @@
             textBoxNameLastName = new TextBox();
             textBoxEmail = new TextBox();
             textBoxPassword = new TextBox();
+            checkBoxShowPassword = new CheckBox();
             SuspendLayout();
             // 
             // buttonSaveSettings
             // 
-            buttonSaveSettings.Location = new Point(12, 147);
+            buttonSaveSettings.Location = new Point(12, 217);
             buttonSaveSettings.Name = "buttonSaveSettings";
             buttonSaveSettings.Size = new Size(631, 89);
             buttonSaveSettings.TabIndex = 0;
@@ -53,55 +54,67 @@
             label1.AutoSize = true;
             label1.Location = new Point(12, 9);
             label1.Name = "label1";
-            label1.Size = new Size(167, 32);
+            label1.Size = new Size(195, 38);
             label1.TabIndex = 1;
             label1.Text = "Имя Фамилия";
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(12, 60);
+            label2.Location = new Point(12, 66);
             label2.Name = "label2";
-            label2.Size = new Size(71, 32);
+            label2.Size = new Size(83, 38);
             label2.TabIndex = 2;
             label2.Text = "Email";
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(12, 105);
+            label3.Location = new Point(12, 117);
             label3.Name = "label3";
-            label3.Size = new Size(96, 32);
+            label3.Size = new Size(112, 38);
             label3.TabIndex = 3;
             label3.Text = "Пароль";
             // 
             // textBoxNameLastName
             // 
-            textBoxNameLastName.Location = new Point(185, 12);
+            textBoxNameLastName.Location = new Point(213, 12);
             textBoxNameLastName.Name = "textBoxNameLastName";
-            textBoxNameLastName.Size = new Size(458, 39);
+            textBoxNameLastName.Size = new Size(430, 45);
             textBoxNameLastName.TabIndex = 4;
             // 
             // textBoxEmail
             // 
-            textBoxEmail.Location = new Point(185, 57);
+            textBoxEmail.Location = new Point(213, 63);
             textBoxEmail.Name = "textBoxEmail";
-            textBoxEmail.Size = new Size(458, 39);
+            textBoxEmail.Size = new Size(430, 45);
             textBoxEmail.TabIndex = 5;
             // 
             // textBoxPassword
             // 
-            textBoxPassword.Location = new Point(185, 102);
+            textBoxPassword.Location = new Point(213, 114);
             textBoxPassword.Name = "textBoxPassword";
-            textBoxPassword.PasswordChar = '*';
-            textBoxPassword.Size = new Size(458, 39);
+            textBoxPassword.Size = new Size(430, 45);
             textBoxPassword.TabIndex = 6;
+            textBoxPassword.UseSystemPasswordChar = true;
+            // 
+            // checkBoxShowPassword
+            // 
+            checkBoxShowPassword.AutoSize = true;
+            checkBoxShowPassword.Location = new Point(12, 169);
+            checkBoxShowPassword.Name = "checkBoxShowPassword";
+            checkBoxShowPassword.Size = new Size(257, 42);
+            checkBoxShowPassword.TabIndex = 7;
+            checkBoxShowPassword.Text = "Показать пароль";
+            checkBoxShowPassword.UseVisualStyleBackColor = true;
+            checkBoxShowPassword.CheckedChanged += checkBox1_CheckedChanged;
             // 
             // AccountSettings
             // 
-            AutoScaleDimensions = new SizeF(13F, 31F);
+            AutoScaleDimensions = new SizeF(15F, 38F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(669, 261);
+            ClientSize = new Size(669, 323);
+            Controls.Add(checkBoxShowPassword);
             Controls.Add(textBoxPassword);
             Controls.Add(textBoxEmail);
             Controls.Add(textBoxNameLastName);
@@ -127,5 +140,6 @@
         private TextBox textBoxNameLastName;
         private TextBox textBoxEmail;
         private TextBox textBoxPassword;
+        private CheckBox checkBoxShowPassword;
     }
 }
