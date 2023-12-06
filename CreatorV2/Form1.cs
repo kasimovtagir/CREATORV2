@@ -159,10 +159,7 @@ namespace CreatorV2
 
         private void òåêñòÏèñüìàToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            TextMessage textMessage = new TextMessage();
-            textMessage._Variables = _Variables;
-            textMessage._Actions = _Actions;
-            textMessage.ShowDialog();
+
         }
 
 
@@ -250,11 +247,19 @@ namespace CreatorV2
 
         private void âñ¨ToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            UploadListUserFromAllGroup upload=new UploadListUserFromAllGroup();
+            UploadListUserFromAllGroup upload = new UploadListUserFromAllGroup();
             upload._Variables = _Variables;
             upload._Actions = _Actions;
             upload.ShowDialog();
             showLog();
+        }
+
+        private void òåêñòÏèñüìàToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            TextMessage textMessage = new TextMessage();
+            textMessage._Variables = _Variables;
+            textMessage._Actions = _Actions;
+            textMessage.ShowDialog();
         }
     }
 }
