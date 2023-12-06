@@ -8,6 +8,7 @@ using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Xml.Linq;
+using static System.Net.Mime.MediaTypeNames;
 using static System.Windows.Forms.DataFormats;
 
 namespace CreatorV2
@@ -20,25 +21,34 @@ namespace CreatorV2
         {
             InitializeComponent();
 
-            _Variables = new Classes.Variables();
-            _Actions = new Classes.Actions(_Variables);
+            _Variables = new Variables();
+            _Actions = new Actions(_Variables);
+            MainSettings newMainSett = new MainSettings();
+            newMainSett._Variables = _Variables;
+            newMainSett._Actions = _Actions;
 
             if (!File.Exists("Settings.txt"))
             {
                 MessageBox.Show("У вас нет конфигурационного файла, сейчас откроется окно в котором необходимо заполнить все поля для корректной работы программы! Спасибо");
-                MainSettings newMainSett = new MainSettings();
-                newMainSett._Variables = _Variables;
-                newMainSett._Actions = _Actions;
 
                 using (FileStream fs = File.Create("Settings.txt"))
                 {
-                    //File.Create();                    
+                    //File.Create
                 }
                 newMainSett.ShowDialog();
             }
-            else _Actions.UploadAllSettings();
-
-            //ForTest();
+            else
+            {
+                using (StreamReader reader = new StreamReader("Settings.txt"))
+                {
+                    string settings = reader.ReadToEnd();
+                    if (string.IsNullOrEmpty(settings))
+                    {
+                        newMainSett.ShowDialog();
+                    }
+                    else _Actions.UploadAllSettings();
+                }
+            }
         }
 
 
@@ -55,7 +65,7 @@ namespace CreatorV2
             textBoxName.Text = "NameRUS";
             textBoxThirdName.Text = "thirNameRUS";
             textBoxISUID.Text = "ISUID";
-            textBoxDescription.Text = "";
+            textBoxDescription.Text = "тестовый пользователь";
             textBoxEMAIL.Text = "tagir.kasimov@metalab.ifmo.ru";
             textBoxPassword.Text = _Variables._PasswordInAD;
             comboBoxTypePost.Text = "Сотрудник";
@@ -91,6 +101,7 @@ namespace CreatorV2
 
         private void buttonCreateUser_Click(object sender, EventArgs e)
         {
+
             // Проверяем, что поле имени и фамилии содержит только русские буквы
             bool checkRUStxtboxName = Regex.IsMatch(textBoxUserNameInAD.Text, "^[А-Яа-я]+$");
             bool checkRUStxtboxSurName = Regex.IsMatch(textBoxLastNameInAD.Text, "^[А-Яа-я]+$");
@@ -101,19 +112,30 @@ namespace CreatorV2
 
             _Variables._WithEmail = true;
 
-            if (checkRUStxtboxName)
+            if (checkRUStxtboxName | checkRUStxtboxSurName)
             {
                 name = _Actions.Transliteration(name);
+                lastName = _Actions.Transliteration(lastName);
+                var textInfo = new CultureInfo("ru-RU").TextInfo;
+                //преобразуем текст
+                name = textInfo.ToTitleCase(textInfo.ToLower(name));
+                lastName = textInfo.ToTitleCase(textInfo.ToLower(lastName));
+                _Variables._nameInAD = name;
+                _Variables._lastNameInAD = lastName;
+            }
+            else
+            {
+                _Variables._nameInAD = name;
+                _Variables._lastNameInAD = lastName;
             }
 
-            if (checkRUStxtboxSurName)
+            /*if (checkRUStxtboxSurName)
             {
                 lastName = _Actions.Transliteration(lastName);
-            }
+            }*/
 
             // Устанавливаем имя и фамилию
-            _Variables._nameInAD = name;
-            _Variables._lastNameInAD = lastName;
+           
             if (name.Length + lastName.Length > 17)
             {
                 _Variables._SamAccountInAD = $"{name[0]}.{lastName}";
@@ -132,10 +154,13 @@ namespace CreatorV2
             newUser._Variables = _Variables;
             newUser._Actions = _Actions;
             newUser.ShowDialog();
+            showLog();
+
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            ForTest();
             //_Actions.GetSettings();
         }
 
@@ -156,13 +181,6 @@ namespace CreatorV2
             addUserInGroup.ShowDialog();
             showLog();
         }
-
-        private void текстПисьмаToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-
         private void установитьПарольПользователяПоУмолчаниюToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DefPasswordForUser defPasswordForUser = new DefPasswordForUser();
@@ -206,11 +224,6 @@ namespace CreatorV2
             createTempGroups._Actions = _Actions;
             createTempGroups.ShowDialog();
             showLog();
-        }
-
-        private void заблокироватьРазблокироватьПользователяToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void создатьГруппуToolStripMenuItem_Click(object sender, EventArgs e)

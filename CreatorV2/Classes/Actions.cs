@@ -1,7 +1,7 @@
-﻿
-
-namespace CreatorV2.Classes
+﻿namespace CreatorV2.Classes
 {
+    [DirectoryObjectClass("user")] // Set the object class for user accounts
+    [DirectoryRdnPrefix("CN")] // Set the RDN prefix (Common Name)
     public class UserPrincipalEx : UserPrincipal
     {
         public UserPrincipalEx(PrincipalContext context) : base(context) { }
@@ -11,7 +11,7 @@ namespace CreatorV2.Classes
         { }
 
         // Add a method to set extensionAttribute1
-        public void SetExtensionAttribute(string? valueName, string? valueLastName, string? valueMiddleName, string? valueISUID)
+        public void SetExtensionAttribute(string? valueLastName, string? valueName,  string? valueMiddleName, string? valueISUID)
         {
             valueName = string.IsNullOrEmpty(valueName) ? null : valueName;
             valueLastName = string.IsNullOrEmpty(valueLastName) ? null : valueLastName;
@@ -624,7 +624,7 @@ namespace CreatorV2.Classes
         public string Transliteration(string name)
         {
             StringBuilder newName = new StringBuilder();
-            foreach (char c in name)
+            foreach (char c in name.ToLower())
             {
                 switch (c)
                 {
@@ -797,11 +797,19 @@ namespace CreatorV2.Classes
         /// </summary>
         public void CreateADAccount() //метод по созданию корп учетной записи в АД
         {
+            string rootPath = string.Empty;
+            string[] splitNetBios = _Variables.NetBios.Split(".");
+            foreach (string net in splitNetBios)
+            {
+                rootPath += $"DC={net}, ";
+            }
+            _Variables.splitNetBios = _ = rootPath.Remove(rootPath.Length - 2);
             try
             {
-                using (_Variables.principalContext)
+                using (PrincipalContext context = new PrincipalContext(ContextType.Domain, _Variables.NetBios, $"OU={_Variables.OU}, {_Variables.splitNetBios}"))
+                //using (PrincipalContext context = new PrincipalContext(ContextType.Domain, "metalab.ifmo.ru", "OU=Accounts,DC=metalab,DC=ifmo,DC=ru"))
                 {
-                    UserPrincipalEx up = new(_Variables.principalContext);
+                    UserPrincipalEx up = new UserPrincipalEx(context);
                     up.SamAccountName = _Variables._SamAccountInAD.ToLower();
                     up.Surname = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(_Variables._lastNameInAD);
                     up.DisplayName = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(_Variables._nameInAD + " " + _Variables._lastNameInAD);

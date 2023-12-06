@@ -27,7 +27,7 @@ namespace CreatorV2
 
         private void PreviewCreateUsersAccountWithSendEmail_Load(object sender, EventArgs e)
         {
-            
+
             checkBoxRUS.Checked = true;
             textBoxTo.Text = _Variables._UsersEmail;
             textBoxFrom.Text = $"{_Variables._FIOForSendEmail}, {_Variables._EmailForSendEmail}";
@@ -60,6 +60,7 @@ namespace CreatorV2
         private void buttonCreateUserinAD_Click(object sender, EventArgs e)
         {
             _Actions.CreateADAccount();
+            this.Close();
         }
 
         private void checkBoxENG_CheckedChanged(object sender, EventArgs e)

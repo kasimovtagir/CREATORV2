@@ -49,5 +49,14 @@ namespace CreatorV2
 
             this.Close();
         }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBoxShowPassword.Checked)
+            {
+                textBoxPassword.UseSystemPasswordChar = false;
+            }
+            else textBoxPassword.UseSystemPasswordChar = true;
+        }
     }
 }

@@ -29,6 +29,8 @@ namespace CreatorV2
 
         private void buttonSaveSettingsListGroup_Click(object sender, EventArgs e)
         {
+            _Variables._ListGroupForAddEmployeer.Clear();
+            _Variables._ListGroupForAddStudent.Clear();
             SaveList(listBoxListGroupForEmployees, "ListGroupForEmplyees", _Variables._ListGroupForAddEmployeer);
             SaveList(listBoxListGroupForStudent, "ListGroupForStudent", _Variables._ListGroupForAddStudent);
             this.Close();
