@@ -40,11 +40,12 @@
             label5 = new Label();
             label6 = new Label();
             comboBoxListOU = new ComboBox();
+            checkBoxShowPassword = new CheckBox();
             SuspendLayout();
             // 
             // buttonSaveMainSettings
             // 
-            buttonSaveMainSettings.Location = new Point(621, 310);
+            buttonSaveMainSettings.Location = new Point(621, 302);
             buttonSaveMainSettings.Margin = new Padding(4, 5, 4, 5);
             buttonSaveMainSettings.Name = "buttonSaveMainSettings";
             buttonSaveMainSettings.Size = new Size(227, 81);
@@ -131,7 +132,7 @@
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(12, 248);
+            label6.Location = new Point(12, 240);
             label6.Name = "label6";
             label6.Size = new Size(57, 38);
             label6.TabIndex = 11;
@@ -140,16 +141,28 @@
             // comboBoxListOU
             // 
             comboBoxListOU.FormattingEnabled = true;
-            comboBoxListOU.Location = new Point(271, 245);
+            comboBoxListOU.Location = new Point(271, 237);
             comboBoxListOU.Name = "comboBoxListOU";
             comboBoxListOU.Size = new Size(577, 46);
             comboBoxListOU.TabIndex = 12;
+            // 
+            // checkBoxShowPassword
+            // 
+            checkBoxShowPassword.AutoSize = true;
+            checkBoxShowPassword.Location = new Point(12, 302);
+            checkBoxShowPassword.Name = "checkBoxShowPassword";
+            checkBoxShowPassword.Size = new Size(257, 42);
+            checkBoxShowPassword.TabIndex = 13;
+            checkBoxShowPassword.Text = "Показать пароль";
+            checkBoxShowPassword.UseVisualStyleBackColor = true;
+            checkBoxShowPassword.CheckedChanged += checkBoxShowPassword_CheckedChanged;
             // 
             // MainSettings
             // 
             AutoScaleDimensions = new SizeF(15F, 38F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(862, 433);
+            ClientSize = new Size(862, 401);
+            Controls.Add(checkBoxShowPassword);
             Controls.Add(comboBoxListOU);
             Controls.Add(label6);
             Controls.Add(label5);
@@ -185,5 +198,6 @@
         private Label label5;
         private Label label6;
         private ComboBox comboBoxListOU;
+        private CheckBox checkBoxShowPassword;
     }
 }

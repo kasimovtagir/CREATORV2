@@ -64,5 +64,14 @@ namespace CreatorV2
             // Установка источника автодополнения ComboBox
             comboBoxListOU.AutoCompleteCustomSource = autoCompleteCollection;
         }
+
+        private void checkBoxShowPassword_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBoxShowPassword.Checked)
+            {
+                textBoxUserPassword.UseSystemPasswordChar = false;
+            }
+            else textBoxUserPassword.UseSystemPasswordChar = true;
+        }
     }
 }

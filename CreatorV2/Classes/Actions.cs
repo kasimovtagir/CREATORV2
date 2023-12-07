@@ -307,6 +307,7 @@ namespace CreatorV2.Classes
         /// <returns></returns>
         public string CreateTempGroup(string userName, string targetGroupName, DateTime endDate)
         {
+            userName = GetSamAccountNameByDisplayName(userName);
             string entryTTL = getTime(endDate).ToString();
             string groupCommonName = $"temp_access_{userName}_{targetGroupName}";
 
@@ -325,6 +326,7 @@ namespace CreatorV2.Classes
                     // Получение пользователя из OU Accounts
                     using (DirectoryEntry accounts = new DirectoryEntry("LDAP://OU=Accounts,DC=metalab,DC=ifmo,DC=ru"))
                     {
+
                         DirectorySearcher searcher = new DirectorySearcher(accounts);
                         searcher.Filter = "(sAMAccountName=" + userName + ")";
                         SearchResult result = searcher.FindOne();
@@ -390,6 +392,7 @@ namespace CreatorV2.Classes
             {
                 using (PrincipalContext context = new PrincipalContext(ContextType.Domain, _Variables.NetBios))
                 {
+                    userName = GetSamAccountNameByDisplayName(userName);
                     UserPrincipal user = UserPrincipal.FindByIdentity(context, IdentityType.SamAccountName, userName);
 
                     if (user != null)
@@ -413,6 +416,7 @@ namespace CreatorV2.Classes
                 MessageBox.Show($"Ошибка: {ex.Message}");
             }
         }
+
 
         /// <summary>
         /// метод выгружает пользователей из группы
@@ -450,7 +454,7 @@ namespace CreatorV2.Classes
                                 {
                                     continue;
                                 }
-                                else result.Add(user.EmailAddress.ToString()); //вывод электронных почт 
+                                else result.Add($"{user.DisplayName} ({user.EmailAddress})"); //вывод электронных почт 
                             }
                         }
                         return result;
@@ -484,6 +488,7 @@ namespace CreatorV2.Classes
                 rootPath += $"DC={net}, ";
             }
             _Variables.splitNetBios = _ = rootPath.Remove(rootPath.Length - 2);
+            username = GetSamAccountNameByDisplayName(username);
             try
             {
                 PrincipalContext context = new PrincipalContext(ContextType.Domain, _Variables.NetBios, $"OU={_Variables.OU}, {_Variables.splitNetBios}");
@@ -968,19 +973,19 @@ namespace CreatorV2.Classes
                             group.Members.Add(user);
                             group.Save();
                             _Variables.Log.Add($"Пользователь {username} добавлен в группу {choosedGroup}.");
-                            MessageBox.Show($"Пользователь {username} добавлен в группу {choosedGroup}.");
+                            //MessageBox.Show($"Пользователь {username} добавлен в группу {choosedGroup}.");
                         }
                         else
                         {
                             _Variables.Log.Add($"Пользователь {username} уже состоит в группе {choosedGroup}.");
-                            MessageBox.Show($"Пользователь {username} уже состоит в группе {choosedGroup}.");
+                            //MessageBox.Show($"Пользователь {username} уже состоит в группе {choosedGroup}.");
                             //Console.WriteLine($"Пользователь {data.NameUser + "." + data.SurnameUser} уже состоит в группе {item}.");
                         }
                     }
                     else
                     {
                         _Variables.Log.Add($"Пользователь {username} или группа {choosedGroup} не найдены.");
-                        MessageBox.Show($"Пользователь {username}  или группа  {choosedGroup} не найдены.");
+                        //MessageBox.Show($"Пользователь {username}  или группа  {choosedGroup} не найдены.");
                         //Console.WriteLine($"Пользователь {data.NameUser + "." + data.SurnameUser} или группа {item} не найдены.");
                     }
                 }
@@ -1048,6 +1053,7 @@ namespace CreatorV2.Classes
             {
                 using (PrincipalContext context = new PrincipalContext(ContextType.Domain, _Variables.NetBios, $"OU={_Variables.OU}, {_Variables.splitNetBios}"))
                 {
+                    username = GetSamAccountNameByDisplayName(username);
                     UserPrincipal user = UserPrincipal.FindByIdentity(context, IdentityType.SamAccountName, username);
 
                     if (user != null)
