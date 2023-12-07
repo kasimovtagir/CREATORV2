@@ -163,7 +163,7 @@ namespace CreatorV2
                         {
                             if (!string.IsNullOrEmpty(item.ToString()))
                             {
-                                listGroupForEmp += item + "; ";
+                                listGroupForEmp += item + ";";
                             }
                         }
                         _Actions.SaveSettingsV2(typePost, listGroupForEmp);
@@ -181,7 +181,7 @@ namespace CreatorV2
                         {
                             if (!string.IsNullOrEmpty(item.ToString()))
                             {
-                                listGroupForStud += item + "; ";
+                                listGroupForStud += item + ";";
                             }
                         }
                         _Actions.SaveSettingsV2(typePost, listGroupForStud);
@@ -249,7 +249,7 @@ namespace CreatorV2
                     string listGroupEmp = string.Empty;
                     foreach (var item in listBox1.Items)
                     {
-                        listGroupEmp += item.ToString() + "; ";
+                        listGroupEmp += item.ToString() + ";";
                     }
                     _Actions.SaveSettingsV2(typePost, listGroupEmp);
                     break;
@@ -259,7 +259,7 @@ namespace CreatorV2
                     string listGroupStud = string.Empty;
                     foreach (var item in listBox1.Items)
                     {
-                        listGroupStud += item.ToString() + "; ";
+                        listGroupStud += item.ToString() + ";";
                     }
                     _Actions.SaveSettingsV2(typePost, listGroupStud);
                     break;
@@ -270,7 +270,7 @@ namespace CreatorV2
                     foreach (var item in listBox1.Items)
                     {
                         _Variables._ListGroupForAddArbitrary.Add(item.ToString());
-                        //listGroupArb += item.ToString() + "; ";
+                        //listGroupArb += item.ToString() + ";";
                     }
                     //_Variables._ListGroupForAddArbitrary.Add(listGroupArb);
                     break;
@@ -281,7 +281,7 @@ namespace CreatorV2
                     foreach (var item in listBox1.Items)
                     {
                         _Variables._ListGroupForAddArbitrary.Add(item.ToString());
-                        //listGroupSUZ += item.ToString() + "; ";
+                        //listGroupSUZ += item.ToString() + ";";
                     }
                     //_Variables._ListGroupForAddArbitrary.Add(listGroupSUZ);
                     break;
