@@ -53,6 +53,15 @@
             set { ListGroupForAddSUZsPF = value; }
         }
 
+        private List<string> ListGroupForAddArbitrary = new List<string>();
+        public List<string>? _ListGroupForAddArbitrary
+        {
+            get { return ListGroupForAddArbitrary; }
+            set { ListGroupForAddArbitrary = value; }
+        }
+
+
+
         //Список всех групп
         public List<string>? ListAllGroups = new();
 
