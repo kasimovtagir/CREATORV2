@@ -92,7 +92,7 @@ namespace CreatorV2
 
         private void ãğóïïûÏîÓìîë÷àíèşToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ListGroup listGroup = new ListGroup();
+            ListDefGroups listGroup = new ListDefGroups();
             listGroup._Variables = _Variables;
             listGroup._Actions = _Actions;
 

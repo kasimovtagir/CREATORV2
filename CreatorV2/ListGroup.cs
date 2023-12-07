@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;*/
 
+using System.Reflection.Emit;
 using System.Windows.Forms;
 
 namespace CreatorV2
@@ -90,19 +91,22 @@ namespace CreatorV2
         {
             //выгрузка списка групп для сотрудника
             //string[] listGroups = _Actions.LoadSetting(indexLine).Split(";");
-            
-            
-
-            string[] listGroups = _Actions.LoadSettings2(whatneed).Split(";");
+            string[] listGroups;
             if (whatneed == "Произвольный" || whatneed == "СУЗсПФ")
             {
+                listGroups = _Variables._ListGroupForAddArbitrary.ToArray();
                 foreach (var item in listGroups)
                 {
-                    listBoxGroup.Items.Add(item);
+                    if (string.IsNullOrEmpty(item))
+                    {
+                        continue;
+                    }
+                    else listBoxGroup.Items.Add(item.TrimStart());
                 }
-                
+
                 //listGroups =listGroups.ToArray();
             }
+            else listGroups = _Actions.LoadSettings2(whatneed).Split(";");
 
             Array.Sort(listGroups);
             foreach (string item in listGroups)
@@ -113,7 +117,7 @@ namespace CreatorV2
                 }
                 else
                 {
-                    listGroup.Add(item);
+                    listGroup.Add(item.TrimStart());
                     listBoxGroup.Items.Add(item);
                 }
             }
@@ -133,8 +137,8 @@ namespace CreatorV2
             uploadListGroup(_Variables._ListGroupForAddSUZsPF, listBox1, "Arbitrary");
             uploadListGroup(_Variables._ListGroupForAddSUZsPF, listBox1, "SUZsPF");*/
 
-            label7.Text = "*Нажми 2 раза на группу в списке и она буде удалена из списка.";
-            label7.BackColor = Color.Red;
+            /* label7.Text = "*Нажми 2 раза на группу в списке и она буде удалена из списка.";
+             label7.BackColor = Color.Red;*/
             UploadAllGroups(comboBox2);
 
             /*
@@ -173,84 +177,26 @@ namespace CreatorV2
 
         private void buttonAddToListGroupForEmployees_Click(object sender, EventArgs e)
         {
-            AddGroupInList(listBoxListGroupForEmployees, comboBoxListGroupForEmployees, label4);
-            comboBoxListGroupForEmployees.Text = string.Empty;
+            //AddGroupInList(listBoxListGroupForEmployees, comboBoxListGroupForEmployees, label4);
+            //comboBoxListGroupForEmployees.Text = string.Empty;
         }
 
         private void buttonAddGroupToListGroupForStudent_Click(object sender, EventArgs e)
         {
-            AddGroupInList(listBoxListGroupForStudent, comboBoxListGroupForStudent, label5);
-            comboBoxListGroupForStudent.Text = string.Empty;
+            //AddGroupInList(listBoxListGroupForStudent, comboBoxListGroupForStudent, label5);
+            //comboBoxListGroupForStudent.Text = string.Empty;
         }
 
 
-        /// <summary>
-        /// метод для добавления группы в списко групп по умолчанию 
-        /// </summary>
-        /// <param name="listBox"></param>
-        /// <param name="comboBox"></param>
-        /// <param name="label"></param>
-        public void AddGroupInList(ListBox listBox, System.Windows.Forms.ComboBox comboBox, Label label)
-        {
-            string[] allGroups = new string[listBox.Items.Count];
 
-            listBox.Items.CopyTo(allGroups, 0);
-
-            if (Array.Exists(allGroups, group => group == comboBox.Text))
-            {
-                MessageBox.Show("Такая группа уже добавлена.");
-            }
-            else
-            {
-                listBox.Items.Add(comboBox.Text);
-                label.Text = $"Количество групп: {listBox.Items.Count}";
-            }
-            if (comboBox.Text == "")
-            {
-                MessageBox.Show("Выбери группу.");
-            }
-        }
 
         private void buttonAddToListGroupForSUZsPF_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void listBoxListGroupForEmployees_MouseDoubleClick(object sender, MouseEventArgs e)
-        {
-            int selectedIndex = listBoxListGroupForEmployees.SelectedIndex;
 
-            // Проверяем, что позиция была выбрана и двойной щелчок выполнен
-            if (selectedIndex != -1 && e.Button == MouseButtons.Left)
-            {
-                // Удаляем позицию из ListBox
-                listBoxListGroupForEmployees.Items.RemoveAt(selectedIndex);
-            }
-            label4.Text = $"Количество группу {listBoxListGroupForEmployees.Items.Count}";
-        }
 
-        private void listBoxListGroupForStudent_MouseDoubleClick(object sender, MouseEventArgs e)
-        {
-            int selectedIndex = listBoxListGroupForStudent.SelectedIndex;
-
-            // Проверяем, что позиция была выбрана и двойной щелчок выполнен
-            if (selectedIndex != -1 && e.Button == MouseButtons.Left)
-            {
-                // Удаляем позицию из ListBox
-                listBoxListGroupForStudent.Items.RemoveAt(selectedIndex);
-            }
-            label5.Text = $"Количество группу {listBoxListGroupForStudent.Items.Count}";
-        }
-
-        private void listBoxGroupForSUZsPF_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void listBoxGroupForSUZsPF_MouseDoubleClick(object sender, MouseEventArgs e)
-        {
-
-        }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -263,6 +209,7 @@ namespace CreatorV2
                     uploadListGroup(_Variables._ListGroupForAddEmployeer, listBox1, "ListGroupForEmplyees");
                     typePost = "ListGroupForEmplyees";
                     groups = _Variables._ListGroupForAddEmployeer;
+                    label10.Text = $"Количество групп: " + listBox1.Items.Count.ToString();
                     break;
 
                 case "Студент":
@@ -271,6 +218,7 @@ namespace CreatorV2
                     uploadListGroup(_Variables._ListGroupForAddStudent, listBox1, "ListGroupForStudent");
                     typePost = "ListGroupForStudent";
                     groups = _Variables._ListGroupForAddStudent;
+                    label10.Text = $"Количество групп: " + listBox1.Items.Count.ToString();
                     break;
 
                 case "Произвольный":
@@ -279,6 +227,7 @@ namespace CreatorV2
                     uploadListGroup(_Variables._ListGroupForAddArbitrary, listBox1, "Произвольный");
                     typePost = "Произвольный";
                     groups = _Variables._ListGroupForAddArbitrary;
+                    label10.Text = $"Количество групп: " + listBox1.Items.Count.ToString();
                     break;
 
                 case "СУЗсПФ":
@@ -287,6 +236,7 @@ namespace CreatorV2
                     uploadListGroup(_Variables._ListGroupForAddSUZsPF, listBox1, "СУЗсПФ");
                     typePost = "СУЗсПФ";
                     groups = _Variables._ListGroupForAddSUZsPF;
+                    label10.Text = $"Количество групп: " + listBox1.Items.Count.ToString();
                     break;
             }
 
@@ -296,11 +246,6 @@ namespace CreatorV2
                             uploadListGroup(_Variables._ListGroupForAddEmployeer, listBox1, "ListGroupForEmplyees");
                             UploadAllGroups(comboBox2);
                         }*/
-
-        }
-
-        private void listBoxListGroupForEmployees_SelectedIndexChanged(object sender, EventArgs e)
-        {
 
         }
 
@@ -319,9 +264,116 @@ namespace CreatorV2
 
         private void button1_Click(object sender, EventArgs e)
         {
-            AddGroupInList(listBox1, comboBox2, label10);
+            AddGroupInList(comboBox2.Text, comboBox1.Text);//listBox1, comboBox2, label10);
             comboBox2.Text = string.Empty;
             //comboBoxListGroupForEmployees.Text = string.Empty;
         }
+
+        /// <summary>
+        /// метод для добавления группы в список групп по умолчанию 
+        /// </summary>
+        /// <param name="listBox"></param>
+        /// <param name="comboBox"></param>
+        /// <param name="label"></param>
+        public void AddGroupInList(string groupWhichNeedAdd, string whichTypePost)//ListBox listBox, System.Windows.Forms.ComboBox comboBox, Label label)
+        {
+            switch (whichTypePost)
+            {
+                case "Сотрудник":
+                    _Variables._ListGroupForAddEmployeer.Add(groupWhichNeedAdd);
+                    listBox1.Items.Add(groupWhichNeedAdd);
+                    label10.Text = $"Количество групп: {listBox1.Items.Count}";
+                    break;
+
+                case "Студент":
+                    _Variables._ListGroupForAddStudent.Add(groupWhichNeedAdd);
+                    listBox1.Items.Add(groupWhichNeedAdd);
+                    label10.Text = $"Количество групп: {listBox1.Items.Count}";
+                    break;
+
+                case "Произвольный":
+                    _Variables._ListGroupForAddArbitrary.Add(groupWhichNeedAdd);
+                    listBox1.Items.Add(groupWhichNeedAdd);
+                    label10.Text = $"Количество групп: {listBox1.Items.Count}";
+                    break;
+
+                default:
+                    break;
+            }
+
+
+            /* if(typePost=="Сотрудник")
+             {
+                 _Variables._ListGroupForAddEmployeer.Add(groupWhichNeedAdd);
+                 listBox1.Items.Add(groupWhichNeedAdd);
+                 label10.Text = $"Количество групп: {listBox1.Items.Count}";
+             }
+             */
+
+
+
+            /*string[] allGroups = new string[listBox.Items.Count];
+
+            listBox.Items.CopyTo(allGroups, 0);
+
+            if (Array.Exists(allGroups, group => group == comboBox.Text))
+            {
+                MessageBox.Show("Такая группа уже добавлена.");
+            }
+            else
+            {
+                listBox.Items.Add(comboBox.Text);
+                label.Text = $"Количество групп: {listBox.Items.Count}";
+            }
+            if (comboBox.Text == "")
+            {
+                MessageBox.Show("Выбери группу.");
+            }*/
+        }
+
+        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+
+
+        /*private void listBoxListGroupForEmployees_MouseDoubleClick(object sender, MouseEventArgs e)
+       {
+           int selectedIndex = listBoxListGroupForEmployees.SelectedIndex;
+
+           // Проверяем, что позиция была выбрана и двойной щелчок выполнен
+           if (selectedIndex != -1 && e.Button == MouseButtons.Left)
+           {
+               // Удаляем позицию из ListBox
+               listBoxListGroupForEmployees.Items.RemoveAt(selectedIndex);
+           }
+           label4.Text = $"Количество группу {listBoxListGroupForEmployees.Items.Count}";
+       }
+
+       private void listBoxListGroupForStudent_MouseDoubleClick(object sender, MouseEventArgs e)
+       {
+           int selectedIndex = listBoxListGroupForStudent.SelectedIndex;
+
+           // Проверяем, что позиция была выбрана и двойной щелчок выполнен
+           if (selectedIndex != -1 && e.Button == MouseButtons.Left)
+           {
+               // Удаляем позицию из ListBox
+               listBoxListGroupForStudent.Items.RemoveAt(selectedIndex);
+           }
+           label5.Text = $"Количество группу {listBoxListGroupForStudent.Items.Count}";
+       }
+
+       private void listBoxGroupForSUZsPF_SelectedIndexChanged(object sender, EventArgs e)
+       {
+
+       }
+
+       private void listBoxGroupForSUZsPF_MouseDoubleClick(object sender, MouseEventArgs e)
+       {
+
+       }
+*/
+
     }
 }
