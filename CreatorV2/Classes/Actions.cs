@@ -1,4 +1,9 @@
-﻿namespace CreatorV2.Classes
+﻿using System;
+using System.Net.Mail;
+using System.Net;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+
+namespace CreatorV2.Classes
 {
     [DirectoryObjectClass("user")] // Set the object class for user accounts
     [DirectoryRdnPrefix("CN")] // Set the RDN prefix (Common Name)
@@ -11,7 +16,7 @@
         { }
 
         // Add a method to set extensionAttribute1
-        public void SetExtensionAttribute(string? valueLastName, string? valueName,  string? valueMiddleName, string? valueISUID)
+        public void SetExtensionAttribute(string? valueLastName, string? valueName, string? valueMiddleName, string? valueISUID)
         {
             valueName = string.IsNullOrEmpty(valueName) ? null : valueName;
             valueLastName = string.IsNullOrEmpty(valueLastName) ? null : valueLastName;
@@ -82,7 +87,9 @@
             //string[] upload = { "AdminUserName", "AdminEmail", "AdminPassword", "netbios", "ListGroupForEmplyees", "ListGroupForStudent" };
             _Variables._FIOForSendEmail = LoadSettings2("AdminUserName");
             _Variables._EmailForSendEmail = LoadSettings2("AdminEmail");
-            _Variables._PasswordForSendEmail = LoadSettings2("AdminPassword") == string.Empty ? string.Empty : Encrypt(LoadSettings2("AdminPassword"));
+
+            _Variables._PasswordForSendEmail = LoadSettings2("AdminPassword") == string.Empty ? string.Empty : Decrypt(LoadSettings2("AdminPassword"));
+
             _Variables.NetBios = LoadSettings2("netbios");
             _Variables._PasswordInAD = LoadSettings2("DefPasswordUser");
             _Variables.OU = LoadSettings2("OU");
@@ -94,17 +101,19 @@
             string[] lineEmployeer = LoadSettings2("ListGroupForEmplyees").Split(";");
             foreach (string line2 in lineEmployeer)
             {
-                _Variables._ListGroupForAddEmployeer.Add(line2);
+                if (!string.IsNullOrEmpty(line2))
+                {
+                    _Variables._ListGroupForAddEmployeer.Add(line2);
+                }
             }
 
             string[] lineStudent = LoadSettings2("ListGroupForStudent").Split(";");
             foreach (string line2 in lineStudent)
             {
-                if (line2 == "")
+                if (!string.IsNullOrEmpty(line2))
                 {
-                    continue;
+                    _Variables._ListGroupForAddStudent.Add(line2);
                 }
-                else _Variables._ListGroupForAddStudent.Add(line2);
             }
         }
 
@@ -386,7 +395,7 @@
                     if (user != null)
                     {
                         // Задаем дату истечения срока действия учетной записи
-                        user.AccountExpirationDate = Convert.ToDateTime( expirateDate);
+                        user.AccountExpirationDate = Convert.ToDateTime(expirateDate);
                         user.Save();
                         string Log = $"Пользователь {userName} будет заблокирован {expirateDate}";
 
@@ -405,7 +414,11 @@
             }
         }
 
-
+        /// <summary>
+        /// метод выгружает пользователей из группы
+        /// </summary>
+        /// <param name="groupName">получает имя группы</param>
+        /// <returns></returns>
         public List<string> showUsersInGroup(string groupName)
         {
             List<string> result = new List<string>();
@@ -496,7 +509,7 @@
                 _Variables.Log.Add("Произошла ошибка: " + ex.Message);
             }
         }
-        
+
         public bool checkLockOrUnLockUser(string username)
         {
             string rootPath = string.Empty;
@@ -540,8 +553,63 @@
             }
         }
 
+        /// <summary>
+        /// метод проверяет, создана ли учетная запись или нет
+        /// </summary>
+        /// <returns></returns>
+        public bool CheckCreateUser()
+        {
+            string rootPath = string.Empty;
+            string[] splitNetBios = _Variables.NetBios.Split(".");
+            foreach (string net in splitNetBios)
+            {
+                rootPath += $"DC={net}, ";
+            }
+            _Variables.splitNetBios = _ = rootPath.Remove(rootPath.Length - 2);
+
+            PrincipalContext context = new PrincipalContext(ContextType.Domain, _Variables.NetBios, $"OU={_Variables.OU}, {_Variables.splitNetBios}");
+            bool userExists = UserPrincipal.FindByIdentity(context, IdentityType.SamAccountName, $"{_Variables._SamAccountInAD.ToLower()}") != null;
+            if (userExists)
+            {
+                return true;
+            }
+            else return false;
+        }
+
+        /// <summary>
+        /// метод для отправки писем на электронный почту
+        /// </summary>
+        public void SendMessage(string textMessage, string subject)//метод по отрпавке письма на личную почту пользователя
+        {
+            var fromAddress = new MailAddress(_Variables._EmailForSendEmail, _Variables._FIOForSendEmail);
+            var toAddress = new MailAddress(_Variables._UsersEmail, $"{_Variables._nameInAD} {_Variables._lastNameInAD}");
+
+            string fromAppPassword = _Variables._PasswordForSendEmail;
+            
+
+            
+
+            var smtpClient = new SmtpClient
+            {
+                Host = "smtp.mail.ru",
+                Port = 587,
+                EnableSsl = true,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false,
+                Credentials = new NetworkCredential(fromAddress.Address, fromAppPassword)
+            };
 
 
+            using (var message = new MailMessage(fromAddress, toAddress)
+            {
+                Subject = subject,
+                Body = textMessage
+            })
+            {
+                smtpClient.Send(message);
+                message.Headers.Add("Disposition-Notification-To", fromAddress.Address);
+            }
+        }
 
 
         /// <summary>
@@ -845,6 +913,31 @@
 
         }
 
+        public void AddUserToDefGroups()
+        {
+            if (_Variables._TypePost == "Сотрудник")
+            {
+                foreach (var item in _Variables._ListGroupForAddEmployeer)
+                {
+                    AddUserToGroup(_Variables._SamAccountInAD, item);
+                }
+            }
+            else if (_Variables._TypePost == "Студент")
+            {
+                foreach (var item in _Variables._ListGroupForAddStudent)
+                {
+                    AddUserToGroup(_Variables._SamAccountInAD, item);
+                }
+            }
+            else
+            {
+                foreach (var item in _Variables._ListGroupForAddSUZsPF)
+                {
+                    AddUserToGroup(_Variables._SamAccountInAD, item);
+                }
+            }
+        }
+
 
         /// <summary>
         /// метод для добавления пользователя в группу
@@ -923,7 +1016,7 @@
                         {
                             // Получение свойства "SamAccountName" (логина пользователя)
                             //string username = result.SamAccountName;
-                            string username = result.DisplayName==null? result.SamAccountName: result.DisplayName;
+                            string username = result.DisplayName == null ? result.SamAccountName : result.DisplayName;
                             _Variables.AllUsersInAD.Add(username);
                         }
                     }

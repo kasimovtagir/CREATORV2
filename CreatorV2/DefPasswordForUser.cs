@@ -42,7 +42,6 @@ namespace CreatorV2
                 textBoxDefPassForUser.UseSystemPasswordChar = false;
             }
             else textBoxDefPassForUser.UseSystemPasswordChar = true;
-
         }
     }
 }

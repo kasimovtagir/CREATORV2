@@ -401,6 +401,7 @@
             textBoxPassword.Name = "textBoxPassword";
             textBoxPassword.Size = new Size(375, 39);
             textBoxPassword.TabIndex = 19;
+            textBoxPassword.UseSystemPasswordChar = true;
             // 
             // label10
             // 
@@ -451,7 +452,7 @@
             listBoxAllLog.Location = new Point(600, 51);
             listBoxAllLog.Name = "listBoxAllLog";
             listBoxAllLog.ScrollAlwaysVisible = true;
-            listBoxAllLog.Size = new Size(956, 602);
+            listBoxAllLog.Size = new Size(956, 579);
             listBoxAllLog.TabIndex = 24;
             // 
             // Form1

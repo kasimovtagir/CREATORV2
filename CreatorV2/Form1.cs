@@ -129,13 +129,6 @@ namespace CreatorV2
                 _Variables._lastNameInAD = lastName;
             }
 
-            /*if (checkRUStxtboxSurName)
-            {
-                lastName = _Actions.Transliteration(lastName);
-            }*/
-
-            // ”станавливаем им€ и фамилию
-           
             if (name.Length + lastName.Length > 17)
             {
                 _Variables._SamAccountInAD = $"{name[0]}.{lastName}";
@@ -150,10 +143,22 @@ namespace CreatorV2
             _Variables._PasswordInAD = textBoxPassword.Text.Trim();
             _Variables._TypePost = comboBoxTypePost.Text;
 
-            PreviewCreateUsersAccountWithSendEmail newUser = new PreviewCreateUsersAccountWithSendEmail();
-            newUser._Variables = _Variables;
-            newUser._Actions = _Actions;
-            newUser.ShowDialog();
+
+            if (checkBoxWinthEmail.Checked)
+            {
+                PreviewCreateUsersAccountWithSendEmail newUser = new PreviewCreateUsersAccountWithSendEmail();
+                newUser._Variables = _Variables;
+                newUser._Actions = _Actions;
+                newUser.ShowDialog();
+            }
+            else
+            {
+                PreviewCreateUsersAccountWithoutSendEmail newuser = new PreviewCreateUsersAccountWithoutSendEmail();
+                newuser._Variables = _Variables;
+                newuser._Actions = _Actions;
+                newuser.ShowDialog();
+            }
+            
             showLog();
 
         }
@@ -211,10 +216,14 @@ namespace CreatorV2
         public void showLog()
         {
             listBoxAllLog.Items.Clear();
-            foreach (var item in _Variables.Log)
+            if (_Variables.Log != null)
             {
-                listBoxAllLog.Items.Add(item);
+                foreach (var item in _Variables.Log)
+                {
+                    listBoxAllLog.Items.Add(item);
+                }
             }
+            
         }
 
         private void создать¬ременную√руппуToolStripMenuItem_Click(object sender, EventArgs e)

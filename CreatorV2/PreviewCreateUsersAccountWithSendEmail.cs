@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CreatorV2.Classes;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -27,7 +28,6 @@ namespace CreatorV2
 
         private void PreviewCreateUsersAccountWithSendEmail_Load(object sender, EventArgs e)
         {
-
             checkBoxRUS.Checked = true;
             textBoxTo.Text = _Variables._UsersEmail;
             textBoxFrom.Text = $"{_Variables._FIOForSendEmail}, {_Variables._EmailForSendEmail}";
@@ -60,6 +60,27 @@ namespace CreatorV2
         private void buttonCreateUserinAD_Click(object sender, EventArgs e)
         {
             _Actions.CreateADAccount();
+
+            _Actions.AddUserToDefGroups();
+
+            try
+            {
+                if (_Actions.CheckCreateUser())
+                {
+                    _Actions.SendMessage(textBoxMessageMetxt.Text, textBoxSubject.Text);
+                    _Variables.Log.Add("Message send!");
+                }
+                else
+                {
+                    _Variables.Log.Add("Error, try again!");
+                }
+
+            }
+            catch (Exception ex)
+            {
+                _Variables.Log.Add(ex.ToString());
+            }
+
             this.Close();
         }
 
