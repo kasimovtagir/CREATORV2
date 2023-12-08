@@ -48,7 +48,7 @@
             label1.AutoSize = true;
             label1.Location = new Point(12, 18);
             label1.Name = "label1";
-            label1.Size = new Size(83, 32);
+            label1.Size = new Size(97, 38);
             label1.TabIndex = 0;
             label1.Text = "Кому: ";
             // 
@@ -57,7 +57,7 @@
             label2.AutoSize = true;
             label2.Location = new Point(12, 72);
             label2.Name = "label2";
-            label2.Size = new Size(54, 32);
+            label2.Size = new Size(63, 38);
             label2.TabIndex = 1;
             label2.Text = "От: ";
             // 
@@ -66,7 +66,7 @@
             label3.AutoSize = true;
             label3.Location = new Point(12, 123);
             label3.Name = "label3";
-            label3.Size = new Size(161, 32);
+            label3.Size = new Size(188, 38);
             label3.TabIndex = 2;
             label3.Text = "Тема письма:";
             // 
@@ -75,7 +75,7 @@
             label4.AutoSize = true;
             label4.Location = new Point(12, 178);
             label4.Name = "label4";
-            label4.Size = new Size(169, 32);
+            label4.Size = new Size(196, 38);
             label4.TabIndex = 3;
             label4.Text = "Список групп:";
             // 
@@ -85,7 +85,7 @@
             textBoxTo.Font = new Font("Segoe UI", 14F, FontStyle.Bold, GraphicsUnit.Point);
             textBoxTo.Location = new Point(115, 18);
             textBoxTo.Name = "textBoxTo";
-            textBoxTo.Size = new Size(1063, 39);
+            textBoxTo.Size = new Size(1063, 45);
             textBoxTo.TabIndex = 4;
             // 
             // textBoxFrom
@@ -94,7 +94,7 @@
             textBoxFrom.Font = new Font("Segoe UI", 14F, FontStyle.Bold, GraphicsUnit.Point);
             textBoxFrom.Location = new Point(115, 69);
             textBoxFrom.Name = "textBoxFrom";
-            textBoxFrom.Size = new Size(1063, 39);
+            textBoxFrom.Size = new Size(1063, 45);
             textBoxFrom.TabIndex = 5;
             // 
             // textBoxSubject
@@ -103,7 +103,7 @@
             textBoxSubject.Font = new Font("Segoe UI", 14F, FontStyle.Bold, GraphicsUnit.Point);
             textBoxSubject.Location = new Point(211, 120);
             textBoxSubject.Name = "textBoxSubject";
-            textBoxSubject.Size = new Size(967, 39);
+            textBoxSubject.Size = new Size(967, 45);
             textBoxSubject.TabIndex = 6;
             // 
             // textBoxListGroup
@@ -132,9 +132,10 @@
             label5.AutoSize = true;
             label5.Location = new Point(12, 273);
             label5.Name = "label5";
-            label5.Size = new Size(165, 32);
+            label5.Size = new Size(192, 38);
             label5.TabIndex = 9;
             label5.Text = "Текст письма:";
+            label5.Click += label5_Click;
             // 
             // checkBoxRUS
             // 
@@ -143,7 +144,7 @@
             checkBoxRUS.CheckState = CheckState.Checked;
             checkBoxRUS.Location = new Point(12, 1069);
             checkBoxRUS.Name = "checkBoxRUS";
-            checkBoxRUS.Size = new Size(297, 36);
+            checkBoxRUS.Size = new Size(346, 42);
             checkBoxRUS.TabIndex = 10;
             checkBoxRUS.Text = "Текст на Русском языке";
             checkBoxRUS.UseVisualStyleBackColor = true;
@@ -154,7 +155,7 @@
             checkBoxENG.AutoSize = true;
             checkBoxENG.Location = new Point(364, 1069);
             checkBoxENG.Name = "checkBoxENG";
-            checkBoxENG.Size = new Size(340, 36);
+            checkBoxENG.Size = new Size(395, 42);
             checkBoxENG.TabIndex = 11;
             checkBoxENG.Text = "Текст на Английском языке";
             checkBoxENG.UseVisualStyleBackColor = true;
@@ -172,7 +173,7 @@
             // 
             // PreviewCreateUsersAccountWithSendEmail
             // 
-            AutoScaleDimensions = new SizeF(13F, 31F);
+            AutoScaleDimensions = new SizeF(15F, 38F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1189, 1123);
             Controls.Add(buttonCreateUserinAD);

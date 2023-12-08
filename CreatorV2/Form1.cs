@@ -165,7 +165,7 @@ namespace CreatorV2
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            //ForTest(); // метод для тестирования 
+            ForTest(); // метод для тестирования 
         }
 
         private void label2_Click(object sender, EventArgs e)

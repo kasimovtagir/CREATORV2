@@ -36,6 +36,7 @@
             label9 = new Label();
             label8 = new Label();
             comboBox1 = new ComboBox();
+            label1 = new Label();
             SuspendLayout();
             // 
             // label11
@@ -52,9 +53,8 @@
             label10.AutoSize = true;
             label10.Location = new Point(16, 693);
             label10.Name = "label10";
-            label10.Size = new Size(732, 38);
+            label10.Size = new Size(0, 38);
             label10.TabIndex = 32;
-            label10.Text = "Для удаления группы, 2 раза нажми на группу в списке";
             // 
             // listBox1
             // 
@@ -114,11 +114,21 @@
             comboBox1.TabIndex = 26;
             comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
             // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(16, 744);
+            label1.Name = "label1";
+            label1.Size = new Size(732, 38);
+            label1.TabIndex = 34;
+            label1.Text = "Для удаления группы, 2 раза нажми на группу в списке";
+            // 
             // ListDefGroups
             // 
             AutoScaleDimensions = new SizeF(15F, 38F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1102, 748);
+            ClientSize = new Size(1102, 907);
+            Controls.Add(label1);
             Controls.Add(label11);
             Controls.Add(label10);
             Controls.Add(listBox1);
@@ -131,6 +141,7 @@
             Margin = new Padding(4, 5, 4, 5);
             Name = "ListDefGroups";
             Text = "ListDefGropus";
+            FormClosed += ListDefGroups_FormClosed;
             Load += ListDefGropus_Load;
             ResumeLayout(false);
             PerformLayout();
@@ -146,5 +157,6 @@
         private Label label9;
         private Label label8;
         private ComboBox comboBox1;
+        private Label label1;
     }
 }

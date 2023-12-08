@@ -34,14 +34,15 @@ namespace CreatorV2
         }
         public void UploadAllGroups(System.Windows.Forms.ComboBox comboBox)
         {
-            Array.Sort(_Variables.ListAllGroups.ToArray());
-            comboBox.Items.AddRange(_Variables.ListAllGroups.ToArray());
+            string[] arrrayAllGroup = _Variables.ListAllGroups.ToArray();
+            Array.Sort(arrrayAllGroup);
+            comboBox.Items.AddRange(arrrayAllGroup);
             comboBox.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             comboBox.AutoCompleteSource = AutoCompleteSource.CustomSource;
 
             // Создание и заполнение источника автодополнения
             AutoCompleteStringCollection autoCompleteCollectionForGroups3 = new AutoCompleteStringCollection();
-            autoCompleteCollectionForGroups3.AddRange(_Variables.ListAllGroups.ToArray());
+            autoCompleteCollectionForGroups3.AddRange(arrrayAllGroup);
 
             // Установка источника автодополнения ComboBox
             comboBox.AutoCompleteCustomSource = autoCompleteCollectionForGroups3;
@@ -58,13 +59,35 @@ namespace CreatorV2
             {
                 case "Сотрудник":
                     listBox1.Items.Clear();
+
                     label9.Text = "Список групп для Сотрудников";
-                    //uploadListGroup(_Variables._ListGroupForAddEmployeer, listBox1, "ListGroupForEmplyees");
+
                     typePost = "ListGroupForEmplyees";
-                    uploadListGroupFromSettingsFile(typePost);
+
                     groups = _Variables._ListGroupForAddEmployeer;
+
+                    uploadListGroupFromSettingsFile(typePost);
+
                     label10.Text = $"Количество групп: " + listBox1.Items.Count.ToString();
-                    button1.Text += " для Сотрудников";
+
+                    button1.Text = "Добавить в группу для Сотрудников";
+
+                    break;
+
+                case "Произвольный":
+                    listBox1.Items.Clear();
+
+                    label9.Text = "Произвольный список групп";
+
+                    typePost = "Произвольный";
+
+                    groups = _Variables._ListGroupForAddArbitrary;
+
+                    uploadListGroup(typePost);
+
+                    label10.Text = $"Количество групп: " + listBox1.Items.Count.ToString();
+
+                    button1.Text = "Добавить группу в произвольный список";
                     break;
 
                 case "Студент":
@@ -75,19 +98,10 @@ namespace CreatorV2
                     uploadListGroupFromSettingsFile(typePost);
                     groups = _Variables._ListGroupForAddStudent;
                     label10.Text = $"Количество групп: " + listBox1.Items.Count.ToString();
-                    button1.Text += " для Студентов";
+                    button1.Text = "Добавить в группу для Студентов";
                     break;
 
-                case "Произвольный":
-                    listBox1.Items.Clear();
-                    label9.Text = "Произвольный список групп";
-                    //uploadListGroup(_Variables._ListGroupForAddArbitrary, listBox1, "Произвольный");
-                    typePost = "Произвольный";
-                    groups = _Variables._ListGroupForAddArbitrary;
-                    uploadListGroup(typePost);
-                    label10.Text = $"Количество групп: " + listBox1.Items.Count.ToString();
-                    button1.Text = "Добавить группу в произвольный список";
-                    break;
+
 
                 case "СУЗсПФ":
                     listBox1.Items.Clear();
@@ -131,13 +145,13 @@ namespace CreatorV2
             string[] listGroup = _Actions.LoadSettings2(whatneed).Split(";");
 
             Array.Sort(listGroup);
+
             foreach (var item in listGroup)
             {
                 if (!string.IsNullOrEmpty(item))
                 {
                     listBox1.Items.Add(item.Trim());
                 }
-
             }
         }
 
@@ -168,6 +182,7 @@ namespace CreatorV2
                         }
                         _Actions.SaveSettingsV2(typePost, listGroupForEmp);
                     }
+                   
                     comboBox2.Text = string.Empty;
                     break;
 
@@ -210,6 +225,7 @@ namespace CreatorV2
                 default:
                     break;
             }
+            label10.Text = $"Количество групп: " + listBox1.Items.Count.ToString();
         }
 
         //метод который проверяет, есть ли эта группа в списке
@@ -234,18 +250,23 @@ namespace CreatorV2
         private void listBox1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             int selectedIndex = listBox1.SelectedIndex;
+            string choosed = string.Empty;
 
             // Проверяем, что позиция была выбрана и двойной щелчок выполнен
             if (selectedIndex != -1 && e.Button == MouseButtons.Left)
             {
+                choosed = listBox1.Items[selectedIndex].ToString().Trim();
                 // Удаляем позицию из ListBox
                 listBox1.Items.RemoveAt(selectedIndex);
+                
             }
+
+            label1.Text = choosed;
 
             switch (comboBox1.Text)
             {
                 case "Сотрудник":
-                    _Variables._ListGroupForAddEmployeer.Clear();
+                    _Variables._ListGroupForAddEmployeer.Remove(choosed);
                     string listGroupEmp = string.Empty;
                     foreach (var item in listBox1.Items)
                     {
@@ -255,7 +276,7 @@ namespace CreatorV2
                     break;
 
                 case "Студент":
-                    _Variables._ListGroupForAddStudent.Clear();
+                    _Variables._ListGroupForAddStudent.Remove(choosed);
                     string listGroupStud = string.Empty;
                     foreach (var item in listBox1.Items)
                     {
@@ -265,25 +286,24 @@ namespace CreatorV2
                     break;
 
                 case "Произвольный":
-                    _Variables._ListGroupForAddArbitrary.Clear();
+                    _Variables._ListGroupForAddArbitrary.Remove(choosed);
                     string listGroupArb = string.Empty;
                     foreach (var item in listBox1.Items)
                     {
                         _Variables._ListGroupForAddArbitrary.Add(item.ToString());
-                        //listGroupArb += item.ToString() + ";";
                     }
-                    //_Variables._ListGroupForAddArbitrary.Add(listGroupArb);
+
                     break;
 
                 case "СУЗсПФ":
-                    _Variables._ListGroupForAddSUZsPF.Clear();
+                    //_Variables._ListGroupForAddSUZsPF.Clear();
+                    _Variables._ListGroupForAddSUZsPF.Remove(choosed);
                     string listGroupSUZ = string.Empty;
                     foreach (var item in listBox1.Items)
                     {
                         _Variables._ListGroupForAddArbitrary.Add(item.ToString());
-                        //listGroupSUZ += item.ToString() + ";";
                     }
-                    //_Variables._ListGroupForAddArbitrary.Add(listGroupSUZ);
+
                     break;
 
                 default:
@@ -292,6 +312,11 @@ namespace CreatorV2
 
             //_Actions.SaveSettingsV2(typePost, listGroupForEmp);
             label10.Text = $"Количество группу {listBox1.Items.Count}";
+        }
+
+        private void ListDefGroups_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            _Variables.ListAllGroups.Clear();
         }
     }
 }

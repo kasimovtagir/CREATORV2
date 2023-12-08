@@ -920,6 +920,37 @@ namespace CreatorV2.Classes
 
         public void AddUserToDefGroups()
         {
+            switch (_Variables._TypePost)
+            {
+                case "Сотрудник":
+                    foreach (var item in _Variables._ListGroupForAddEmployeer)
+                    {
+                        AddUserToGroup(_Variables._SamAccountInAD, item);
+                    }
+                    break;
+
+                case "Студент":
+                    foreach (var item in _Variables._ListGroupForAddStudent)
+                    {
+                        AddUserToGroup(_Variables._SamAccountInAD, item);
+                    }
+                    break;
+
+                case "Произвольный":
+                    foreach (var item in _Variables._ListGroupForAddArbitrary)
+                    {
+                        AddUserToGroup(_Variables._SamAccountInAD, item);
+                    }
+                    break;
+
+                case "СУЗсПФ":
+                    foreach (var item in _Variables._ListGroupForAddSUZsPF)
+                    {
+                        AddUserToGroup(_Variables._SamAccountInAD, item);
+                    }
+                    break;
+            }
+
             if (_Variables._TypePost == "Сотрудник")
             {
                 foreach (var item in _Variables._ListGroupForAddEmployeer)

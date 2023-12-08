@@ -39,27 +39,39 @@ namespace CreatorV2
         {
             textBoxAccount.Text = _Variables._SamAccountInAD.ToLower() + "@metalab.ifmo.ru";
             textBoxPassword.Text = _Variables._PasswordInAD;
-            if (_Variables._TypePost == "Сотрудник")
+
+            switch (_Variables._TypePost)
             {
-                foreach (var item in _Variables._ListGroupForAddEmployeer)
-                {
-                    textBoxListGroup.Text += item;
-                }
+                case "Сотрудник":
+                    foreach (var item in _Variables._ListGroupForAddEmployeer)
+                    {
+                        textBoxListGroup.Text += item + "; ";
+                    }
+                    break;
+
+                case "Студент":
+                    foreach (var item in _Variables._ListGroupForAddStudent)
+                    {
+                        textBoxListGroup.Text += item + "; ";
+                    }
+                    break;
+
+                case "Произвольный":
+                    foreach (var item in _Variables._ListGroupForAddArbitrary)
+                    {
+                        textBoxListGroup.Text += item + "; ";
+                    }
+                    break;
+
+                case "СУЗсПФ":
+                    foreach (var item in _Variables._ListGroupForAddSUZsPF)
+                    {
+                        textBoxListGroup.Text += item + "; ";
+                    }
+                    break;
             }
-            else if (_Variables._TypePost == "Студент")
-            {
-                foreach (var item in _Variables._ListGroupForAddStudent)
-                {
-                    textBoxListGroup.Text += item;
-                }
-            }
-            else
-            {
-                foreach (var item in _Variables._ListGroupForAddSUZsPF)
-                {
-                    textBoxListGroup.Text += item;
-                }
-            }
+
+           
 
         }
 

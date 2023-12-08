@@ -32,27 +32,66 @@ namespace CreatorV2
             textBoxTo.Text = _Variables._UsersEmail;
             textBoxFrom.Text = $"{_Variables._FIOForSendEmail}, {_Variables._EmailForSendEmail}";
             textBoxSubject.Text = _Variables.SubjectTextMessageForSendEmail_RUS;
+
+            switch (_Variables._TypePost)
+            {
+                case "Сотрудник":
+                    foreach (var item in _Variables._ListGroupForAddEmployeer)
+                    {
+                        if (item == "")
+                        {
+                            continue;
+                        }
+                        else textBoxListGroup.Text += item + "; ";
+                    }
+                    break;
+
+                case "Студент":
+                    foreach (var item in _Variables._ListGroupForAddStudent)
+                    {
+                        if (item == "")
+                        {
+                            continue;
+                        }
+                        else textBoxListGroup.Text += item + "; ";
+                    }
+                    break;
+
+                case "Произвольный":
+                    foreach (var item in _Variables._ListGroupForAddArbitrary)
+                    {
+                        if (item == "")
+                        {
+                            continue;
+                        }
+                        else textBoxListGroup.Text += item + "; ";
+                    }
+                    break;
+
+                case "СУЗсПФ":
+                    foreach (var item in _Variables._ListGroupForAddSUZsPF)
+                    {
+                        if (item == "")
+                        {
+                            continue;
+                        }
+                        else textBoxListGroup.Text += item + "; ";
+                    }
+                    break;
+
+
+            }
+
+
+
+
             if (_Variables._TypePost == "Сотрудник")
             {
-                foreach (var item in _Variables._ListGroupForAddEmployeer)
-                {
-                    if (item == "")
-                    {
-                        continue;
-                    }
-                    else textBoxListGroup.Text += item + "; ";
-                }
+                
             }
             else
             {
-                foreach (var item in _Variables._ListGroupForAddStudent)
-                {
-                    if (item == "")
-                    {
-                        continue;
-                    }
-                    else textBoxListGroup.Text += item + "; ";
-                }
+                
             }
             textBoxMessageMetxt.Text = _Actions.ChangeText("RUS"); // _Variables.TextMessageForSendEMAIL_RUS;
         }
@@ -106,6 +145,11 @@ namespace CreatorV2
                 textBoxSubject.Text = _Variables.SubjectTextMessageForSendEmail_RUS;
                 textBoxMessageMetxt.Text = _Actions.ChangeText("RUS");// _Variables.TextMessageForSendEMAIL_RUS;
             }
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
