@@ -30,8 +30,12 @@ namespace CreatorV2
 
         private void buttonCreateAccountWithoutSendEmail_Click(object sender, EventArgs e)
         {
-            _Actions.CreateADAccount();
-            _Actions.AddUserToDefGroups();
+            if (!_Actions.CheckCreateUser())
+            {
+                _Actions.CreateADAccount();
+                _Actions.AddUserToDefGroups();
+            }
+
             this.Close();
         }
 

@@ -274,7 +274,7 @@ namespace CreatorV2.Classes
         /// </summary>
         /// <param name="displayName"></param>
         /// <returns></returns>
-        static string GetSamAccountNameByDisplayName(string displayName)
+        public string GetSamAccountNameByDisplayName(string displayName)
         {
             using (PrincipalContext context = new PrincipalContext(ContextType.Domain))
             {
@@ -590,9 +590,9 @@ namespace CreatorV2.Classes
             var toAddress = new MailAddress(_Variables._UsersEmail, $"{_Variables._nameInAD} {_Variables._lastNameInAD}");
 
             string fromAppPassword = _Variables._PasswordForSendEmail;
-            
 
-            
+
+
 
             var smtpClient = new SmtpClient
             {
@@ -951,27 +951,6 @@ namespace CreatorV2.Classes
                     break;
             }
 
-            if (_Variables._TypePost == "Сотрудник")
-            {
-                foreach (var item in _Variables._ListGroupForAddEmployeer)
-                {
-                    AddUserToGroup(_Variables._SamAccountInAD, item);
-                }
-            }
-            else if (_Variables._TypePost == "Студент")
-            {
-                foreach (var item in _Variables._ListGroupForAddStudent)
-                {
-                    AddUserToGroup(_Variables._SamAccountInAD, item);
-                }
-            }
-            else
-            {
-                foreach (var item in _Variables._ListGroupForAddSUZsPF)
-                {
-                    AddUserToGroup(_Variables._SamAccountInAD, item);
-                }
-            }
         }
 
 
@@ -989,7 +968,7 @@ namespace CreatorV2.Classes
                 rootPath += $"DC={net}, ";
             }
             _Variables.splitNetBios = _ = rootPath.Remove(rootPath.Length - 2);
-            username = GetSamAccountNameByDisplayName(username);
+            //username = GetSamAccountNameByDisplayName(username);
             try
             {
                 using (PrincipalContext context = new PrincipalContext(ContextType.Domain, _Variables.NetBios, $"OU={_Variables.OU}, {_Variables.splitNetBios}"))

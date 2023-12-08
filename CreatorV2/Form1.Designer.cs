@@ -76,6 +76,7 @@
             checkBoxWinthEmail = new CheckBox();
             buttonCreateUser = new Button();
             listBoxAllLog = new ListBox();
+            включитьТестовыйРежимToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -93,7 +94,7 @@
             // 
             // настройкиToolStripMenuItem
             // 
-            настройкиToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { аккаунтДляОтправкиEmailToolStripMenuItem, текстПисьмаToolStripMenuItem, группыПоУмолчаниюToolStripMenuItem, доменToolStripMenuItem, установитьПарольПользователяПоУмолчаниюToolStripMenuItem });
+            настройкиToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { аккаунтДляОтправкиEmailToolStripMenuItem, текстПисьмаToolStripMenuItem, группыПоУмолчаниюToolStripMenuItem, доменToolStripMenuItem, установитьПарольПользователяПоУмолчаниюToolStripMenuItem, включитьТестовыйРежимToolStripMenuItem });
             настройкиToolStripMenuItem.Name = "настройкиToolStripMenuItem";
             настройкиToolStripMenuItem.Size = new Size(169, 42);
             настройкиToolStripMenuItem.Text = "Настройки";
@@ -455,6 +456,13 @@
             listBoxAllLog.Size = new Size(956, 564);
             listBoxAllLog.TabIndex = 24;
             // 
+            // включитьТестовыйРежимToolStripMenuItem
+            // 
+            включитьТестовыйРежимToolStripMenuItem.Name = "включитьТестовыйРежимToolStripMenuItem";
+            включитьТестовыйРежимToolStripMenuItem.Size = new Size(744, 46);
+            включитьТестовыйРежимToolStripMenuItem.Text = "Включить тестовый режим";
+            включитьТестовыйРежимToolStripMenuItem.Click += включитьТестовыйРежимToolStripMenuItem_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(15F, 38F);
@@ -546,5 +554,6 @@
         private ToolStripMenuItem заблокироватьРазблокироватьПользователяToolStripMenuItem1;
         private ToolStripMenuItem конкретнуюToolStripMenuItem;
         private ToolStripMenuItem всЁToolStripMenuItem1;
+        private ToolStripMenuItem включитьТестовыйРежимToolStripMenuItem;
     }
 }

@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace CreatorV2
 {
@@ -72,7 +73,9 @@ namespace CreatorV2
             }
             else
             {
-                _Actions.AddUserToGroup(comboBoxUserName.Text, comboBoxGroup.Text);
+                string nameUser = comboBoxUserName.Text;
+                nameUser = _Actions.GetSamAccountNameByDisplayName(nameUser);
+                _Actions.AddUserToGroup(nameUser, comboBoxGroup.Text);
                 //_Variables.Log.Add($"Пользователь {comboBoxUserName.Text} добавлен в группу {comboBoxGroup.Text}") ;
             }
 

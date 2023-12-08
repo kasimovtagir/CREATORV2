@@ -46,7 +46,10 @@ namespace CreatorV2
                     {
                         newMainSett.ShowDialog();
                     }
-                    else _Actions.UploadAllSettings();
+                    else
+                    {
+                        _Actions.UploadAllSettings();
+                    }
                 }
             }
         }
@@ -103,8 +106,8 @@ namespace CreatorV2
         {
 
             // Проверяем, что поле имени и фамилии содержит только русские буквы
-            bool checkRUStxtboxName = Regex.IsMatch(textBoxUserNameInAD.Text, "^[А-Яа-я]+$");
-            bool checkRUStxtboxSurName = Regex.IsMatch(textBoxLastNameInAD.Text, "^[А-Яа-я]+$");
+            bool checkRUStxtboxName = Regex.IsMatch(textBoxUserNameInAD.Text.Trim(), "^[А-Яа-я]+$");
+            bool checkRUStxtboxSurName = Regex.IsMatch(textBoxLastNameInAD.Text.Trim(), "^[А-Яа-я]+$");
 
             // Получаем и обрабатываем имя и фамилию
             string name = textBoxUserNameInAD.Text.Trim();
@@ -153,19 +156,33 @@ namespace CreatorV2
             }
             else
             {
-                PreviewCreateUsersAccountWithoutSendEmail newuser = new PreviewCreateUsersAccountWithoutSendEmail();
-                newuser._Variables = _Variables;
-                newuser._Actions = _Actions;
-                newuser.ShowDialog();
+                PreviewCreateUsersAccountWithoutSendEmail newUserWinthoutSendEmail = new PreviewCreateUsersAccountWithoutSendEmail();
+                newUserWinthoutSendEmail._Variables = _Variables;
+                newUserWinthoutSendEmail._Actions = _Actions;
+                newUserWinthoutSendEmail.ShowDialog();
             }
-            
-            showLog();
 
+            showLog();
+            clearForm();
+        }
+
+        public void clearForm()
+        {
+            textBoxUserNameInAD.Text = string.Empty;
+            textBoxLastNameInAD.Text = string.Empty;
+            textBoxLastName.Text = string.Empty;
+            textBoxName.Text = string.Empty;
+            textBoxThirdName.Text = string.Empty;
+            textBoxDescription.Text = string.Empty;
+            textBoxISUID.Text = string.Empty;
+            textBoxEMAIL.Text = string.Empty;
+            comboBoxTypePost.Text = string.Empty;
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            ForTest(); // метод для тестирования 
+            textBoxPassword.Text = _Variables._PasswordInAD;
+            //ForTest(); // метод для тестирования 
         }
 
         private void label2_Click(object sender, EventArgs e)
@@ -222,7 +239,7 @@ namespace CreatorV2
                     listBoxAllLog.Items.Add(item);
                 }
             }
-            
+
         }
 
         private void создатьВременнуюГруппуToolStripMenuItem_Click(object sender, EventArgs e)
@@ -281,6 +298,21 @@ namespace CreatorV2
             textMessage._Variables = _Variables;
             textMessage._Actions = _Actions;
             textMessage.ShowDialog();
+        }
+
+        private void включитьТестовыйРежимToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (textBoxLastNameInAD.Text == "")
+            {
+                ForTest();
+                включитьТестовыйРежимToolStripMenuItem.Text = "Выключить тестовый режим";
+            }
+            else
+            {
+                clearForm();
+                включитьТестовыйРежимToolStripMenuItem.Text = "Включить тестовый режим";
+
+            }
         }
     }
 }
