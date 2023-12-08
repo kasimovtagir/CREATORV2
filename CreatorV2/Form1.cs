@@ -311,7 +311,6 @@ namespace CreatorV2
             {
                 clearForm();
                 включить“естовый–ежимToolStripMenuItem.Text = "¬ключить тестовый режим";
-
             }
         }
     }
