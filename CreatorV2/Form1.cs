@@ -222,11 +222,7 @@ namespace CreatorV2
 
         private void удалитьѕользовател€»з√руппыToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DeleteUserFromGroup deleteUserFromGroup = new DeleteUserFromGroup();
-            deleteUserFromGroup._Variables = _Variables;
-            deleteUserFromGroup._Actions = _Actions;
-            deleteUserFromGroup.ShowDialog();
-            showLog();
+
         }
 
         public void showLog()
@@ -312,6 +308,47 @@ namespace CreatorV2
                 clearForm();
                 включить“естовый–ежимToolStripMenuItem.Text = "¬ключить тестовый режим";
             }
+        }
+
+        private void одинарныйToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DeleteUserFromGroup deleteUserFromGroup = new DeleteUserFromGroup();
+            deleteUserFromGroup._Variables = _Variables;
+            deleteUserFromGroup._Actions = _Actions;
+            deleteUserFromGroup.ShowDialog();
+            showLog();
+        }
+
+        private void множественныйToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            DeleteMoreUsersFromGroup delete = new DeleteMoreUsersFromGroup();
+            delete._Variables = _Variables;
+            delete._Actions = _Actions;
+            delete.ShowDialog();
+            showLog();
+        }
+
+        private void множественныйToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void пользователей¬√руппуToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AddMoreUsersInGroup addMoreUsersInGroup = new AddMoreUsersInGroup();
+            addMoreUsersInGroup._Variables = _Variables;
+            addMoreUsersInGroup._Actions = _Actions;
+            addMoreUsersInGroup.ShowDialog();
+            showLog();
+        }
+
+        private void группѕользователюToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AddMoreGroupsToUser addMoreGroupsToUser = new AddMoreGroupsToUser();
+            addMoreGroupsToUser._Variables = _Variables;
+            addMoreGroupsToUser._Actions = _Actions;
+            addMoreGroupsToUser.ShowDialog(); 
+            showLog();
         }
     }
 }

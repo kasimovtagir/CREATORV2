@@ -1,0 +1,153 @@
+﻿namespace CreatorV2
+{
+    partial class AddMoreGroupsToUser
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            buttonAddUserToList = new Button();
+            comboBoxListUser = new ComboBox();
+            comboBoxListGroups = new ComboBox();
+            button1 = new Button();
+            listBoxChoosedGroup = new ListBox();
+            label3 = new Label();
+            label2 = new Label();
+            label1 = new Label();
+            SuspendLayout();
+            // 
+            // buttonAddUserToList
+            // 
+            buttonAddUserToList.Location = new Point(644, 9);
+            buttonAddUserToList.Name = "buttonAddUserToList";
+            buttonAddUserToList.Size = new Size(130, 47);
+            buttonAddUserToList.TabIndex = 23;
+            buttonAddUserToList.Text = "Добавить";
+            buttonAddUserToList.UseVisualStyleBackColor = true;
+            buttonAddUserToList.Click += buttonAddUserToList_Click;
+            // 
+            // comboBoxListUser
+            // 
+            comboBoxListUser.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point);
+            comboBoxListUser.FormattingEnabled = true;
+            comboBoxListUser.Location = new Point(226, 9);
+            comboBoxListUser.Name = "comboBoxListUser";
+            comboBoxListUser.Size = new Size(412, 46);
+            comboBoxListUser.TabIndex = 22;
+            // 
+            // comboBoxListGroups
+            // 
+            comboBoxListGroups.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point);
+            comboBoxListGroups.FormattingEnabled = true;
+            comboBoxListGroups.Location = new Point(228, 304);
+            comboBoxListGroups.Name = "comboBoxListGroups";
+            comboBoxListGroups.Size = new Size(546, 46);
+            comboBoxListGroups.TabIndex = 21;
+            // 
+            // button1
+            // 
+            button1.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point);
+            button1.Location = new Point(226, 356);
+            button1.Name = "button1";
+            button1.Size = new Size(548, 85);
+            button1.TabIndex = 20;
+            button1.Text = "Добавить выбранные группы";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
+            // 
+            // listBoxChoosedGroup
+            // 
+            listBoxChoosedGroup.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point);
+            listBoxChoosedGroup.FormattingEnabled = true;
+            listBoxChoosedGroup.HorizontalScrollbar = true;
+            listBoxChoosedGroup.ItemHeight = 38;
+            listBoxChoosedGroup.Location = new Point(226, 62);
+            listBoxChoosedGroup.Name = "listBoxChoosedGroup";
+            listBoxChoosedGroup.ScrollAlwaysVisible = true;
+            listBoxChoosedGroup.Size = new Size(548, 232);
+            listBoxChoosedGroup.TabIndex = 19;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point);
+            label3.Location = new Point(28, 312);
+            label3.Name = "label3";
+            label3.Size = new Size(194, 38);
+            label3.TabIndex = 18;
+            label3.Text = "Пользователь";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point);
+            label2.Location = new Point(26, 62);
+            label2.Name = "label2";
+            label2.Size = new Size(166, 38);
+            label2.TabIndex = 17;
+            label2.Text = "Выбранные";
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point);
+            label1.Location = new Point(26, 12);
+            label1.Name = "label1";
+            label1.Size = new Size(112, 38);
+            label1.TabIndex = 16;
+            label1.Text = "Группы";
+            // 
+            // AddMoreGroupsToUser
+            // 
+            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(800, 450);
+            Controls.Add(buttonAddUserToList);
+            Controls.Add(comboBoxListUser);
+            Controls.Add(comboBoxListGroups);
+            Controls.Add(button1);
+            Controls.Add(listBoxChoosedGroup);
+            Controls.Add(label3);
+            Controls.Add(label2);
+            Controls.Add(label1);
+            Name = "AddMoreGroupsToUser";
+            Text = "AddMoreGroupsToUser";
+            Load += AddMoreGroupsToUser_Load;
+            ResumeLayout(false);
+            PerformLayout();
+        }
+
+        #endregion
+
+        private Button buttonAddUserToList;
+        private ComboBox comboBoxListUser;
+        private ComboBox comboBoxListGroups;
+        private Button button1;
+        private ListBox listBoxChoosedGroup;
+        private Label label3;
+        private Label label2;
+        private Label label1;
+    }
+}

@@ -35,12 +35,17 @@
             группыПоУмолчаниюToolStripMenuItem = new ToolStripMenuItem();
             доменToolStripMenuItem = new ToolStripMenuItem();
             установитьПарольПользователяПоУмолчаниюToolStripMenuItem = new ToolStripMenuItem();
+            включитьТестовыйРежимToolStripMenuItem = new ToolStripMenuItem();
             работаСПользователямиToolStripMenuItem = new ToolStripMenuItem();
             парольДляПользователяToolStripMenuItem = new ToolStripMenuItem();
             добавитьПользователяВГруппуToolStripMenuItem = new ToolStripMenuItem();
             одинаныйToolStripMenuItem = new ToolStripMenuItem();
             множественныйToolStripMenuItem = new ToolStripMenuItem();
+            группПользователюToolStripMenuItem = new ToolStripMenuItem();
+            пользователейВГруппуToolStripMenuItem = new ToolStripMenuItem();
             удалитьПользователяИзГруппыToolStripMenuItem = new ToolStripMenuItem();
+            одинарныйToolStripMenuItem = new ToolStripMenuItem();
+            множественныйToolStripMenuItem1 = new ToolStripMenuItem();
             заблокироватьРазблокироватьПользователяToolStripMenuItem = new ToolStripMenuItem();
             установитьДатуИстеченияToolStripMenuItem = new ToolStripMenuItem();
             заблокироватьРазблокироватьПользователяToolStripMenuItem1 = new ToolStripMenuItem();
@@ -76,7 +81,6 @@
             checkBoxWinthEmail = new CheckBox();
             buttonCreateUser = new Button();
             listBoxAllLog = new ListBox();
-            включитьТестовыйРежимToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -134,6 +138,13 @@
             установитьПарольПользователяПоУмолчаниюToolStripMenuItem.Text = "Установить пароль пользователя по умолчанию";
             установитьПарольПользователяПоУмолчаниюToolStripMenuItem.Click += установитьПарольПользователяПоУмолчаниюToolStripMenuItem_Click;
             // 
+            // включитьТестовыйРежимToolStripMenuItem
+            // 
+            включитьТестовыйРежимToolStripMenuItem.Name = "включитьТестовыйРежимToolStripMenuItem";
+            включитьТестовыйРежимToolStripMenuItem.Size = new Size(744, 46);
+            включитьТестовыйРежимToolStripMenuItem.Text = "Включить тестовый режим";
+            включитьТестовыйРежимToolStripMenuItem.Click += включитьТестовыйРежимToolStripMenuItem_Click;
+            // 
             // работаСПользователямиToolStripMenuItem
             // 
             работаСПользователямиToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { парольДляПользователяToolStripMenuItem, добавитьПользователяВГруппуToolStripMenuItem, удалитьПользователяИзГруппыToolStripMenuItem, заблокироватьРазблокироватьПользователяToolStripMenuItem });
@@ -165,16 +176,47 @@
             // 
             // множественныйToolStripMenuItem
             // 
+            множественныйToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { группПользователюToolStripMenuItem, пользователейВГруппуToolStripMenuItem });
             множественныйToolStripMenuItem.Name = "множественныйToolStripMenuItem";
             множественныйToolStripMenuItem.Size = new Size(339, 46);
             множественныйToolStripMenuItem.Text = "Множественный";
+            множественныйToolStripMenuItem.Click += множественныйToolStripMenuItem_Click;
+            // 
+            // группПользователюToolStripMenuItem
+            // 
+            группПользователюToolStripMenuItem.Name = "группПользователюToolStripMenuItem";
+            группПользователюToolStripMenuItem.Size = new Size(568, 46);
+            группПользователюToolStripMenuItem.Text = "Несколько Групп пользователю";
+            группПользователюToolStripMenuItem.Click += группПользователюToolStripMenuItem_Click;
+            // 
+            // пользователейВГруппуToolStripMenuItem
+            // 
+            пользователейВГруппуToolStripMenuItem.Name = "пользователейВГруппуToolStripMenuItem";
+            пользователейВГруппуToolStripMenuItem.Size = new Size(568, 46);
+            пользователейВГруппуToolStripMenuItem.Text = "Неколько Пользователей в группу";
+            пользователейВГруппуToolStripMenuItem.Click += пользователейВГруппуToolStripMenuItem_Click;
             // 
             // удалитьПользователяИзГруппыToolStripMenuItem
             // 
+            удалитьПользователяИзГруппыToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { одинарныйToolStripMenuItem, множественныйToolStripMenuItem1 });
             удалитьПользователяИзГруппыToolStripMenuItem.Name = "удалитьПользователяИзГруппыToolStripMenuItem";
             удалитьПользователяИзГруппыToolStripMenuItem.Size = new Size(713, 46);
             удалитьПользователяИзГруппыToolStripMenuItem.Text = "Удалить пользователя из группы";
             удалитьПользователяИзГруппыToolStripMenuItem.Click += удалитьПользователяИзГруппыToolStripMenuItem_Click;
+            // 
+            // одинарныйToolStripMenuItem
+            // 
+            одинарныйToolStripMenuItem.Name = "одинарныйToolStripMenuItem";
+            одинарныйToolStripMenuItem.Size = new Size(339, 46);
+            одинарныйToolStripMenuItem.Text = "Одинарный";
+            одинарныйToolStripMenuItem.Click += одинарныйToolStripMenuItem_Click;
+            // 
+            // множественныйToolStripMenuItem1
+            // 
+            множественныйToolStripMenuItem1.Name = "множественныйToolStripMenuItem1";
+            множественныйToolStripMenuItem1.Size = new Size(339, 46);
+            множественныйToolStripMenuItem1.Text = "Множественный";
+            множественныйToolStripMenuItem1.Click += множественныйToolStripMenuItem1_Click;
             // 
             // заблокироватьРазблокироватьПользователяToolStripMenuItem
             // 
@@ -456,13 +498,6 @@
             listBoxAllLog.Size = new Size(956, 564);
             listBoxAllLog.TabIndex = 24;
             // 
-            // включитьТестовыйРежимToolStripMenuItem
-            // 
-            включитьТестовыйРежимToolStripMenuItem.Name = "включитьТестовыйРежимToolStripMenuItem";
-            включитьТестовыйРежимToolStripMenuItem.Size = new Size(744, 46);
-            включитьТестовыйРежимToolStripMenuItem.Text = "Включить тестовый режим";
-            включитьТестовыйРежимToolStripMenuItem.Click += включитьТестовыйРежимToolStripMenuItem_Click;
-            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(15F, 38F);
@@ -555,5 +590,9 @@
         private ToolStripMenuItem конкретнуюToolStripMenuItem;
         private ToolStripMenuItem всЁToolStripMenuItem1;
         private ToolStripMenuItem включитьТестовыйРежимToolStripMenuItem;
+        private ToolStripMenuItem одинарныйToolStripMenuItem;
+        private ToolStripMenuItem множественныйToolStripMenuItem1;
+        private ToolStripMenuItem группПользователюToolStripMenuItem;
+        private ToolStripMenuItem пользователейВГруппуToolStripMenuItem;
     }
 }
