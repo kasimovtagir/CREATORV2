@@ -45,50 +45,35 @@ namespace CreatorV2
                     }
                     else
                     {
-                        string usernames= _Actions.GetSamAccountNameByDisplayName(username.ToString());
+                        string usernames = _Actions.GetSamAccountNameByDisplayName(username.ToString());
                         _Actions.AddUserToGroup(usernames, comboBoxListGroup.Text);
-                        this.Close();
+                        
                     }
                 }
+                this.Close();
             }
-
-
-
-            /* if (comboBoxListUser.Text == string.Empty | comboBoxListGroup.Text == string.Empty)
-             {
-                 MessageBox.Show("Поля пустые, пожалуйста введите необходимые данные.");
-             }
-             else
-             {
-                 *//*                string nameUser = comboBoxUserName.Text;
-                                 nameUser = _Actions.GetSamAccountNameByDisplayName(nameUser);
-                                 _Actions.AddUserToGroup(nameUser, comboBoxGroup.Text);
-                                 //_Variables.Log.Add($"Пользователь {comboBoxUserName.Text} добавлен в группу {comboBoxGroup.Text}") ;*//*
-             }*/
-
-            //this.Close();
         }
 
         private void buttonAddUserToList_Click(object sender, EventArgs e)
         {
             // Проверяем, выбран ли пользователь в comboBoxListUser
-            if (string.IsNullOrEmpty(comboBoxListGroup.Text))
+            if (string.IsNullOrEmpty(comboBoxListUser.Text))
             {
                 MessageBox.Show("Выберите пользователя.");
             }
             else
             {
                 // Проверяем, содержится ли выбранный пользователь уже в списке
-                if (!listBoxChoosedUser.Items.Contains(comboBoxListGroup.Text))
+                if (!listBoxChoosedUser.Items.Contains(comboBoxListUser.Text))
                 {
-                    listBoxChoosedUser.Items.Add(comboBoxListGroup.Text);
+                    listBoxChoosedUser.Items.Add(comboBoxListUser.Text);
                 }
                 else
                 {
                     MessageBox.Show("Пользователь уже в списке.");
                 }
 
-                comboBoxListGroup.Text = string.Empty; // Очищаем текстовое поле comboBoxListUser
+                comboBoxListUser.Text = string.Empty; // Очищаем текстовое поле comboBoxListUser
             }
         }
 
@@ -129,6 +114,12 @@ namespace CreatorV2
 
             // Установка источника автодополнения ComboBox
             comboBoxListGroup.AutoCompleteCustomSource = autoCompleteCollection2;
+        }
+
+        private void AddMoreUsersInGroup_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            _Variables.ListAllGroups.Clear();
+            _Variables.AllUsersInAD.Clear();
         }
     }
 }

@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             buttonAddUserToList = new Button();
+            comboBoxListGroup = new ComboBox();
             comboBoxListUser = new ComboBox();
-            comboBoxListGroups = new ComboBox();
             button1 = new Button();
             listBoxChoosedGroup = new ListBox();
             label3 = new Label();
@@ -48,23 +48,23 @@
             buttonAddUserToList.UseVisualStyleBackColor = true;
             buttonAddUserToList.Click += buttonAddUserToList_Click;
             // 
+            // comboBoxListGroup
+            // 
+            comboBoxListGroup.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point);
+            comboBoxListGroup.FormattingEnabled = true;
+            comboBoxListGroup.Location = new Point(226, 9);
+            comboBoxListGroup.Name = "comboBoxListGroup";
+            comboBoxListGroup.Size = new Size(412, 46);
+            comboBoxListGroup.TabIndex = 22;
+            // 
             // comboBoxListUser
             // 
             comboBoxListUser.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point);
             comboBoxListUser.FormattingEnabled = true;
-            comboBoxListUser.Location = new Point(226, 9);
+            comboBoxListUser.Location = new Point(228, 304);
             comboBoxListUser.Name = "comboBoxListUser";
-            comboBoxListUser.Size = new Size(412, 46);
-            comboBoxListUser.TabIndex = 22;
-            // 
-            // comboBoxListGroups
-            // 
-            comboBoxListGroups.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point);
-            comboBoxListGroups.FormattingEnabled = true;
-            comboBoxListGroups.Location = new Point(228, 304);
-            comboBoxListGroups.Name = "comboBoxListGroups";
-            comboBoxListGroups.Size = new Size(546, 46);
-            comboBoxListGroups.TabIndex = 21;
+            comboBoxListUser.Size = new Size(546, 46);
+            comboBoxListUser.TabIndex = 21;
             // 
             // button1
             // 
@@ -125,8 +125,8 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
             Controls.Add(buttonAddUserToList);
+            Controls.Add(comboBoxListGroup);
             Controls.Add(comboBoxListUser);
-            Controls.Add(comboBoxListGroups);
             Controls.Add(button1);
             Controls.Add(listBoxChoosedGroup);
             Controls.Add(label3);
@@ -134,6 +134,7 @@
             Controls.Add(label1);
             Name = "AddMoreGroupsToUser";
             Text = "AddMoreGroupsToUser";
+            FormClosed += AddMoreGroupsToUser_FormClosed;
             Load += AddMoreGroupsToUser_Load;
             ResumeLayout(false);
             PerformLayout();
@@ -142,8 +143,8 @@
         #endregion
 
         private Button buttonAddUserToList;
+        private ComboBox comboBoxListGroup;
         private ComboBox comboBoxListUser;
-        private ComboBox comboBoxListGroups;
         private Button button1;
         private ListBox listBoxChoosedGroup;
         private Label label3;

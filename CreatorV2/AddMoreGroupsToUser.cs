@@ -24,7 +24,33 @@ namespace CreatorV2
 
         private void button1_Click(object sender, EventArgs e)
         {
-
+            string groupName = comboBoxListUser.Text;
+            if (string.IsNullOrEmpty(groupName))
+            {
+                MessageBox.Show("Выберите группу.");
+            }
+            else if (listBoxChoosedGroup.Items.Count == 0)
+            {
+                MessageBox.Show($"Нет пользователей для удаления из группы {groupName}");
+            }
+            else
+            {
+                foreach (var groups in listBoxChoosedGroup.Items)
+                {
+                    if (string.IsNullOrEmpty(groups.ToString()))
+                    {
+                        MessageBox.Show("Пустое значение.");
+                        continue;
+                    }
+                    else
+                    {
+                        string usernames = _Actions.GetSamAccountNameByDisplayName(groups.ToString());
+                        _Actions.AddUserToGroup(usernames, comboBoxListUser.Text);
+                        
+                    }
+                }
+                this.Close();
+            }
         }
 
         private void AddMoreGroupsToUser_Load(object sender, EventArgs e)
@@ -34,59 +60,65 @@ namespace CreatorV2
             Array.Sort(names);
             // Заполнение ComboBox вариантами
             //comboBox1.Items.AddRange(names);
-            comboBoxListGroups.Items.AddRange(names);
-
-            // Настройка автодополнения
-            comboBoxListGroups.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-            comboBoxListGroups.AutoCompleteSource = AutoCompleteSource.CustomSource;
-
-            // Создание и заполнение источника автодополнения
-            AutoCompleteStringCollection autoCompleteCollection = new AutoCompleteStringCollection();
-            autoCompleteCollection.AddRange(names);
-
-            // Установка источника автодополнения ComboBox
-            comboBoxListGroups.AutoCompleteCustomSource = autoCompleteCollection;
-
-
-            _Actions.GetGroups();
-            string[] group_names = _Variables.ListAllGroups.ToArray(); // Data.AllGroupsInAD.ToArray();
-            Array.Sort(group_names);
-            // Заполнение ComboBox вариантами
-            comboBoxListUser.Items.AddRange(group_names);
+            comboBoxListUser.Items.AddRange(names);
 
             // Настройка автодополнения
             comboBoxListUser.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             comboBoxListUser.AutoCompleteSource = AutoCompleteSource.CustomSource;
 
             // Создание и заполнение источника автодополнения
+            AutoCompleteStringCollection autoCompleteCollection = new AutoCompleteStringCollection();
+            autoCompleteCollection.AddRange(names);
+
+            // Установка источника автодополнения ComboBox
+            comboBoxListUser.AutoCompleteCustomSource = autoCompleteCollection;
+
+
+            _Actions.GetGroups();
+            string[] group_names = _Variables.ListAllGroups.ToArray(); // Data.AllGroupsInAD.ToArray();
+            Array.Sort(group_names);
+            // Заполнение ComboBox вариантами
+            comboBoxListGroup.Items.AddRange(group_names);
+
+            // Настройка автодополнения
+            comboBoxListGroup.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            comboBoxListGroup.AutoCompleteSource = AutoCompleteSource.CustomSource;
+
+            // Создание и заполнение источника автодополнения
             AutoCompleteStringCollection autoCompleteCollection2 = new AutoCompleteStringCollection();
             autoCompleteCollection2.AddRange(group_names);
 
             // Установка источника автодополнения ComboBox
-            comboBoxListUser.AutoCompleteCustomSource = autoCompleteCollection2;
+            comboBoxListGroup.AutoCompleteCustomSource = autoCompleteCollection2;
         }
 
         private void buttonAddUserToList_Click(object sender, EventArgs e)
         {
             // Проверяем, выбран ли пользователь в comboBoxListUser
-            if (string.IsNullOrEmpty(comboBoxListUser.Text))
+            if (string.IsNullOrEmpty(comboBoxListGroup.Text))
             {
                 MessageBox.Show("Выберите пользователя.");
             }
             else
             {
                 // Проверяем, содержится ли выбранный пользователь уже в списке
-                if (!listBoxChoosedUser.Items.Contains(comboBoxListUser.Text))
+                if (!listBoxChoosedGroup.Items.Contains(comboBoxListGroup.Text))
                 {
-                    listBoxChoosedUser.Items.Add(comboBoxListUser.Text);
+                    listBoxChoosedGroup.Items.Add(comboBoxListGroup.Text);
                 }
                 else
                 {
                     MessageBox.Show("Пользователь уже в списке.");
                 }
 
-                comboBoxListUser.Text = string.Empty; // Очищаем текстовое поле comboBoxListUser
+                comboBoxListGroup.Text = string.Empty; // Очищаем текстовое поле comboBoxListUser
             }
+        }
+
+        private void AddMoreGroupsToUser_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            _Variables.ListAllGroups.Clear();
+            _Variables.AllUsersInAD.Clear();
         }
     }
 }

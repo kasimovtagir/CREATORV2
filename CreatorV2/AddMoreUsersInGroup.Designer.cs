@@ -134,6 +134,7 @@
             Controls.Add(label1);
             Name = "AddMoreUsersInGroup";
             Text = "AddMoreUsersInGroup";
+            FormClosed += AddMoreUsersInGroup_FormClosed;
             Load += AddMoreUsersInGroup_Load;
             ResumeLayout(false);
             PerformLayout();
