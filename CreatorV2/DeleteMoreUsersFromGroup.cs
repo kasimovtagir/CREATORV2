@@ -116,8 +116,7 @@ namespace CreatorV2
                     }
                     else
                     {
-                        string usernames = _Actions.GetSamAccountNameByDisplayName(username.ToString());
-                        _Actions.RemoveUserFroumGroup(usernames.ToString(), groupName);
+                        _Actions.RemoveUserFroumGroup(username.ToString(), groupName);
                         this.Close();
                     }
                 }
