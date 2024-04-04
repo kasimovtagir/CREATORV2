@@ -40,9 +40,10 @@
             // 
             // buttonAddUserToList
             // 
-            buttonAddUserToList.Location = new Point(634, 11);
+            buttonAddUserToList.Location = new Point(507, 9);
+            buttonAddUserToList.Margin = new Padding(2, 2, 2, 2);
             buttonAddUserToList.Name = "buttonAddUserToList";
-            buttonAddUserToList.Size = new Size(130, 47);
+            buttonAddUserToList.Size = new Size(104, 38);
             buttonAddUserToList.TabIndex = 15;
             buttonAddUserToList.Text = "Добавить";
             buttonAddUserToList.UseVisualStyleBackColor = true;
@@ -52,26 +53,29 @@
             // 
             comboBoxListGroup.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point);
             comboBoxListGroup.FormattingEnabled = true;
-            comboBoxListGroup.Location = new Point(216, 302);
+            comboBoxListGroup.Location = new Point(173, 242);
+            comboBoxListGroup.Margin = new Padding(2, 2, 2, 2);
             comboBoxListGroup.Name = "comboBoxListGroup";
-            comboBoxListGroup.Size = new Size(548, 46);
+            comboBoxListGroup.Size = new Size(439, 39);
             comboBoxListGroup.TabIndex = 14;
             // 
             // comboBoxListUser
             // 
             comboBoxListUser.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point);
             comboBoxListUser.FormattingEnabled = true;
-            comboBoxListUser.Location = new Point(216, 12);
+            comboBoxListUser.Location = new Point(173, 10);
+            comboBoxListUser.Margin = new Padding(2, 2, 2, 2);
             comboBoxListUser.Name = "comboBoxListUser";
-            comboBoxListUser.Size = new Size(412, 46);
+            comboBoxListUser.Size = new Size(330, 39);
             comboBoxListUser.TabIndex = 13;
             // 
             // button1
             // 
             button1.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point);
-            button1.Location = new Point(216, 358);
+            button1.Location = new Point(173, 286);
+            button1.Margin = new Padding(2, 2, 2, 2);
             button1.Name = "button1";
-            button1.Size = new Size(548, 85);
+            button1.Size = new Size(438, 68);
             button1.TabIndex = 12;
             button1.Text = "Добавить выбранных пользователей";
             button1.UseVisualStyleBackColor = true;
@@ -82,20 +86,23 @@
             listBoxChoosedUser.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point);
             listBoxChoosedUser.FormattingEnabled = true;
             listBoxChoosedUser.HorizontalScrollbar = true;
-            listBoxChoosedUser.ItemHeight = 38;
-            listBoxChoosedUser.Location = new Point(216, 64);
+            listBoxChoosedUser.ItemHeight = 31;
+            listBoxChoosedUser.Location = new Point(173, 51);
+            listBoxChoosedUser.Margin = new Padding(2, 2, 2, 2);
             listBoxChoosedUser.Name = "listBoxChoosedUser";
             listBoxChoosedUser.ScrollAlwaysVisible = true;
-            listBoxChoosedUser.Size = new Size(548, 232);
+            listBoxChoosedUser.Size = new Size(439, 159);
             listBoxChoosedUser.TabIndex = 11;
+            listBoxChoosedUser.MouseDoubleClick += listBoxChoosedUser_MouseDoubleClick;
             // 
             // label3
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point);
-            label3.Location = new Point(18, 314);
+            label3.Location = new Point(14, 251);
+            label3.Margin = new Padding(2, 0, 2, 0);
             label3.Name = "label3";
-            label3.Size = new Size(106, 38);
+            label3.Size = new Size(91, 32);
             label3.TabIndex = 10;
             label3.Text = "Группа";
             // 
@@ -103,9 +110,10 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point);
-            label2.Location = new Point(16, 64);
+            label2.Location = new Point(13, 51);
+            label2.Margin = new Padding(2, 0, 2, 0);
             label2.Name = "label2";
-            label2.Size = new Size(166, 38);
+            label2.Size = new Size(143, 32);
             label2.TabIndex = 9;
             label2.Text = "Выбранные";
             // 
@@ -113,17 +121,18 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point);
-            label1.Location = new Point(16, 14);
+            label1.Location = new Point(13, 11);
+            label1.Margin = new Padding(2, 0, 2, 0);
             label1.Name = "label1";
-            label1.Size = new Size(194, 38);
+            label1.Size = new Size(168, 32);
             label1.TabIndex = 8;
             label1.Text = "Пользователь";
             // 
             // AddMoreUsersInGroup
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(785, 456);
+            ClientSize = new Size(628, 365);
             Controls.Add(buttonAddUserToList);
             Controls.Add(comboBoxListGroup);
             Controls.Add(comboBoxListUser);
@@ -132,6 +141,7 @@
             Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(label1);
+            Margin = new Padding(2, 2, 2, 2);
             Name = "AddMoreUsersInGroup";
             Text = "AddMoreUsersInGroup";
             FormClosed += AddMoreUsersInGroup_FormClosed;

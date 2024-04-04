@@ -182,7 +182,7 @@ namespace CreatorV2
                         }
                         _Actions.SaveSettingsV2(typePost, listGroupForEmp);
                     }
-                   
+
                     comboBox2.Text = string.Empty;
                     break;
 
@@ -258,7 +258,6 @@ namespace CreatorV2
                 choosed = listBox1.Items[selectedIndex].ToString().Trim();
                 // Удаляем позицию из ListBox
                 listBox1.Items.RemoveAt(selectedIndex);
-                
             }
 
             label1.Text = choosed;
@@ -317,6 +316,11 @@ namespace CreatorV2
         private void ListDefGroups_FormClosed(object sender, FormClosedEventArgs e)
         {
             _Variables.ListAllGroups.Clear();
+        }
+
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

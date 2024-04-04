@@ -44,7 +44,7 @@
             label11.AutoSize = true;
             label11.Location = new Point(13, 112);
             label11.Name = "label11";
-            label11.Size = new Size(325, 38);
+            label11.Size = new Size(282, 32);
             label11.TabIndex = 33;
             label11.Text = "Добавить новую группу";
             // 
@@ -53,19 +53,20 @@
             label10.AutoSize = true;
             label10.Location = new Point(16, 693);
             label10.Name = "label10";
-            label10.Size = new Size(0, 38);
+            label10.Size = new Size(0, 32);
             label10.TabIndex = 32;
             // 
             // listBox1
             // 
             listBox1.FormattingEnabled = true;
             listBox1.HorizontalScrollbar = true;
-            listBox1.ItemHeight = 38;
+            listBox1.ItemHeight = 31;
             listBox1.Location = new Point(13, 295);
             listBox1.Name = "listBox1";
             listBox1.ScrollAlwaysVisible = true;
-            listBox1.Size = new Size(1075, 384);
+            listBox1.Size = new Size(1075, 376);
             listBox1.TabIndex = 31;
+            listBox1.SelectedIndexChanged += listBox1_SelectedIndexChanged;
             listBox1.MouseDoubleClick += listBox1_MouseDoubleClick;
             // 
             // button1
@@ -83,7 +84,7 @@
             comboBox2.FormattingEnabled = true;
             comboBox2.Location = new Point(12, 153);
             comboBox2.Name = "comboBox2";
-            comboBox2.Size = new Size(1074, 46);
+            comboBox2.Size = new Size(1074, 39);
             comboBox2.TabIndex = 29;
             // 
             // label9
@@ -91,7 +92,7 @@
             label9.AutoSize = true;
             label9.Location = new Point(15, 260);
             label9.Name = "label9";
-            label9.Size = new Size(91, 38);
+            label9.Size = new Size(78, 32);
             label9.TabIndex = 28;
             label9.Text = "label9";
             // 
@@ -100,7 +101,7 @@
             label8.AutoSize = true;
             label8.Location = new Point(12, 9);
             label8.Name = "label8";
-            label8.Size = new Size(167, 38);
+            label8.Size = new Size(145, 32);
             label8.TabIndex = 27;
             label8.Text = "Выбери тип";
             // 
@@ -110,7 +111,7 @@
             comboBox1.Items.AddRange(new object[] { "Сотрудник", "Студент", "Произвольный", "СУЗсПФ" });
             comboBox1.Location = new Point(12, 50);
             comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(1076, 46);
+            comboBox1.Size = new Size(1076, 39);
             comboBox1.TabIndex = 26;
             comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
             // 
@@ -119,13 +120,13 @@
             label1.AutoSize = true;
             label1.Location = new Point(16, 744);
             label1.Name = "label1";
-            label1.Size = new Size(732, 38);
+            label1.Size = new Size(633, 32);
             label1.TabIndex = 34;
             label1.Text = "Для удаления группы, 2 раза нажми на группу в списке";
             // 
             // ListDefGroups
             // 
-            AutoScaleDimensions = new SizeF(15F, 38F);
+            AutoScaleDimensions = new SizeF(13F, 31F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1102, 907);
             Controls.Add(label1);

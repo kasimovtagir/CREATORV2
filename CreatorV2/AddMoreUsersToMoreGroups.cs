@@ -11,49 +11,70 @@ using System.Windows.Forms;
 
 namespace CreatorV2
 {
-    public partial class AddMoreGroupsToUser : Form
+    public partial class AddMoreUsersToMoreGroups : Form
     {
         public Variables _Variables;
         public Actions _Actions;
-        public AddMoreGroupsToUser()
+        public AddMoreUsersToMoreGroups()
         {
             InitializeComponent();
+
             _Variables = new Variables();
             _Actions = new Actions(_Variables);
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void buttonAdd_Click(object sender, EventArgs e)
         {
-            string groupName = comboBoxListUser.Text;
-            if (string.IsNullOrEmpty(groupName))
+            if (string.IsNullOrEmpty(comboBoxListUser.Text))
             {
-                MessageBox.Show("Выберите группу.");
-            }
-            else if (listBoxChoosedGroup.Items.Count == 0)
-            {
-                MessageBox.Show($"Нет пользователей для удаления из группы {groupName}");
+                MessageBox.Show("Выберите пользователя.");
             }
             else
             {
-                foreach (var groups in listBoxChoosedGroup.Items)
+                // Проверяем, содержится ли выбранный пользователь уже в списке
+                if (!listBox1.Items.Contains(comboBoxListUser.Text))
                 {
-                    if (string.IsNullOrEmpty(groups.ToString()))
-                    {
-                        MessageBox.Show("Пустое значение.");
-                        continue;
-                    }
-                    else
-                    {
-                        string usernames = _Actions.GetSamAccountNameByDisplayName(groups.ToString());
-                        _Actions.AddUserToGroup(usernames, comboBoxListUser.Text);
-
-                    }
+                    listBox1.Items.Add(comboBoxListUser.Text);
                 }
-                this.Close();
+                else
+                {
+                    MessageBox.Show("Пользователь уже в списке.");
+                }
+
+                comboBoxListUser.Text = string.Empty; // Очищаем текстовое поле comboBoxListUser
             }
         }
 
-        private void AddMoreGroupsToUser_Load(object sender, EventArgs e)
+        private void buttonMoreAdd_Click(object sender, EventArgs e)
+        {
+            if (listBox1.Items.Count == 0 | listBox2.Items.Count == 0)
+            {
+                MessageBox.Show("Поля пустые.");
+            }
+            else
+            {
+                foreach (var itemListGroup in listBox2.Items)
+                {
+                    foreach (var username in listBox1.Items)
+                    {
+                        if (string.IsNullOrEmpty(username.ToString()))
+                        {
+                            MessageBox.Show("Пустое значение.");
+                            continue;
+                        }
+                        else
+                        {
+                            string usernames = _Actions.GetSamAccountNameByDisplayName(username.ToString());
+                            //MessageBox.Show($"{usernames} to {itemListGroup}");
+                            _Actions.AddUserToGroup(usernames, itemListGroup.ToString());
+                        }
+                    }
+                }
+            }
+            this.Close();
+        }
+
+        private void AddMoreUsersToMoreGroups_Load(object sender, EventArgs e)
         {
             _Actions.GetAllUser();
             string[] names = _Variables.AllUsersInAD.ToArray(); //Data.AllUsersInAD.ToArray();
@@ -92,9 +113,8 @@ namespace CreatorV2
             comboBoxListGroup.AutoCompleteCustomSource = autoCompleteCollection2;
         }
 
-        private void buttonAddUserToList_Click(object sender, EventArgs e)
+        private void buttonAddGroups_Click(object sender, EventArgs e)
         {
-            // Проверяем, выбран ли пользователь в comboBoxListUser
             if (string.IsNullOrEmpty(comboBoxListGroup.Text))
             {
                 MessageBox.Show("Выберите пользователя.");
@@ -102,9 +122,9 @@ namespace CreatorV2
             else
             {
                 // Проверяем, содержится ли выбранный пользователь уже в списке
-                if (!listBoxChoosedGroup.Items.Contains(comboBoxListGroup.Text))
+                if (!listBox2.Items.Contains(comboBoxListGroup.Text))
                 {
-                    listBoxChoosedGroup.Items.Add(comboBoxListGroup.Text);
+                    listBox2.Items.Add(comboBoxListGroup.Text);
                 }
                 else
                 {
@@ -115,24 +135,43 @@ namespace CreatorV2
             }
         }
 
-        private void AddMoreGroupsToUser_FormClosed(object sender, FormClosedEventArgs e)
+        private void AddMoreUsersToMoreGroups_FormClosing(object sender, FormClosingEventArgs e)
         {
             _Variables.ListAllGroups.Clear();
             _Variables.AllUsersInAD.Clear();
         }
 
-        private void listBoxChoosedGroup_MouseDoubleClick(object sender, MouseEventArgs e)
+        private void listBox1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            int selectedIndex = listBoxChoosedGroup.SelectedIndex;
+            int selectedIndex = listBox1.SelectedIndex;
             string choosed = string.Empty;
 
             // Проверяем, что позиция была выбрана и двойной щелчок выполнен
             if (selectedIndex != -1 && e.Button == MouseButtons.Left)
             {
-                choosed = listBoxChoosedGroup.Items[selectedIndex].ToString().Trim();
+                choosed = listBox1.Items[selectedIndex].ToString().Trim();
                 // Удаляем позицию из ListBox
-                listBoxChoosedGroup.Items.RemoveAt(selectedIndex);
+                listBox1.Items.RemoveAt(selectedIndex);
             }
+        }
+
+        private void listBox2_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            int selectedIndex = listBox2.SelectedIndex;
+            string choosed = string.Empty;
+
+            // Проверяем, что позиция была выбрана и двойной щелчок выполнен
+            if (selectedIndex != -1 && e.Button == MouseButtons.Left)
+            {
+                choosed = listBox2.Items[selectedIndex].ToString().Trim();
+                // Удаляем позицию из ListBox
+                listBox2.Items.RemoveAt(selectedIndex);
+            }
+        }
+
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

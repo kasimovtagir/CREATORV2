@@ -32,7 +32,7 @@ namespace CreatorV2
             }
             else if (listBoxChoosedUser.Items.Count == 0)
             {
-                MessageBox.Show($"Нет пользователей для удаления из группы {groupName}");
+                MessageBox.Show($"Нет пользователей для добавления в группы {groupName}");
             }
             else
             {
@@ -47,7 +47,6 @@ namespace CreatorV2
                     {
                         string usernames = _Actions.GetSamAccountNameByDisplayName(username.ToString());
                         _Actions.AddUserToGroup(usernames, comboBoxListGroup.Text);
-                        
                     }
                 }
                 this.Close();
@@ -120,6 +119,20 @@ namespace CreatorV2
         {
             _Variables.ListAllGroups.Clear();
             _Variables.AllUsersInAD.Clear();
+        }
+
+        private void listBoxChoosedUser_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            int selectedIndex = listBoxChoosedUser.SelectedIndex;
+            string choosed = string.Empty;
+
+            // Проверяем, что позиция была выбрана и двойной щелчок выполнен
+            if (selectedIndex != -1 && e.Button == MouseButtons.Left)
+            {
+                choosed = listBoxChoosedUser.Items[selectedIndex].ToString().Trim();
+                // Удаляем позицию из ListBox
+                listBoxChoosedUser.Items.RemoveAt(selectedIndex);
+            }
         }
     }
 }

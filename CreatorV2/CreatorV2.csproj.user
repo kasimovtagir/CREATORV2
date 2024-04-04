@@ -10,6 +10,9 @@
     <Compile Update="AddMoreUsersInGroup.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="AddMoreUsersToMoreGroups.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="AddUserInGroup.cs">
       <SubType>Form</SubType>
     </Compile>

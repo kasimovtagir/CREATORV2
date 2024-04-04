@@ -321,11 +321,7 @@ namespace CreatorV2
 
         private void множественныйToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            DeleteMoreUsersFromGroup delete = new DeleteMoreUsersFromGroup();
-            delete._Variables = _Variables;
-            delete._Actions = _Actions;
-            delete.ShowDialog();
-            showLog();
+
         }
 
         private void множественныйToolStripMenuItem_Click(object sender, EventArgs e)
@@ -347,8 +343,31 @@ namespace CreatorV2
             AddMoreGroupsToUser addMoreGroupsToUser = new AddMoreGroupsToUser();
             addMoreGroupsToUser._Variables = _Variables;
             addMoreGroupsToUser._Actions = _Actions;
-            addMoreGroupsToUser.ShowDialog(); 
+            addMoreGroupsToUser.ShowDialog();
             showLog();
+        }
+
+        private void несколькоѕользователе¬Ќесколько√руппToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AddMoreUsersToMoreGroups addMoreUsersToMoreGroups = new AddMoreUsersToMoreGroups();
+            addMoreUsersToMoreGroups._Variables = _Variables;
+            addMoreUsersToMoreGroups._Actions = _Actions;
+            addMoreUsersToMoreGroups.ShowDialog();
+            showLog();
+        }
+
+        private void несколькоѕользователей»з√руппыToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DeleteMoreUsersFromGroup delete = new DeleteMoreUsersFromGroup();
+            delete._Variables = _Variables;
+            delete._Actions = _Actions;
+            delete.ShowDialog();
+            showLog();
+        }
+
+        private void несколько√рупп”ѕользовател€ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

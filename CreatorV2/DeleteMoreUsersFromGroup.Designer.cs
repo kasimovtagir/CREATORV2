@@ -42,9 +42,10 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point);
-            label1.Location = new Point(12, 15);
+            label1.Location = new Point(10, 53);
+            label1.Margin = new Padding(2, 0, 2, 0);
             label1.Name = "label1";
-            label1.Size = new Size(194, 38);
+            label1.Size = new Size(168, 32);
             label1.TabIndex = 0;
             label1.Text = "Пользователь";
             // 
@@ -52,9 +53,10 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point);
-            label2.Location = new Point(12, 65);
+            label2.Location = new Point(10, 93);
+            label2.Margin = new Padding(2, 0, 2, 0);
             label2.Name = "label2";
-            label2.Size = new Size(166, 38);
+            label2.Size = new Size(143, 32);
             label2.TabIndex = 1;
             label2.Text = "Выбранные";
             // 
@@ -62,9 +64,10 @@
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point);
-            label3.Location = new Point(14, 315);
+            label3.Location = new Point(11, 19);
+            label3.Margin = new Padding(2, 0, 2, 0);
             label3.Name = "label3";
-            label3.Size = new Size(106, 38);
+            label3.Size = new Size(91, 32);
             label3.TabIndex = 2;
             label3.Text = "Группа";
             // 
@@ -73,19 +76,22 @@
             listBoxChoosedUser.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point);
             listBoxChoosedUser.FormattingEnabled = true;
             listBoxChoosedUser.HorizontalScrollbar = true;
-            listBoxChoosedUser.ItemHeight = 38;
-            listBoxChoosedUser.Location = new Point(212, 65);
+            listBoxChoosedUser.ItemHeight = 31;
+            listBoxChoosedUser.Location = new Point(170, 93);
+            listBoxChoosedUser.Margin = new Padding(2, 2, 2, 2);
             listBoxChoosedUser.Name = "listBoxChoosedUser";
             listBoxChoosedUser.ScrollAlwaysVisible = true;
-            listBoxChoosedUser.Size = new Size(548, 232);
+            listBoxChoosedUser.Size = new Size(439, 159);
             listBoxChoosedUser.TabIndex = 3;
+            listBoxChoosedUser.MouseDoubleClick += listBoxChoosedUser_MouseDoubleClick;
             // 
             // button1
             // 
             button1.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point);
-            button1.Location = new Point(212, 359);
+            button1.Location = new Point(170, 283);
+            button1.Margin = new Padding(2, 2, 2, 2);
             button1.Name = "button1";
-            button1.Size = new Size(548, 85);
+            button1.Size = new Size(438, 68);
             button1.TabIndex = 4;
             button1.Text = "Удалить выбранных пользователей";
             button1.UseVisualStyleBackColor = true;
@@ -95,25 +101,29 @@
             // 
             comboBoxListUser.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point);
             comboBoxListUser.FormattingEnabled = true;
-            comboBoxListUser.Location = new Point(212, 13);
+            comboBoxListUser.Location = new Point(170, 51);
+            comboBoxListUser.Margin = new Padding(2, 2, 2, 2);
             comboBoxListUser.Name = "comboBoxListUser";
-            comboBoxListUser.Size = new Size(412, 46);
+            comboBoxListUser.Size = new Size(330, 39);
             comboBoxListUser.TabIndex = 5;
             // 
             // comboBoxListGroup
             // 
             comboBoxListGroup.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point);
             comboBoxListGroup.FormattingEnabled = true;
-            comboBoxListGroup.Location = new Point(212, 303);
+            comboBoxListGroup.Location = new Point(170, 10);
+            comboBoxListGroup.Margin = new Padding(2, 2, 2, 2);
             comboBoxListGroup.Name = "comboBoxListGroup";
-            comboBoxListGroup.Size = new Size(548, 46);
+            comboBoxListGroup.Size = new Size(439, 39);
             comboBoxListGroup.TabIndex = 6;
+            comboBoxListGroup.SelectedIndexChanged += comboBoxListGroup_SelectedIndexChanged;
             // 
             // buttonAddUserToList
             // 
-            buttonAddUserToList.Location = new Point(630, 12);
+            buttonAddUserToList.Location = new Point(504, 53);
+            buttonAddUserToList.Margin = new Padding(2, 2, 2, 2);
             buttonAddUserToList.Name = "buttonAddUserToList";
-            buttonAddUserToList.Size = new Size(130, 47);
+            buttonAddUserToList.Size = new Size(104, 38);
             buttonAddUserToList.TabIndex = 7;
             buttonAddUserToList.Text = "Добавить";
             buttonAddUserToList.UseVisualStyleBackColor = true;
@@ -121,9 +131,9 @@
             // 
             // DeleteMoreUsersFromGroup
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(782, 456);
+            ClientSize = new Size(620, 362);
             Controls.Add(buttonAddUserToList);
             Controls.Add(comboBoxListGroup);
             Controls.Add(comboBoxListUser);
@@ -132,6 +142,7 @@
             Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(label1);
+            Margin = new Padding(2, 2, 2, 2);
             Name = "DeleteMoreUsersFromGroup";
             Text = "DeleteMoreUsersFromGroup";
             FormClosed += DeleteMoreUsersFromGroup_FormClosed;
