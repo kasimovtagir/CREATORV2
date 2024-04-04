@@ -294,6 +294,7 @@ namespace CreatorV2
             textMessage._Variables = _Variables;
             textMessage._Actions = _Actions;
             textMessage.ShowDialog();
+            showLog();
         }
 
         private void включить“естовый–ежимToolStripMenuItem_Click(object sender, EventArgs e)
@@ -367,7 +368,11 @@ namespace CreatorV2
 
         private void несколько√рупп”ѕользовател€ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            DeleteMoreGroupsFromUsers deleteMoreGroupsFromUsers = new DeleteMoreGroupsFromUsers();
+            deleteMoreGroupsFromUsers._Variables = _Variables;
+            deleteMoreGroupsFromUsers._Actions = _Actions;
+            deleteMoreGroupsFromUsers.ShowDialog();
+            showLog();
         }
     }
 }

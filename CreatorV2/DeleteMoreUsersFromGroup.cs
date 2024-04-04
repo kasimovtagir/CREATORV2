@@ -1,5 +1,6 @@
 ﻿using CreatorV2.Classes;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -27,7 +28,7 @@ namespace CreatorV2
 
         private void DeleteMoreUsersFromGroup_Load(object sender, EventArgs e)
         {
-            _Actions.GetAllUser();
+           /* _Actions.GetAllUser();
             string[] names = _Variables.AllUsersInAD.ToArray(); //Data.AllUsersInAD.ToArray();
             Array.Sort(names);
             // Заполнение ComboBox вариантами
@@ -43,7 +44,7 @@ namespace CreatorV2
             autoCompleteCollection.AddRange(names);
 
             // Установка источника автодополнения ComboBox
-            comboBoxListUser.AutoCompleteCustomSource = autoCompleteCollection;
+            comboBoxListUser.AutoCompleteCustomSource = autoCompleteCollection;*/
 
 
             _Actions.GetGroups();
@@ -115,7 +116,8 @@ namespace CreatorV2
                     }
                     else
                     {
-                        _Actions.RemoveUserFroumGroup(username.ToString(), groupName);
+                        string usernames = _Actions.GetSamAccountNameByDisplayName(username.ToString());
+                        _Actions.RemoveUserFroumGroup(usernames.ToString(), groupName);
                         this.Close();
                     }
                 }
@@ -124,6 +126,28 @@ namespace CreatorV2
 
         private void comboBoxListGroup_SelectedIndexChanged(object sender, EventArgs e)
         {
+            List<string> listUserInGroup = new List<string>();
+            listUserInGroup = _Actions.showUsersInGroup(comboBoxListGroup.Text);
+
+            List<string> listUserInGroup2 = new List<string>();
+
+            foreach (var username in listUserInGroup)
+            {
+                listUserInGroup2.Add(Regex.Replace(username.ToString(), @"\s*\([^()]*\)", ""));
+            }
+
+            string[] listAllUser = listUserInGroup2.ToArray();
+            Array.Sort(listAllUser);
+            comboBoxListUser.Items.AddRange(listAllUser);
+            comboBoxListUser.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            comboBoxListUser.AutoCompleteSource = AutoCompleteSource.CustomSource;
+
+            // Создание и заполнение источника автодополнения
+            AutoCompleteStringCollection autoCompleteCollectionForGroups = new AutoCompleteStringCollection();
+            autoCompleteCollectionForGroups.AddRange(listAllUser);
+
+            // Установка источника автодополнения ComboBox
+            comboBoxListUser.AutoCompleteCustomSource = autoCompleteCollectionForGroups;
             //showUsersInGroup();
         }
 

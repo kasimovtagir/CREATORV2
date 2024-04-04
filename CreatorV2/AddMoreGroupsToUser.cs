@@ -24,14 +24,13 @@ namespace CreatorV2
 
         private void button1_Click(object sender, EventArgs e)
         {
-            string groupName = comboBoxListUser.Text;
-            if (string.IsNullOrEmpty(groupName))
+            if (string.IsNullOrEmpty(comboBoxListUser.Text))
             {
                 MessageBox.Show("Выберите группу.");
             }
             else if (listBoxChoosedGroup.Items.Count == 0)
             {
-                MessageBox.Show($"Нет пользователей для удаления из группы {groupName}");
+                MessageBox.Show($"Нет групп для добавления пользователю {comboBoxListUser.Text}");
             }
             else
             {
@@ -44,8 +43,8 @@ namespace CreatorV2
                     }
                     else
                     {
-                        string usernames = _Actions.GetSamAccountNameByDisplayName(groups.ToString());
-                        _Actions.AddUserToGroup(usernames, comboBoxListUser.Text);
+                        string usernames = _Actions.GetSamAccountNameByDisplayName(comboBoxListUser.Text);
+                        _Actions.AddUserToGroup(usernames, groups.ToString());
 
                     }
                 }

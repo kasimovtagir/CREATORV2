@@ -1,6 +1,6 @@
 ﻿namespace CreatorV2
 {
-    partial class AddMoreGroupsToUser
+    partial class DeleteMoreGroupsFromUsers
     {
         /// <summary>
         /// Required designer variable.
@@ -40,11 +40,11 @@
             // 
             // buttonAddUserToList
             // 
-            buttonAddUserToList.Location = new Point(516, 58);
+            buttonAddUserToList.Location = new Point(517, 53);
             buttonAddUserToList.Margin = new Padding(2);
             buttonAddUserToList.Name = "buttonAddUserToList";
             buttonAddUserToList.Size = new Size(104, 38);
-            buttonAddUserToList.TabIndex = 23;
+            buttonAddUserToList.TabIndex = 31;
             buttonAddUserToList.Text = "Добавить";
             buttonAddUserToList.UseVisualStyleBackColor = true;
             buttonAddUserToList.Click += buttonAddUserToList_Click;
@@ -53,31 +53,32 @@
             // 
             comboBoxListGroup.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point);
             comboBoxListGroup.FormattingEnabled = true;
-            comboBoxListGroup.Location = new Point(182, 58);
+            comboBoxListGroup.Location = new Point(183, 53);
             comboBoxListGroup.Margin = new Padding(2);
             comboBoxListGroup.Name = "comboBoxListGroup";
             comboBoxListGroup.Size = new Size(330, 39);
-            comboBoxListGroup.TabIndex = 22;
+            comboBoxListGroup.TabIndex = 30;
             // 
             // comboBoxListUser
             // 
             comboBoxListUser.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point);
             comboBoxListUser.FormattingEnabled = true;
-            comboBoxListUser.Location = new Point(182, 15);
+            comboBoxListUser.Location = new Point(183, 10);
             comboBoxListUser.Margin = new Padding(2);
             comboBoxListUser.Name = "comboBoxListUser";
             comboBoxListUser.Size = new Size(438, 39);
-            comboBoxListUser.TabIndex = 21;
+            comboBoxListUser.TabIndex = 29;
+            comboBoxListUser.SelectedIndexChanged += comboBoxListUser_SelectedIndexChanged;
             // 
             // button1
             // 
             button1.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point);
-            button1.Location = new Point(182, 264);
+            button1.Location = new Point(184, 259);
             button1.Margin = new Padding(2);
             button1.Name = "button1";
             button1.Size = new Size(438, 68);
-            button1.TabIndex = 20;
-            button1.Text = "Добавить выбранные группы";
+            button1.TabIndex = 28;
+            button1.Text = "Удалить выбранные группы";
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
             // 
@@ -87,52 +88,52 @@
             listBoxChoosedGroup.FormattingEnabled = true;
             listBoxChoosedGroup.HorizontalScrollbar = true;
             listBoxChoosedGroup.ItemHeight = 31;
-            listBoxChoosedGroup.Location = new Point(182, 101);
+            listBoxChoosedGroup.Location = new Point(183, 96);
             listBoxChoosedGroup.Margin = new Padding(2);
             listBoxChoosedGroup.Name = "listBoxChoosedGroup";
             listBoxChoosedGroup.ScrollAlwaysVisible = true;
             listBoxChoosedGroup.Size = new Size(439, 159);
-            listBoxChoosedGroup.TabIndex = 19;
+            listBoxChoosedGroup.TabIndex = 27;
             listBoxChoosedGroup.MouseDoubleClick += listBoxChoosedGroup_MouseDoubleClick;
             // 
             // label3
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point);
-            label3.Location = new Point(11, 18);
+            label3.Location = new Point(11, 13);
             label3.Margin = new Padding(2, 0, 2, 0);
             label3.Name = "label3";
             label3.Size = new Size(168, 32);
-            label3.TabIndex = 18;
+            label3.TabIndex = 26;
             label3.Text = "Пользователь";
             // 
             // label2
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point);
-            label2.Location = new Point(11, 101);
+            label2.Location = new Point(11, 96);
             label2.Margin = new Padding(2, 0, 2, 0);
             label2.Name = "label2";
             label2.Size = new Size(143, 32);
-            label2.TabIndex = 17;
+            label2.TabIndex = 25;
             label2.Text = "Выбранные";
             // 
             // label1
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point);
-            label1.Location = new Point(11, 61);
+            label1.Location = new Point(11, 56);
             label1.Margin = new Padding(2, 0, 2, 0);
             label1.Name = "label1";
             label1.Size = new Size(96, 32);
-            label1.TabIndex = 16;
+            label1.TabIndex = 24;
             label1.Text = "Группы";
             // 
-            // AddMoreGroupsToUser
+            // DeleteMoreGroupsFromUsers
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(629, 342);
+            ClientSize = new Size(657, 343);
             Controls.Add(buttonAddUserToList);
             Controls.Add(comboBoxListGroup);
             Controls.Add(comboBoxListUser);
@@ -141,11 +142,10 @@
             Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(label1);
-            Margin = new Padding(2);
-            Name = "AddMoreGroupsToUser";
-            Text = "AddMoreGroupsToUser";
-            FormClosed += AddMoreGroupsToUser_FormClosed;
-            Load += AddMoreGroupsToUser_Load;
+            Name = "DeleteMoreGroupsFromUsers";
+            Text = "DeleteMoreGroupsFromUsers";
+            FormClosing += DeleteMoreGroupsFromUsers_FormClosing;
+            Load += DeleteMoreGroupsFromUsers_Load;
             ResumeLayout(false);
             PerformLayout();
         }
