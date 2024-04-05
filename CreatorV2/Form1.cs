@@ -104,7 +104,6 @@ namespace CreatorV2
 
         private void buttonCreateUser_Click(object sender, EventArgs e)
         {
-
             // Проверяем, что поле имени и фамилии содержит только русские буквы
             bool checkRUStxtboxName = Regex.IsMatch(textBoxUserNameInAD.Text.Trim(), "^[А-Яа-я]+$");
             bool checkRUStxtboxSurName = Regex.IsMatch(textBoxLastNameInAD.Text.Trim(), "^[А-Яа-я]+$");
