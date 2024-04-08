@@ -25,6 +25,12 @@
     <Compile Update="DefPasswordForUser.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="DeleteAllGroupsFromMoreUsers.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="DeleteAllGroupsFromUsers.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="DeleteMoreGroupsFromUsers.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -49,6 +55,12 @@
     <Compile Update="MainSettings.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="MoveMoreUsers.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="MoveUsers.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="PreviewCreateUsersAccountWithoutSendEmail.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -59,6 +71,9 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="TextMessage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="UnlockLockMoreUsers.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="UnlockLockUser.cs">

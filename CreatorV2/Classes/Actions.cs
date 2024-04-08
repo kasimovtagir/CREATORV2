@@ -269,6 +269,48 @@ namespace CreatorV2.Classes
             }
         }
 
+
+        /// <summary>
+        /// Метод служит для переноса пользователя в другую OU 
+        /// </summary>
+        /// <param name="username">Имя пользователя который будет перенесен в другой OU</param>
+        /// <param name="targetOU">OU в которую будет перенесен пользователь </param>
+        public void MoveUsersToOU(string username, string targetOU)
+        {
+            username = GetSamAccountNameByDisplayName(username);
+            // Создаем объект контекста PrincipalContext для подключения к Active Directory
+            using (PrincipalContext context = new PrincipalContext(ContextType.Domain, _Variables.NetBios, $"OU={_Variables.OU}, {_Variables.splitNetBios}"))
+            {
+                // Находим пользователя по его имени
+                UserPrincipal user = UserPrincipal.FindByIdentity(context, username);
+
+                if (user != null)
+                {
+                    try
+                    {
+                        // Создаем объект DirectoryEntry для пользователя
+                        using (DirectoryEntry entry = (DirectoryEntry)user.GetUnderlyingObject())
+                        {
+                            // Перемещаем пользователя в новую OU
+                            entry.MoveTo(new DirectoryEntry(targetOU));
+                            entry.CommitChanges();
+                            _Variables.Log.Add($"Пользователь {username} успешно перемещен в OU= {targetOU}.");
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Ошибка: {ex.Message}");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Пользователь не найден.");
+                }
+            }
+        }
+
+
+
         /// <summary>
         /// Метод который получает SamAccountName
         /// </summary>
@@ -1129,6 +1171,9 @@ namespace CreatorV2.Classes
             _Variables._ListOU = listou;
             return listou;
         }
+
+
+       
 
 
         /// <summary>
