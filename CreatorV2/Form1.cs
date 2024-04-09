@@ -358,7 +358,7 @@ namespace CreatorV2
             delete._Variables = _Variables;
             delete._Actions = _Actions;
             delete.ShowDialog();
-            showLog();
+            showLog(); 
         }
 
         private void несколько√рупп”ѕользовател€ToolStripMenuItem_Click(object sender, EventArgs e)
