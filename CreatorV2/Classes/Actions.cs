@@ -275,12 +275,23 @@ namespace CreatorV2.Classes
         /// </summary>
         /// <param name="username">Имя пользователя который будет перенесен в другой OU</param>
         /// <param name="targetOU">OU в которую будет перенесен пользователь </param>
-        public void MoveUsersToOU(string username, string targetOU)
+        public void MoveUsersToOU(string username, string oldOU, string targetOU)
         {
-            username = GetSamAccountNameByDisplayName(username);
-            // Создаем объект контекста PrincipalContext для подключения к Active Directory
-            using (PrincipalContext context = new PrincipalContext(ContextType.Domain, _Variables.NetBios, $"OU={_Variables.OU}, {_Variables.splitNetBios}"))
+            string rootPath = string.Empty;
+            string[] splitNetBios = _Variables.NetBios.Split(".");
+            foreach (string net in splitNetBios)
             {
+                rootPath += $"DC={net}, ";
+            }
+            _Variables.splitNetBios = _ = rootPath.Remove(rootPath.Length - 2);
+            // Создаем объект контекста PrincipalContext для подключения к Active Directory
+            // Указываем путь к целевой OU
+            string targetPath = $"LDAP://OU={targetOU},{_Variables.splitNetBios}";
+
+            // Создаем объект контекста PrincipalContext для подключения к Active Directory
+            using (PrincipalContext context = new PrincipalContext(ContextType.Domain, _Variables.NetBios, $"OU={oldOU}, {_Variables.splitNetBios}"))
+            {
+                //username = GetSamAccountNameByDisplayName(username);
                 // Находим пользователя по его имени
                 UserPrincipal user = UserPrincipal.FindByIdentity(context, username);
 
@@ -292,7 +303,7 @@ namespace CreatorV2.Classes
                         using (DirectoryEntry entry = (DirectoryEntry)user.GetUnderlyingObject())
                         {
                             // Перемещаем пользователя в новую OU
-                            entry.MoveTo(new DirectoryEntry(targetOU));
+                            entry.MoveTo(new DirectoryEntry(targetPath));
                             entry.CommitChanges();
                             _Variables.Log.Add($"Пользователь {username} успешно перемещен в OU= {targetOU}.");
                         }
@@ -1053,7 +1064,7 @@ namespace CreatorV2.Classes
         /// метод который получает из АД список всех пользоватлелей 
         /// </summary>
         public void GetAllUser()
-        {
+        {            
             string rootPath = string.Empty;
             string[] splitNetBios = _Variables.NetBios.Split(".");
             foreach (string net in splitNetBios)
@@ -1064,6 +1075,39 @@ namespace CreatorV2.Classes
             try
             {
                 using (PrincipalContext context = new PrincipalContext(ContextType.Domain, _Variables.NetBios, $"OU={_Variables.OU}, {_Variables.splitNetBios}"))
+                //"metalab.ifmo.ru", "OU=Accounts,DC=metalab,DC=ifmo,DC=ru"))
+                {
+                    UserPrincipal userPrincipal = new UserPrincipal(context);
+                    using (PrincipalSearcher searcher = new PrincipalSearcher(userPrincipal))
+                    {
+                        foreach (Principal result in searcher.FindAll())
+                        {
+                            // Получение свойства "SamAccountName" (логина пользователя)
+                            //string username = result.SamAccountName;
+                            string username = result.DisplayName == null ? result.SamAccountName : result.DisplayName;
+                            _Variables.AllUsersInAD.Add(username);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ошибка при получении списка пользователей: " + ex.Message);
+            }
+        }
+
+        public void GetAllUser(string ou)
+        {
+            string rootPath = string.Empty;
+            string[] splitNetBios = _Variables.NetBios.Split(".");
+            foreach (string net in splitNetBios)
+            {
+                rootPath += $"DC={net}, ";
+            }
+            _Variables.splitNetBios = _ = rootPath.Remove(rootPath.Length - 2);
+            try
+            {
+                using (PrincipalContext context = new PrincipalContext(ContextType.Domain, _Variables.NetBios, $"OU={ou}, {_Variables.splitNetBios}"))
                 //"metalab.ifmo.ru", "OU=Accounts,DC=metalab,DC=ifmo,DC=ru"))
                 {
                     UserPrincipal userPrincipal = new UserPrincipal(context);

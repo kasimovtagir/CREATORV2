@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace CreatorV2
 {
@@ -50,7 +51,51 @@ namespace CreatorV2
 
         private void MoveMoreUsers_Load(object sender, EventArgs e)
         {
-            _Actions.GetAllUser();
+            string[] namesOU = _Actions.ListOU(Domain.GetComputerDomain().ToString()).ToArray();
+            Array.Sort(namesOU);
+            // Заполнение ComboBox вариантами
+            comboBoxListOU.Items.AddRange(namesOU);
+            comboBoxFromOU.Items.AddRange(namesOU);
+
+            // Настройка автодополнения
+            comboBoxListOU.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            comboBoxListOU.AutoCompleteSource = AutoCompleteSource.CustomSource;
+
+            comboBoxFromOU.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            comboBoxFromOU.AutoCompleteSource = AutoCompleteSource.CustomSource;
+
+            // Создание и заполнение источника автодополнения
+            AutoCompleteStringCollection autoCompleteCollectionListOu = new AutoCompleteStringCollection();
+            autoCompleteCollectionListOu.AddRange(namesOU);
+
+            // Установка источника автодополнения ComboBox
+            comboBoxListOU.AutoCompleteCustomSource = autoCompleteCollectionListOu;
+            comboBoxFromOU.AutoCompleteCustomSource = autoCompleteCollectionListOu;
+        }
+
+        private void MoveMoreUsers_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            _Variables.ListAllGroups.Clear();
+            _Variables.AllUsersInAD.Clear();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            foreach (var listUser in listBoxChoosedUser.Items)
+            {
+                if (string.IsNullOrEmpty(listUser.ToString()))
+                {
+                    MessageBox.Show("Пустое поле");
+                }
+                else _Actions.MoveUsersToOU(listUser.ToString(), comboBoxFromOU.Text, comboBoxListOU.Text);
+            }
+            this.Close();
+        }
+
+        private void comboBoxFromOU_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            _Actions.GetAllUser(comboBoxFromOU.Text);
+
             string[] names = _Variables.AllUsersInAD.ToArray();
             Array.Sort(names);
             // Заполнение ComboBox вариантами
@@ -67,46 +112,6 @@ namespace CreatorV2
 
             // Установка источника автодополнения ComboBox
             comboBoxListUser.AutoCompleteCustomSource = autoCompleteCollection;
-
-
-
-            string[] namesOU = _Actions.ListOU(Domain.GetComputerDomain().ToString()).ToArray();
-            Array.Sort(namesOU);
-            // Заполнение ComboBox вариантами
-            comboBoxListOU.Items.AddRange(namesOU);
-
-            // Настройка автодополнения
-            comboBoxListOU.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-            comboBoxListOU.AutoCompleteSource = AutoCompleteSource.CustomSource;
-
-            // Создание и заполнение источника автодополнения
-            AutoCompleteStringCollection autoCompleteCollectionListOu = new AutoCompleteStringCollection();
-            autoCompleteCollectionListOu.AddRange(namesOU);
-
-            // Установка источника автодополнения ComboBox
-            comboBoxListOU.AutoCompleteCustomSource = autoCompleteCollectionListOu;
-
-
-        }
-
-        private void MoveMoreUsers_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            _Variables.ListAllGroups.Clear();
-            _Variables.AllUsersInAD.Clear();
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            foreach (var listUser in listBoxChoosedUser.Items)
-            {
-                if (string.IsNullOrEmpty( listUser.ToString()))
-                {
-                    MessageBox.Show("Пустое поле");
-                }
-                else _Actions.MoveUsersToOU(listUser.ToString(), comboBoxListOU.Text);
-            }
-
-            
         }
     }
 }
