@@ -92,6 +92,7 @@
             checkBoxWinthEmail = new CheckBox();
             buttonCreateUser = new Button();
             listBoxAllLog = new ListBox();
+            label11 = new Label();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -589,11 +590,21 @@
             listBoxAllLog.Size = new Size(956, 556);
             listBoxAllLog.TabIndex = 24;
             // 
+            // label11
+            // 
+            label11.AutoSize = true;
+            label11.Location = new Point(600, 610);
+            label11.Name = "label11";
+            label11.Size = new Size(91, 32);
+            label11.TabIndex = 25;
+            label11.Text = "label11";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(13F, 31F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1568, 681);
+            Controls.Add(label11);
             Controls.Add(listBoxAllLog);
             Controls.Add(buttonCreateUser);
             Controls.Add(checkBoxWinthEmail);
@@ -624,6 +635,7 @@
             Name = "Form1";
             Text = "CREATOR V 2";
             FormClosing += Form1_FormClosing;
+            FormClosed += Form1_FormClosed;
             Load += Form1_Load;
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
@@ -697,5 +709,6 @@
         private ToolStripMenuItem переносПользователяToolStripMenuItem;
         private ToolStripMenuItem одинарныйToolStripMenuItem3;
         private ToolStripMenuItem множественныйToolStripMenuItem4;
+        private Label label11;
     }
 }

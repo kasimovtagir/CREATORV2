@@ -78,11 +78,7 @@ namespace CreatorV2
                 _Actions.AddUserToGroup(nameUser, comboBoxGroup.Text);
                 //_Variables.Log.Add($"Пользователь {comboBoxUserName.Text} добавлен в группу {comboBoxGroup.Text}") ;
             }
-
-            
-
             this.Close();
-
         }
 
         private void AddUserInGroup_FormClosed(object sender, FormClosedEventArgs e)

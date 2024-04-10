@@ -49,9 +49,51 @@ namespace CreatorV2.Classes
             return dateTime.ToString();
         }
 
+        public bool accessToCreator(string adminUser)
+        {
+            SqlCommand commands = new SqlCommand("SELECT TOP (100) [adminUser] FROM [CreatorV2BD].[dbo].[adminUser]", _Variables.connection);
+            bool result = false;
+            using (SqlDataReader reader = commands.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    if (adminUser == reader[0].ToString())
+                    {
+                        result = true;
+                        break;
+                    }
+                    else
+                    {
+                        result = false;
+                        continue;
+                    }
+                    //Console.WriteLine(reader[0]);
+                }
+            }
+            return result;
+        }
+
+        
+        public ListBox outpootLog()
+        {
+            ListBox listBoxOutpootLog = new ListBox();
+
+            SqlCommand command = new SqlCommand("SELECT TOP (100) [Log]  FROM [CreatorV2BD].[dbo].[Log]", _Variables.connection);
+
+            using (SqlDataReader reader = command.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    listBoxOutpootLog.Items.Add(reader[0]);
+                }
+            }
+
+            return listBoxOutpootLog;
+        }
+
         public void LogRunCreator()
         {
-            string sql = $"INSERT INTO Log VALUES (\'{GetCurrentTime()} - adminManagement {_Variables.adminNameWhoStart} run CREATORV2\')";
+            string sql = $"INSERT INTO Log VALUES (\'{GetCurrentTime()} - adminManagement {_Variables.adminNameWhoStart} RUN CREATORV2\')";
 
             SqlCommand myCommand = new SqlCommand(sql, _Variables.connection) ;
             myCommand.ExecuteNonQuery();
@@ -59,7 +101,15 @@ namespace CreatorV2.Classes
 
         public void LogAddUserInGroup(string nameUser, string nameGroup)
         {
-            string sql = $"INSERT INTO Log VALUES (\'{GetCurrentTime()} - adminManagement {_Variables.adminNameWhoStart} add user {nameUser} to group {nameGroup} \')";
+            string sql = $"INSERT INTO Log VALUES (\'{GetCurrentTime()} - adminManagement {_Variables.adminNameWhoStart} ADD user {nameUser} to group {nameGroup} \')";
+
+            SqlCommand myCommand = new SqlCommand(sql, _Variables.connection);
+            myCommand.ExecuteNonQuery();
+        }
+
+        public void LogDeleteUserFromGroup(string nameUser, string nameGroup)
+        {
+            string sql = $"INSERT INTO Log VALUES (\'{GetCurrentTime()} - adminManagement {_Variables.adminNameWhoStart} DELETE user {nameUser} from group {nameGroup} \')";
 
             SqlCommand myCommand = new SqlCommand(sql, _Variables.connection);
             myCommand.ExecuteNonQuery();
@@ -274,6 +324,7 @@ namespace CreatorV2.Classes
                             group.Members.Remove(user);
                             group.Save();
                             _Variables.Log.Add($"Пользователь {username} успешно удален из группы {groupName}.");
+                            LogDeleteUserFromGroup(username, groupName);
                         }
                         else
                         {

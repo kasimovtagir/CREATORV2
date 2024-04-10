@@ -11,6 +11,7 @@ using System.Xml.Linq;
 using static System.Net.Mime.MediaTypeNames;
 using static System.Windows.Forms.DataFormats;
 using System.Data.SqlClient;
+using System.Data.Common;
 
 
 namespace CreatorV2
@@ -19,47 +20,89 @@ namespace CreatorV2
     {
         public Classes.Variables _Variables;// { get; set; }
         public Classes.Actions _Actions;//{ get; set; }
+
         public Form1()
         {
             InitializeComponent();
 
             _Variables = new Variables();
             _Actions = new Actions(_Variables);
-            MainSettings newMainSett = new MainSettings();
             _Variables.adminNameWhoStart = Environment.UserName;
-            newMainSett._Variables = _Variables;
-            newMainSett._Actions = _Actions;
+            FormLoading();
 
 
-
-
-            if (!File.Exists("Settings.txt"))
-            {
-                MessageBox.Show("У вас нет конфигурационного файла, сейчас откроется окно в котором необходимо заполнить все поля для корректной работы программы! Спасибо");
-
-                using (FileStream fs = File.Create("Settings.txt"))
-                {
-                    //File.Create
-                }
-                newMainSett.ShowDialog();
-            }
-            else
-            {
-                using (StreamReader reader = new StreamReader("Settings.txt"))
-                {
-                    string settings = reader.ReadToEnd();
-                    if (string.IsNullOrEmpty(settings))
-                    {
-                        newMainSett.ShowDialog();
-                    }
-                    else
-                    {
-                        _Actions.UploadAllSettings();
-                    }
-                }
-            }
         }
 
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            textBoxPassword.Text = _Variables._PasswordInAD;
+
+           
+
+            //ForTest(); // метод для тестирования 
+        }
+
+
+        public void FormLoading()
+        {
+            string dataSource = @"sqlservertagir";
+            string database = "CreatorV2BD";
+            string connectionString = $@"Data Source={dataSource}; Initial Catalog={database}; TrustServerCertificate=True";
+            _Variables.connection = new SqlConnection(connectionString);
+            try
+            {
+                label11.Text = "Try connection to databases...";
+                _Variables.connection.Open();
+                label11.Text += " Connection successful.";
+            }
+            catch (Exception ex)
+            {
+                listBoxAllLog.Items.Add(ex.Message);
+            }
+            if (_Actions.accessToCreator(_Variables.adminNameWhoStart))
+            {
+                _Actions.LogRunCreator();
+
+                ListBox listBox = _Actions.outpootLog();
+                listBox.Sorted = true;
+                foreach (var item in listBox.Items)
+                {
+                    listBoxAllLog.Items.Add($"{item}");
+                    //listBoxAllLog.Items.Insert(0, item);
+                }
+
+                MainSettings newMainSett = new MainSettings();
+               
+                newMainSett._Variables = _Variables;
+                newMainSett._Actions = _Actions;
+                if (!File.Exists("Settings.txt"))
+                {
+                    MessageBox.Show("У вас нет конфигурационного файла, сейчас откроется окно в котором необходимо заполнить все поля для корректной работы программы! Спасибо");
+
+                    using (FileStream fs = File.Create("Settings.txt"))
+                    {
+                        //File.Create
+                    }
+                    newMainSett.ShowDialog();
+                }
+                else
+                {
+                    using (StreamReader reader = new StreamReader("Settings.txt"))
+                    {
+                        string settings = reader.ReadToEnd();
+                        if (string.IsNullOrEmpty(settings))
+                        {
+                            newMainSett.ShowDialog();
+                        }
+                        else
+                        {
+                            _Actions.UploadAllSettings();
+                        }
+                    }
+                }
+            }
+            else { MessageBox.Show("У вас нет доступа."); this.Close(); }
+        }
 
 
 
@@ -184,40 +227,7 @@ namespace CreatorV2
             comboBoxTypePost.Text = string.Empty;
         }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            textBoxPassword.Text = _Variables._PasswordInAD;
 
-            string dataSource = @"sqlservertagir";
-            string database = "CreatorV2BD";
-            string connectionString = $@"Data Source={dataSource}; Initial Catalog={database}; TrustServerCertificate=True";
-            _Variables.connection = new SqlConnection(connectionString);
-            try
-            {
-                listBoxAllLog.Items.Add("Try connection to databases");
-                _Variables.connection.Open();
-                listBoxAllLog.Items.Add("Connection successful.");
-            }
-            catch (Exception ex)
-            {
-                listBoxAllLog.Items.Add(ex.Message);
-            }
-
-            _Actions.LogRunCreator();
-
-            SqlCommand command = new SqlCommand("SELECT TOP (100) [Log]  FROM [CreatorV2BD].[dbo].[Log]", _Variables.connection);
-
-            using (SqlDataReader reader = command.ExecuteReader())
-            {
-                while (reader.Read())
-                {
-                    listBoxAllLog.Items.Add(reader[0]);
-                    //Console.WriteLine(reader[0]);
-                }
-            }
-
-            //ForTest(); // метод для тестирования 
-        }
 
         private void label2_Click(object sender, EventArgs e)
         {
@@ -262,14 +272,19 @@ namespace CreatorV2
         public void showLog()
         {
             listBoxAllLog.Items.Clear();
-            if (_Variables.Log != null)
+            /*if (_Variables.Log != null)
             {
                 foreach (var item in _Variables.Log)
                 {
                     listBoxAllLog.Items.Add(item);
                 }
-            }
+            }*/
+            ListBox listBox = _Actions.outpootLog();
 
+            foreach (var item in listBox.Items)
+            {
+                listBoxAllLog.Items.Insert(0, item);
+            }
         }
 
         private void создатьВременнуюГруппуToolStripMenuItem_Click(object sender, EventArgs e)
@@ -461,7 +476,26 @@ namespace CreatorV2
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            _Variables.connection.Close();
+            try
+            {
+                //_Variables.connection.Close();
+            }
+            catch (Exception)
+            {
+                
+            }            
+        }
+
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            try
+            {
+                //_Variables.connection.Close();
+            }
+            catch (Exception)
+            {
+
+            }
         }
     }
 }
