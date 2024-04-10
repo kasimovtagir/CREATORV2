@@ -79,6 +79,8 @@ namespace CreatorV2
                 //_Variables.Log.Add($"Пользователь {comboBoxUserName.Text} добавлен в группу {comboBoxGroup.Text}") ;
             }
 
+            
+
             this.Close();
 
         }

@@ -10,6 +10,8 @@ using System.Windows.Forms;
 using System.Xml.Linq;
 using static System.Net.Mime.MediaTypeNames;
 using static System.Windows.Forms.DataFormats;
+using System.Data.SqlClient;
+
 
 namespace CreatorV2
 {
@@ -24,8 +26,12 @@ namespace CreatorV2
             _Variables = new Variables();
             _Actions = new Actions(_Variables);
             MainSettings newMainSett = new MainSettings();
+            _Variables.adminNameWhoStart = Environment.UserName;
             newMainSett._Variables = _Variables;
             newMainSett._Actions = _Actions;
+
+
+
 
             if (!File.Exists("Settings.txt"))
             {
@@ -181,6 +187,35 @@ namespace CreatorV2
         private void Form1_Load(object sender, EventArgs e)
         {
             textBoxPassword.Text = _Variables._PasswordInAD;
+
+            string dataSource = @"sqlservertagir";
+            string database = "CreatorV2BD";
+            string connectionString = $@"Data Source={dataSource}; Initial Catalog={database}; TrustServerCertificate=True";
+            _Variables.connection = new SqlConnection(connectionString);
+            try
+            {
+                listBoxAllLog.Items.Add("Try connection to databases");
+                _Variables.connection.Open();
+                listBoxAllLog.Items.Add("Connection successful.");
+            }
+            catch (Exception ex)
+            {
+                listBoxAllLog.Items.Add(ex.Message);
+            }
+
+            _Actions.LogRunCreator();
+
+            SqlCommand command = new SqlCommand("SELECT TOP (100) [Log]  FROM [CreatorV2BD].[dbo].[Log]", _Variables.connection);
+
+            using (SqlDataReader reader = command.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    listBoxAllLog.Items.Add(reader[0]);
+                    //Console.WriteLine(reader[0]);
+                }
+            }
+
             //ForTest(); // метод дл€ тестировани€ 
         }
 
@@ -358,7 +393,7 @@ namespace CreatorV2
             delete._Variables = _Variables;
             delete._Actions = _Actions;
             delete.ShowDialog();
-            showLog();  
+            showLog();
         }
 
         private void несколько√рупп”ѕользовател€ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -422,6 +457,11 @@ namespace CreatorV2
             moveUsers._Variables = _Variables;
             moveUsers._Actions = _Actions;
             moveUsers.ShowDialog(); showLog();
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            _Variables.connection.Close();
         }
     }
 }

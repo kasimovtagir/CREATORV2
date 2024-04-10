@@ -2,6 +2,7 @@
 using System.Net.Mail;
 using System.Net;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using System.Data.Common;
 
 namespace CreatorV2.Classes
 {
@@ -40,6 +41,28 @@ namespace CreatorV2.Classes
         public Actions(Variables Variable)
         {
             _Variables = Variable;
+        }
+
+        public string GetCurrentTime()
+        {
+            DateTime dateTime = DateTime.Now;
+            return dateTime.ToString();
+        }
+
+        public void LogRunCreator()
+        {
+            string sql = $"INSERT INTO Log VALUES (\'{GetCurrentTime()} - adminManagement {_Variables.adminNameWhoStart} run CREATORV2\')";
+
+            SqlCommand myCommand = new SqlCommand(sql, _Variables.connection) ;
+            myCommand.ExecuteNonQuery();
+        }
+
+        public void LogAddUserInGroup(string nameUser, string nameGroup)
+        {
+            string sql = $"INSERT INTO Log VALUES (\'{GetCurrentTime()} - adminManagement {_Variables.adminNameWhoStart} add user {nameUser} to group {nameGroup} \')";
+
+            SqlCommand myCommand = new SqlCommand(sql, _Variables.connection);
+            myCommand.ExecuteNonQuery();
         }
 
 
@@ -1036,6 +1059,7 @@ namespace CreatorV2.Classes
                             group.Members.Add(user);
                             group.Save();
                             _Variables.Log.Add($"Пользователь {username} добавлен в группу {choosedGroup}.");
+                            LogAddUserInGroup(username, choosedGroup);
                             //MessageBox.Show($"Пользователь {username} добавлен в группу {choosedGroup}.");
                         }
                         else

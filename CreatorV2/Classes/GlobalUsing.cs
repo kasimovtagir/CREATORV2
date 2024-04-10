@@ -13,6 +13,7 @@ global using System.Text.RegularExpressions;
 global using System.Globalization;
 global using System.DirectoryServices;
 global using System.Xml.Serialization;
+global using Microsoft.Data.SqlClient;
 global using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 //global using static System.Runtime.InteropServices.JavaScript.JSType;

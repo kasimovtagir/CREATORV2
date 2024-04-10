@@ -623,6 +623,7 @@
             Margin = new Padding(5);
             Name = "Form1";
             Text = "CREATOR V 2";
+            FormClosing += Form1_FormClosing;
             Load += Form1_Load;
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();

@@ -2,6 +2,9 @@
 {
     public class Variables
     {
+        public string adminNameWhoStart;
+        public SqlConnection connection;
+
         // настройки учетной записи для отправки писем на электронную почту
         private string? FIOForSendEMail;
         public string _FIOForSendEmail
