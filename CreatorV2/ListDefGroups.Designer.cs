@@ -37,6 +37,7 @@
             label8 = new Label();
             comboBox1 = new ComboBox();
             label1 = new Label();
+            button2 = new Button();
             SuspendLayout();
             // 
             // label11
@@ -124,11 +125,22 @@
             label1.TabIndex = 34;
             label1.Text = "Для удаления группы, 2 раза нажми на группу в списке";
             // 
+            // button2
+            // 
+            button2.Location = new Point(788, 696);
+            button2.Name = "button2";
+            button2.Size = new Size(298, 62);
+            button2.TabIndex = 35;
+            button2.Text = "Сохранить";
+            button2.UseVisualStyleBackColor = true;
+            button2.Click += button2_Click;
+            // 
             // ListDefGroups
             // 
             AutoScaleDimensions = new SizeF(13F, 31F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1102, 907);
+            Controls.Add(button2);
             Controls.Add(label1);
             Controls.Add(label11);
             Controls.Add(label10);
@@ -159,5 +171,6 @@
         private Label label8;
         private ComboBox comboBox1;
         private Label label1;
+        private Button button2;
     }
 }

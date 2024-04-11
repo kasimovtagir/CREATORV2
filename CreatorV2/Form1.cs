@@ -28,7 +28,7 @@ namespace CreatorV2
             _Variables = new Variables();
             _Actions = new Actions(_Variables);
             _Variables.adminNameWhoStart = Environment.UserName;
-            FormLoading();
+
 
 
         }
@@ -36,8 +36,8 @@ namespace CreatorV2
         private void Form1_Load(object sender, EventArgs e)
         {
             textBoxPassword.Text = _Variables._PasswordInAD;
+            FormLoading();
 
-           
 
             //ForTest(); // метод для тестирования 
         }
@@ -47,7 +47,7 @@ namespace CreatorV2
         {
             string dataSource = @"sqlservertagir";
             string database = "CreatorV2BD";
-            string connectionString = $@"Data Source={dataSource}; Initial Catalog={database}; TrustServerCertificate=True";
+            string connectionString = $@"Data Source={dataSource}; Initial Catalog={database}; TrustServerCertificate=True;Trusted_Connection=yes;";
             _Variables.connection = new SqlConnection(connectionString);
             try
             {
@@ -72,7 +72,7 @@ namespace CreatorV2
                 }
 
                 MainSettings newMainSett = new MainSettings();
-               
+
                 newMainSett._Variables = _Variables;
                 newMainSett._Actions = _Actions;
                 if (!File.Exists("Settings.txt"))
@@ -478,24 +478,29 @@ namespace CreatorV2
         {
             try
             {
-                //_Variables.connection.Close();
+                _Variables.connection.Close();
             }
             catch (Exception)
             {
-                
-            }            
+
+            }
         }
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
             try
             {
-                //_Variables.connection.Close();
+                _Variables.connection.Close();
             }
             catch (Exception)
             {
 
             }
+        }
+
+        private void comboBoxTypePost_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

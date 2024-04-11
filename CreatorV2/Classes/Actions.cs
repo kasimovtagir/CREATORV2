@@ -115,6 +115,23 @@ namespace CreatorV2.Classes
             myCommand.ExecuteNonQuery();
         }
 
+        public void LogCreateUser(string nameUser)
+        {
+            string sql = $"INSERT INTO Log VALUES (\'{GetCurrentTime()} - adminManagement {_Variables.adminNameWhoStart} CREATE user {nameUser}  \')";
+
+            SqlCommand myCommand = new SqlCommand(sql, _Variables.connection);
+            myCommand.ExecuteNonQuery();
+        }
+
+        public void LogMoveUser(string nameUser, string nameOU)
+        {
+            string sql = $"INSERT INTO Log VALUES (\'{GetCurrentTime()} - adminManagement {_Variables.adminNameWhoStart} MOVE user {nameUser} in OU={nameOU} \')";
+
+            SqlCommand myCommand = new SqlCommand(sql, _Variables.connection);
+            myCommand.ExecuteNonQuery();
+        }
+
+
 
         /// <summary>
         /// метод для сохранения всех настроек, один метод для всех настроек. 
@@ -380,6 +397,7 @@ namespace CreatorV2.Classes
                             entry.MoveTo(new DirectoryEntry(targetPath));
                             entry.CommitChanges();
                             _Variables.Log.Add($"Пользователь {username} успешно перемещен в OU= {targetOU}.");
+                            LogMoveUser(username, targetOU);
                         }
                     }
                     catch (Exception ex)
@@ -1037,6 +1055,7 @@ namespace CreatorV2.Classes
                     up.Save();
                 }
                 _Variables.Log.Add($"Пользователь {_Variables._nameInAD} {_Variables._lastNameInAD} создан");
+                LogCreateUser( $"{ _Variables._nameInAD} { _Variables._lastNameInAD}");
             }
             catch (Exception ex)
             {
@@ -1232,7 +1251,7 @@ namespace CreatorV2.Classes
                         // Изменение пароля
                         user.SetPassword(newPassword);
                         user.Save();
-                        _Variables.Log.Add($"Пароль пользователя {username} успешно изменен.");
+                        _Variables.Log?.Add($"Пароль пользователя {username} успешно изменен.");
                     }
                     else
                     {
@@ -1242,7 +1261,7 @@ namespace CreatorV2.Classes
             }
             catch (Exception ex)
             {
-                _Variables.Log.Add($"Произошла ошибка: {ex.Message}");
+                _Variables.Log?.Add($"Произошла ошибка: {ex.Message}");
             }
         }
 
