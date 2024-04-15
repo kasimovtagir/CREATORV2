@@ -29,11 +29,14 @@ namespace CreatorV2
 
         private void ListDefGropus_Load(object sender, EventArgs e)
         {
+            
+
             _Actions.GetGroups();
             UploadAllGroups(comboBox2);
         }
         public void UploadAllGroups(System.Windows.Forms.ComboBox comboBox)
         {
+
             string[] arrrayAllGroup = _Variables.ListAllGroups.ToArray();
             Array.Sort(arrrayAllGroup);
             comboBox.Items.AddRange(arrrayAllGroup);

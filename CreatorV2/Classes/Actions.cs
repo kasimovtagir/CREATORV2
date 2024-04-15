@@ -132,6 +132,21 @@ namespace CreatorV2.Classes
         }
 
 
+        public void OutpootListType()
+        {
+            ListBox listBoxOutpootLog = new ListBox();
+
+            SqlCommand command = new SqlCommand("SELECT TOP (100) [Log]  FROM [CreatorV2BD].[dbo].[Log]", _Variables.connection);
+
+            using (SqlDataReader reader = command.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    listBoxOutpootLog.Items.Add(reader[0]);
+                }
+            }            
+        }
+
 
         /// <summary>
         /// метод для сохранения всех настроек, один метод для всех настроек. 
