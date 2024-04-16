@@ -67,7 +67,7 @@
             // button1
             // 
             button1.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point);
-            button1.Location = new Point(159, 397);
+            button1.Location = new Point(159, 370);
             button1.Margin = new Padding(2);
             button1.Name = "button1";
             button1.Size = new Size(452, 69);
@@ -182,7 +182,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(626, 479);
+            ClientSize = new Size(626, 455);
             Controls.Add(checkBoxUnlock);
             Controls.Add(checkBoxLock);
             Controls.Add(label4);
