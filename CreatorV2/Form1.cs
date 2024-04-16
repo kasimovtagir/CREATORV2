@@ -358,7 +358,7 @@ namespace CreatorV2
             delete._Variables = _Variables;
             delete._Actions = _Actions;
             delete.ShowDialog();
-            showLog(); 
+            showLog();
         }
 
         private void несколькоГруппУПользователяToolStripMenuItem_Click(object sender, EventArgs e)
@@ -422,6 +422,11 @@ namespace CreatorV2
             moveUsers._Variables = _Variables;
             moveUsers._Actions = _Actions;
             moveUsers.ShowDialog(); showLog();
+        }
+
+        private void переносПользователяToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

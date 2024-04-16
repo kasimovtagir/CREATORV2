@@ -81,14 +81,30 @@ namespace CreatorV2
 
         private void button1_Click(object sender, EventArgs e)
         {
+            string oldOU = _Variables.OU;
+            _Variables.OU = comboBoxFromOU.Text;
+
             foreach (var listUser in listBoxChoosedUser.Items)
             {
                 if (string.IsNullOrEmpty(listUser.ToString()))
                 {
                     MessageBox.Show("Пустое поле");
                 }
-                else _Actions.MoveUsersToOU(listUser.ToString(), comboBoxFromOU.Text, comboBoxListOU.Text);
+                else
+                {
+                    if (checkBoxLock.Checked)
+                    {
+                        _Actions.LockUnlockUser(listUser.ToString(), "lock");
+                    }
+                    else if (checkBoxUnlock.Checked) 
+                    {
+                        _Actions.LockUnlockUser(listUser.ToString(), "unlock");
+                    }
+
+                    _Actions.MoveUsersToOU(listUser.ToString(), comboBoxFromOU.Text, comboBoxListOU.Text);
+                }
             }
+            _Variables.OU = oldOU;
             this.Close();
         }
 
@@ -112,6 +128,22 @@ namespace CreatorV2
 
             // Установка источника автодополнения ComboBox
             comboBoxListUser.AutoCompleteCustomSource = autoCompleteCollection;
+        }
+
+        private void checkBoxUnlock_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBoxUnlock.Checked)
+            {
+                checkBoxLock.Checked = false;
+            }
+        }
+
+        private void checkBoxLock_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBoxLock.Checked)
+            {
+                checkBoxUnlock.Checked = false;
+            }
         }
     }
 }

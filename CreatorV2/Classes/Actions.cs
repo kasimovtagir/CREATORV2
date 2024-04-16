@@ -529,8 +529,8 @@ namespace CreatorV2.Classes
         /// <summary>
         /// заблокировать\разблокировать учетную запись пользователя 
         /// </summary>
-        /// <param name="username"></param>
-        /// <param name="LockUnlock"></param>
+        /// <param name="username">передать имя пользователя (dysplayName)</param>
+        /// <param name="LockUnlock">Передать значение, lock - заюлокировал, unlock - разблокирован </param>
         public void LockUnlockUser(string username, string LockUnlock)
         {
             //string username = "ИмяПользователя"; // Замените на имя пользователя, учетную запись которого вы хотите разблокировать
@@ -568,6 +568,11 @@ namespace CreatorV2.Classes
             }
         }
 
+        /// <summary>
+        /// метод для проверки заблокирован пользователь или нет. возвращает true - если пользователь активен, и false - если учетная запись заблокирована.
+        /// </summary>
+        /// <param name="username"></param>
+        /// <returns></returns>
         public bool checkLockOrUnLockUser(string username)
         {
             string rootPath = string.Empty;
@@ -576,6 +581,7 @@ namespace CreatorV2.Classes
             {
                 rootPath += $"DC={net}, ";
             }
+            username = GetSamAccountNameByDisplayName(username);
             _Variables.splitNetBios = _ = rootPath.Remove(rootPath.Length - 2);
             try
             {

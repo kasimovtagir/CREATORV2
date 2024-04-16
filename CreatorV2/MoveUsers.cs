@@ -58,7 +58,23 @@ namespace CreatorV2
 
         private void button1_Click(object sender, EventArgs e)
         {
-            _Actions.MoveUsersToOU(comboBoxListUser.Text,comboBox1.Text, comboBoxListOU.Text);
+            string oldOU = _Variables.OU;
+            _Variables.OU = comboBox1.Text;
+
+            if (checkBoxBlockUser.Checked) //& _Actions.checkLockOrUnLockUser(comboBoxListUser.Text))
+            {
+                if (_Actions.checkLockOrUnLockUser(comboBoxListUser.Text))
+                {
+                    _Actions.LockUnlockUser(comboBoxListUser.Text, "lock");
+                }
+                else
+                {
+                    _Actions.LockUnlockUser(comboBoxListUser.Text, "unlock");
+                }
+            }
+            _Variables.OU = oldOU;
+            _Actions.MoveUsersToOU(comboBoxListUser.Text, comboBox1.Text, comboBoxListOU.Text);
+            
             this.Close();
         }
 
@@ -85,7 +101,24 @@ namespace CreatorV2
             autoCompleteCollection.AddRange(names);
 
             // Установка источника автодополнения ComboBox
-            comboBoxListUser.AutoCompleteCustomSource = autoCompleteCollection;           
+            comboBoxListUser.AutoCompleteCustomSource = autoCompleteCollection;
+        }
+
+        private void comboBoxListUser_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string oldOU = _Variables.OU;
+            _Variables.OU = comboBox1.Text;
+
+            if (_Actions.checkLockOrUnLockUser(comboBoxListUser.Text))
+            {
+                checkBoxBlockUser.Text = "Заблокировать пользователя";
+            }
+            else
+            {
+                checkBoxBlockUser.Text = "Разблокировать пользователя";
+                //_Actions.LockUnlockUser(, "lock");
+            }
+            _Variables.OU = oldOU;
         }
     }
 }
