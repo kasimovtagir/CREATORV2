@@ -79,7 +79,7 @@ namespace CreatorV2
             {
                 ListBox list = new ListBox();
                 List<string> listgoups = new List<string>();
-                list = _Actions.GetListGroupUsers(ListUser.ToString()) ;
+                list = _Actions.GetListGroupUsers(ListUser.ToString());
                 list.Sorted = true;
                 foreach (var item in list.Items)
                 {
@@ -95,7 +95,21 @@ namespace CreatorV2
                 {
                     _Actions.RemoveUserFroumGroup(ListUser.ToString(), listgroupsForDeleted.ToString());
                 }
-                
+
+            }
+        }
+
+        private void listBoxChoosedUser_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            int selectedIndex = listBoxChoosedUser.SelectedIndex;
+            string choosed = string.Empty;
+
+            // Проверяем, что позиция была выбрана и двойной щелчок выполнен
+            if (selectedIndex != -1 && e.Button == MouseButtons.Left)
+            {
+                choosed = listBoxChoosedUser.Items[selectedIndex].ToString().Trim();
+                // Удаляем позицию из ListBox
+                listBoxChoosedUser.Items.RemoveAt(selectedIndex);
             }
         }
     }

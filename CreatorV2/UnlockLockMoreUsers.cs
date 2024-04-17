@@ -80,8 +80,22 @@ namespace CreatorV2
                 _Actions.LockUnlockUser(listUser.ToString(), "lock");
             }
 
-            
+
             this.Close();
+        }
+
+        private void listBoxChoosedUser_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            int selectedIndex = listBoxChoosedUser.SelectedIndex;
+            string choosed = string.Empty;
+
+            // Проверяем, что позиция была выбрана и двойной щелчок выполнен
+            if (selectedIndex != -1 && e.Button == MouseButtons.Left)
+            {
+                choosed = listBoxChoosedUser.Items[selectedIndex].ToString().Trim();
+                // Удаляем позицию из ListBox
+                listBoxChoosedUser.Items.RemoveAt(selectedIndex);
+            }
         }
     }
 }

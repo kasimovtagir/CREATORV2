@@ -96,7 +96,7 @@ namespace CreatorV2
                     {
                         _Actions.LockUnlockUser(listUser.ToString(), "lock");
                     }
-                    else if (checkBoxUnlock.Checked) 
+                    else if (checkBoxUnlock.Checked)
                     {
                         _Actions.LockUnlockUser(listUser.ToString(), "unlock");
                     }
@@ -144,6 +144,20 @@ namespace CreatorV2
             if (checkBoxLock.Checked)
             {
                 checkBoxUnlock.Checked = false;
+            }
+        }
+
+        private void listBoxChoosedUser_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            int selectedIndex = listBoxChoosedUser.SelectedIndex;
+            string choosed = string.Empty;
+
+            // Проверяем, что позиция была выбрана и двойной щелчок выполнен
+            if (selectedIndex != -1 && e.Button == MouseButtons.Left)
+            {
+                choosed = listBoxChoosedUser.Items[selectedIndex].ToString().Trim();
+                // Удаляем позицию из ListBox
+                listBoxChoosedUser.Items.RemoveAt(selectedIndex);
             }
         }
     }

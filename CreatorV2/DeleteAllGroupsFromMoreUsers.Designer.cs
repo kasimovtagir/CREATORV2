@@ -82,6 +82,7 @@
             listBoxChoosedUser.ScrollAlwaysVisible = true;
             listBoxChoosedUser.Size = new Size(519, 323);
             listBoxChoosedUser.TabIndex = 35;
+            listBoxChoosedUser.MouseDoubleClick += listBoxChoosedUser_MouseDoubleClick;
             // 
             // label3
             // 

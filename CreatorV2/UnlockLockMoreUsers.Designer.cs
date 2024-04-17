@@ -85,6 +85,7 @@
             listBoxChoosedUser.Name = "listBoxChoosedUser";
             listBoxChoosedUser.Size = new Size(595, 407);
             listBoxChoosedUser.TabIndex = 4;
+            listBoxChoosedUser.MouseDoubleClick += listBoxChoosedUser_MouseDoubleClick;
             // 
             // button2
             // 

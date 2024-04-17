@@ -82,5 +82,20 @@ namespace CreatorV2
             }
             this.Close();
         }
+
+        private void listBoxAllGroupsFromUsers_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            int selectedIndex = listBoxAllGroupsFromUsers.SelectedIndex;
+            string choosed = string.Empty;
+
+            // Проверяем, что позиция была выбрана и двойной щелчок выполнен
+            if (selectedIndex != -1 && e.Button == MouseButtons.Left)
+            {
+                choosed = listBoxAllGroupsFromUsers.Items[selectedIndex].ToString().Trim();
+                // Удаляем позицию из ListBox
+                listBoxAllGroupsFromUsers.Items.RemoveAt(selectedIndex);
+            }
+
+        }
     }
 }

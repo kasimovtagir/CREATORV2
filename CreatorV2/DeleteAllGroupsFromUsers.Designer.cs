@@ -85,6 +85,7 @@
             listBoxAllGroupsFromUsers.Name = "listBoxAllGroupsFromUsers";
             listBoxAllGroupsFromUsers.Size = new Size(420, 283);
             listBoxAllGroupsFromUsers.TabIndex = 4;
+            listBoxAllGroupsFromUsers.MouseDoubleClick += listBoxAllGroupsFromUsers_MouseDoubleClick;
             // 
             // DeleteAllGroupsFromUsers
             // 

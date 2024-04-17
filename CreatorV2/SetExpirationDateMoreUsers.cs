@@ -60,7 +60,7 @@ namespace CreatorV2
                 }
                 else
                 {
-                    listBoxChoosedUsers.Items.Add(comboBoxListUsers.Text);                    
+                    listBoxChoosedUsers.Items.Add(comboBoxListUsers.Text);
                 }
             }
             comboBoxListUsers.Text = string.Empty;
@@ -83,6 +83,20 @@ namespace CreatorV2
                 }
             }
             this.Close();
+        }
+
+        private void listBoxChoosedUsers_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            int selectedIndex = listBoxChoosedUsers.SelectedIndex;
+            string choosed = string.Empty;
+
+            // Проверяем, что позиция была выбрана и двойной щелчок выполнен
+            if (selectedIndex != -1 && e.Button == MouseButtons.Left)
+            {
+                choosed = listBoxChoosedUsers.Items[selectedIndex].ToString().Trim();
+                // Удаляем позицию из ListBox
+                listBoxChoosedUsers.Items.RemoveAt(selectedIndex);
+            }
         }
     }
 }
