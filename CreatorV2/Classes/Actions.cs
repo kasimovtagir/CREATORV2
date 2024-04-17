@@ -2,6 +2,7 @@
 using System.Net.Mail;
 using System.Net;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace CreatorV2.Classes
 {
@@ -469,6 +470,77 @@ namespace CreatorV2.Classes
                 MessageBox.Show($"Ошибка: {ex.Message}");
             }
         }
+
+
+        /// <summary>
+        /// метод предназначенный для создания группы
+        /// </summary>
+        /// <param name="groupName">принимает нахвание группы</param>
+        /// <param name="description">принимает описание группы</param>
+        public void CreateGroup(string groupName, string description)
+        {
+            string rootPath = string.Empty;
+            string[] splitNetBios = _Variables.NetBios.Split(".");
+            foreach (string net in splitNetBios)
+            {
+                rootPath += $"DC={net}, ";
+            }
+            _Variables.splitNetBios = _ = rootPath.Remove(rootPath.Length - 2);
+            try
+            {
+                using (PrincipalContext context = new PrincipalContext(ContextType.Domain, _Variables.NetBios, $"OU={_Variables.OU}, {_Variables.splitNetBios}"))
+                {
+                    // Create a new group principal object
+                    GroupPrincipal group = new GroupPrincipal(context, groupName);
+
+                    // Set group properties (optional)
+                    group.Description = string.IsNullOrEmpty(description)? null: description;
+
+                    // Save the group to Active Directory
+                    group.Save();
+                    _Variables.Log.Add($"Создана группа {groupName}");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error {ex}");
+            }
+        }
+
+        /// <summary>
+        /// Метод предназначени для проверки существования группы 
+        /// </summary>
+        /// <param name="groupName"></param>
+        /// <returns></returns>
+        public bool DoesADGroupExist(string groupName)
+        {
+            StringBuilder rootPath = new StringBuilder();
+            foreach (string net in _Variables.NetBios.Split('.'))
+            {
+                rootPath.Append($"DC={net}, ");
+            }
+
+            // Remove the trailing comma and space
+            rootPath.Remove(rootPath.Length - 2, 2);
+
+            try
+            {
+                using (PrincipalContext context = new PrincipalContext(ContextType.Domain, _Variables.NetBios, $"OU={_Variables.OU}, {rootPath}"))
+                {
+                    // Search for group by name using a GroupPrincipal with null name
+                    GroupPrincipal group = GroupPrincipal.FindByIdentity(context, groupName);
+
+                    // If found, group object will have a value
+                    return group != null;
+                }
+            }
+            catch (Exception ex)
+            {
+                // Expected exception if group doesn't exist
+                return false;
+            }
+        }
+
 
 
         /// <summary>
@@ -1070,7 +1142,7 @@ namespace CreatorV2.Classes
         /// метод который получает из АД список всех пользоватлелей 
         /// </summary>
         public void GetAllUser()
-        {            
+        {
             string rootPath = string.Empty;
             string[] splitNetBios = _Variables.NetBios.Split(".");
             foreach (string net in splitNetBios)
@@ -1223,7 +1295,7 @@ namespace CreatorV2.Classes
         }
 
 
-       
+
 
 
         /// <summary>

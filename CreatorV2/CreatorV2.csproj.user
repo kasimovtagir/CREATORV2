@@ -19,6 +19,9 @@
     <Compile Update="ChangePasswordForUser.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="CreateGroup.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="CreateTempGroups.cs">
       <SubType>Form</SubType>
     </Compile>

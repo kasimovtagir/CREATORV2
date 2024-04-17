@@ -248,7 +248,13 @@ namespace CreatorV2
 
         private void создать√руппуToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("¬ременно не доступно.");
+            CreateGroup createGroup = new CreateGroup();
+            createGroup._Actions = _Actions;    
+            createGroup._Variables = _Variables;
+            createGroup.ShowDialog();
+            showLog();
+            //MessageBox.Show("¬ременно не доступно.");
+
         }
 
         private void заблокировать–азблокироватьѕользовател€ToolStripMenuItem1_Click(object sender, EventArgs e)
