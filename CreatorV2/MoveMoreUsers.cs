@@ -110,6 +110,7 @@ namespace CreatorV2
 
         private void comboBoxFromOU_SelectedIndexChanged(object sender, EventArgs e)
         {
+            comboBoxListUser.Items.Clear();
             _Actions.GetAllUser(comboBoxFromOU.Text);
 
             string[] names = _Variables.AllUsersInAD.ToArray();

@@ -456,7 +456,7 @@ namespace CreatorV2.Classes
                         string Log = $"Пользователь {userName} будет заблокирован {expirateDate}";
 
                         _Variables.Log.Add(Log);
-                        MessageBox.Show(Log);
+                        //MessageBox.Show(Log);
                     }
                     else
                     {

@@ -70,6 +70,9 @@
     <Compile Update="SetExpirationDate.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="SetExpirationDateMoreUsers.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="TextMessage.cs">
       <SubType>Form</SubType>
     </Compile>

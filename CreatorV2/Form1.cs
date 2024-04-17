@@ -258,11 +258,7 @@ namespace CreatorV2
 
         private void óñòàíîâèòüÄàòóÈñòå÷åíèÿToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SetExpirationDate setExpirationDate = new SetExpirationDate();
-            setExpirationDate._Variables = _Variables;
-            setExpirationDate._Actions = _Actions;
-            setExpirationDate.ShowDialog();
-            showLog();
+
         }
 
         private void êîíêğåòíóşToolStripMenuItem_Click(object sender, EventArgs e)
@@ -427,6 +423,24 @@ namespace CreatorV2
         private void ïåğåíîñÏîëüçîâàòåëÿToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void îäèíàğíûéToolStripMenuItem4_Click(object sender, EventArgs e)
+        {
+            SetExpirationDate setExpirationDate = new SetExpirationDate();
+            setExpirationDate._Variables = _Variables;
+            setExpirationDate._Actions = _Actions;
+            setExpirationDate.ShowDialog();
+            showLog();
+        }
+
+        private void ìíîæåñòâåííûéToolStripMenuItem5_Click(object sender, EventArgs e)
+        {
+            SetExpirationDateMoreUsers setExpirationDateMoreUsers = new SetExpirationDateMoreUsers();
+            setExpirationDateMoreUsers._Variables = _Variables;
+            setExpirationDateMoreUsers._Actions = _Actions;
+            setExpirationDateMoreUsers.ShowDialog();
+            showLog();
         }
     }
 }
