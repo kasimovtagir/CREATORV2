@@ -95,7 +95,6 @@ namespace CreatorV2
                 {
                     _Actions.RemoveUserFroumGroup(ListUser.ToString(), listgroupsForDeleted.ToString());
                 }
-
             }
         }
 

@@ -103,5 +103,11 @@ namespace CreatorV2
                 listBoxChoosedUser.Items.RemoveAt(selectedIndex);
             }
         }
+
+        private void CreateGroup_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            _Variables.ListAllGroups.Clear();
+            _Variables.AllUsersInAD.Clear();
+        }
     }
 }

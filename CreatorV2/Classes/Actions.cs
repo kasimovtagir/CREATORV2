@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net.Mail;
 using System.Net;
+using System.DirectoryServices.AccountManagement;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
@@ -494,10 +495,11 @@ namespace CreatorV2.Classes
                     GroupPrincipal group = new GroupPrincipal(context, groupName);
 
                     // Set group properties (optional)
-                    group.Description = string.IsNullOrEmpty(description)? null: description;
+                    group.Description = string.IsNullOrEmpty(description) ? null : description;
 
                     // Save the group to Active Directory
                     group.Save();
+
                     _Variables.Log.Add($"Создана группа {groupName}");
                 }
             }
@@ -506,6 +508,116 @@ namespace CreatorV2.Classes
                 MessageBox.Show($"Error {ex}");
             }
         }
+
+
+        /// <summary>
+        /// метод предназначен для удаления группы
+        /// </summary>
+        /// <param name="groupName">название группы для удаления </param>
+        public void DeleteGroup(string groupName)
+        {
+            StringBuilder rootPath = new StringBuilder();
+            foreach (string net in _Variables.NetBios.Split('.'))
+            {
+                rootPath.Append($"DC={net}, ");
+            }
+
+            // Remove the trailing comma and space
+            rootPath.Remove(rootPath.Length - 2, 2);
+
+            try
+            {
+                using (PrincipalContext context = new PrincipalContext(ContextType.Domain, _Variables.NetBios, $"OU={_Variables.OU}, {rootPath}"))
+                {
+                    // Search for the group
+                    GroupPrincipal group = GroupPrincipal.FindByIdentity(context, groupName);
+
+                    if (group != null)
+                    {
+                        // Delete the group
+                        group.Delete();
+                        _Variables.Log.Add($"Группа {groupName} удалена.");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Group not found.");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error {ex}");
+            }
+        }
+
+
+        public List<string> GetUserInformationAD(string username)
+        {
+            List<string> attributesList = new List<string> ();
+            
+            StringBuilder rootPath = new StringBuilder();
+            foreach (string net in _Variables.NetBios.Split('.'))
+            {
+                rootPath.Append($"DC={net}, ");
+            }
+
+            // Remove the trailing comma and space
+            rootPath.Remove(rootPath.Length - 2, 2);
+
+            // Specify the username of the user you want to retrieve information for
+            username = GetSamAccountNameByDisplayName(username);
+
+            // Specify the domain name
+            string domain = "metalab.ifmo.ru";
+
+            try
+            {
+                // Create a DirectoryEntry object to connect to the Active Directory
+                using (DirectoryEntry entry = new DirectoryEntry($"LDAP://{domain}"))
+                {
+                    // Create a DirectorySearcher object to search for the user
+                    using (DirectorySearcher searcher = new DirectorySearcher(entry))
+                    {
+                        // Set the filter to search for the specified username
+                        searcher.Filter = $"(&(objectClass=user)(samAccountName={username}))";
+
+                        // Perform the search
+                        SearchResult result = searcher.FindOne();
+
+                        if (result != null)
+                        {
+                            // Get the DirectoryEntry object for the user
+                            DirectoryEntry userEntry = result.GetDirectoryEntry();
+
+                            // Output all attributes of the user
+                            foreach (string attributeName in userEntry.Properties.PropertyNames)
+                            {
+                                attributesList.Add($"{attributeName} - {userEntry.Properties[attributeName].Value}");
+                                //Console.WriteLine($"{attributeName}: {userEntry.Properties[attributeName].Value}");
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("User not found.");
+                            //Console.WriteLine("User not found.");
+                        }
+                    }
+                }
+                
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}");
+                //Console.WriteLine($"Error: {ex.Message}");
+                //return attributesList;
+            }
+            return attributesList;
+
+
+        }
+
+
+
 
         /// <summary>
         /// Метод предназначени для проверки существования группы 

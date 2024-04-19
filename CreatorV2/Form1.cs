@@ -184,15 +184,6 @@ namespace CreatorV2
             //ForTest(); // метод дл€ тестировани€ 
         }
 
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void добавитьѕользовател€¬√руппуToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-        }
-
         private void одинаныйToolStripMenuItem_Click(object sender, EventArgs e)
         {
             AddUserInGroup addUserInGroup = new AddUserInGroup();
@@ -217,11 +208,6 @@ namespace CreatorV2
             changePasswordForUser._Actions = _Actions;
             changePasswordForUser.ShowDialog();
             showLog();
-        }
-
-        private void удалитьѕользовател€»з√руппыToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
         }
 
         public void showLog()
@@ -249,22 +235,10 @@ namespace CreatorV2
         private void создать√руппуToolStripMenuItem_Click(object sender, EventArgs e)
         {
             CreateGroup createGroup = new CreateGroup();
-            createGroup._Actions = _Actions;    
+            createGroup._Actions = _Actions;
             createGroup._Variables = _Variables;
             createGroup.ShowDialog();
             showLog();
-            //MessageBox.Show("¬ременно не доступно.");
-
-        }
-
-        private void заблокировать–азблокироватьѕользовател€ToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void установитьƒату»стечени€ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void конкретнуюToolStripMenuItem_Click(object sender, EventArgs e)
@@ -317,16 +291,6 @@ namespace CreatorV2
             showLog();
         }
 
-        private void множественныйToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void множественныйToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void пользователей¬√руппуToolStripMenuItem_Click(object sender, EventArgs e)
         {
             AddMoreUsersInGroup addMoreUsersInGroup = new AddMoreUsersInGroup();
@@ -370,11 +334,6 @@ namespace CreatorV2
             deleteMoreGroupsFromUsers._Actions = _Actions;
             deleteMoreGroupsFromUsers.ShowDialog();
             showLog();
-        }
-
-        private void все√руппы”ѕользовател€ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void одинарныйToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -426,11 +385,6 @@ namespace CreatorV2
             moveUsers.ShowDialog(); showLog();
         }
 
-        private void переносѕользовател€ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void одинарныйToolStripMenuItem4_Click(object sender, EventArgs e)
         {
             SetExpirationDate setExpirationDate = new SetExpirationDate();
@@ -447,6 +401,24 @@ namespace CreatorV2
             setExpirationDateMoreUsers._Actions = _Actions;
             setExpirationDateMoreUsers.ShowDialog();
             showLog();
+        }
+
+        private void удалить√руппуToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DeleteGroup deleteGroup = new DeleteGroup();
+            deleteGroup._Variables = _Variables;
+            deleteGroup._Actions = _Actions;
+            deleteGroup.ShowDialog();
+            showLog();
+        }
+
+        private void карточка—отрудникаToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            EmployeeCard employeeCard = new EmployeeCard();
+            employeeCard._Variables = _Variables;
+            employeeCard._Actions = _Actions;
+            employeeCard.ShowDialog();
+            
         }
     }
 }

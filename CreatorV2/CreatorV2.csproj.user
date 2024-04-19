@@ -34,6 +34,9 @@
     <Compile Update="DeleteAllGroupsFromUsers.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="DeleteGroup.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="DeleteMoreGroupsFromUsers.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -44,6 +47,9 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="DomainSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="EmployeeCard.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Form1.cs">
