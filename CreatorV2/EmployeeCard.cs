@@ -70,17 +70,14 @@ namespace CreatorV2
             // Используем LINQ для выборки значений в четыре группы
             var groupedValues = values.Select((value, index) => new { Value = value, Group = index / chunkSize })
                                       .GroupBy(item => item.Group, item => item.Value)
-                                      .Select(group => string.Join("\t", $"{group}\n"));
+                                      .Select(group => string.Join("\t", group));
 
             // Выводим значения в ListBox
             foreach (var group in groupedValues)
             {
                 string nameGroup = group.ToString();
                 nameGroup = nameGroup.Replace("CN=", "");
-                //listBox1.Items.Add(nameGroup);
-                textBox1.Text += $"{nameGroup} ";
-                //textBox1.Text+= group;
-                //listBox1.Items.Add(group);
+                textBox1.Text += $"{nameGroup} \n";
             }
         }
 
