@@ -83,7 +83,7 @@ namespace CreatorV2
 
         private void EmployeeCard_FormClosing(object sender, FormClosingEventArgs e)
         {
-            _Variables.ListAllGroups.Clear();
+            _Variables.ListAllGroups.Clear(); 
             _Variables.AllUsersInAD.Clear();
         }
     }
