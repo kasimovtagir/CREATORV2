@@ -4,21 +4,21 @@
     {
         // настройки учетной записи для отправки писем на электронную почту
         private string? FIOForSendEMail;
-        public string _FIOForSendEmail
+        public string? _FIOForSendEmail
         {
             get { return FIOForSendEMail; }
             set { FIOForSendEMail = value; }
         }
 
-        private string EmailForSendEMail;
-        public string _EmailForSendEmail
+        private string? EmailForSendEMail;
+        public string? _EmailForSendEmail
         {
             get { return EmailForSendEMail; }
             set { EmailForSendEMail = value; }
         }
 
-        private string PasswordForSendEmail;
-        public string _PasswordForSendEmail
+        private string? PasswordForSendEmail;
+        public string? _PasswordForSendEmail
         {
             get { return PasswordForSendEmail; }
             set { PasswordForSendEmail = value; }
@@ -29,11 +29,11 @@
         public string? TextMessageForSendEMAIL_RUS { get; set; }
 
         public string? SubjectTextMessageForSendEmail_ENG { get; set; }
-        public string TextMessageForSendEMAIL_ENG { get; set; }
+        public string? TextMessageForSendEMAIL_ENG { get; set; }
 
         //переменные для списка групп в которые будет добавлен новый пользователь 
-        private List<string> ListGroupForAddEmployeer = new List<string>();
-        public List<string> _ListGroupForAddEmployeer
+        private List<string>? ListGroupForAddEmployeer = new List<string>();
+        public List<string>? _ListGroupForAddEmployeer
         {
             get { return ListGroupForAddEmployeer; }
             set { ListGroupForAddEmployeer = value; }
@@ -46,14 +46,14 @@
             set { ListGroupForAddStudent = value; }
         }
 
-        private List<string> ListGroupForAddSUZsPF = new List<string>();
+        private List<string>? ListGroupForAddSUZsPF = new List<string>();
         public List<string>? _ListGroupForAddSUZsPF
         {
             get { return ListGroupForAddSUZsPF; }
             set { ListGroupForAddSUZsPF = value; }
         }
 
-        private List<string> ListGroupForAddArbitrary = new List<string>();
+        private List<string>? ListGroupForAddArbitrary = new List<string>();
         public List<string>? _ListGroupForAddArbitrary
         {
             get { return ListGroupForAddArbitrary; }
@@ -69,12 +69,12 @@
         // поле для переменной netbios
         public string? NetBios;// { get; set; }
         public string? splitNetBios;
-        public string OU;
-        public List<string> _ListOU;
+        public string? OU;
+        public List<string>? _ListOU;
 
         //паля для подключения к АД
-        public PrincipalContext principalContext;
-        public GroupPrincipal group { get; set; }
+        public PrincipalContext? principalContext;
+        public GroupPrincipal? group { get; set; }
 
 
 

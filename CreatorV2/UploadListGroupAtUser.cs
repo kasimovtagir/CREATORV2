@@ -79,19 +79,14 @@ namespace CreatorV2
             {
                 string path = $@"listAllGroupsAt_{itemChoosedUser}.txt";
 
-                //List<string> results = new List<string>();
-                ListBox listBoxListGroupAtUser = new ListBox();
-
                 using (StreamWriter sw = new StreamWriter(path))
                 {
                     try
                     {
-                        listBoxListGroupAtUser = _Actions.GetListGroupUsers(itemChoosedUser.ToString());
-                        //results = _Actions.showUsersInGroup(itemChoosedUser.ToString());
+                        ListBox listBoxListGroupAtUser = _Actions.GetListGroupUsers(itemChoosedUser.ToString());
                         sw.WriteLine(itemChoosedUser);
                         foreach (var items in listBoxListGroupAtUser.Items)
                         {
-                            //string NewName = items.ToString().Replace("CN=","");
                             sw.WriteLine($"\t{items.ToString().Replace("CN=", "")}");
                         }
                     }
