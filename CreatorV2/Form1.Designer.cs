@@ -62,6 +62,7 @@
             переносПользователяToolStripMenuItem = new ToolStripMenuItem();
             одинарныйToolStripMenuItem3 = new ToolStripMenuItem();
             множественныйToolStripMenuItem4 = new ToolStripMenuItem();
+            карточкаСотрудникаToolStripMenuItem = new ToolStripMenuItem();
             работаСГруппамиToolStripMenuItem = new ToolStripMenuItem();
             создатьГруппуToolStripMenuItem = new ToolStripMenuItem();
             удалитьГруппуToolStripMenuItem = new ToolStripMenuItem();
@@ -95,7 +96,7 @@
             checkBoxWinthEmail = new CheckBox();
             buttonCreateUser = new Button();
             listBoxAllLog = new ListBox();
-            карточкаСотрудникаToolStripMenuItem = new ToolStripMenuItem();
+            однуНесколькоToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -342,6 +343,13 @@
             множественныйToolStripMenuItem4.Text = "Множественный";
             множественныйToolStripMenuItem4.Click += множественныйToolStripMenuItem4_Click;
             // 
+            // карточкаСотрудникаToolStripMenuItem
+            // 
+            карточкаСотрудникаToolStripMenuItem.Name = "карточкаСотрудникаToolStripMenuItem";
+            карточкаСотрудникаToolStripMenuItem.Size = new Size(713, 46);
+            карточкаСотрудникаToolStripMenuItem.Text = "Карточка сотрудника";
+            карточкаСотрудникаToolStripMenuItem.Click += карточкаСотрудникаToolStripMenuItem_Click;
+            // 
             // работаСГруппамиToolStripMenuItem
             // 
             работаСГруппамиToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { создатьГруппуToolStripMenuItem, удалитьГруппуToolStripMenuItem, создатьВременнуюГруппуToolStripMenuItem });
@@ -379,6 +387,7 @@
             // 
             // списокГруппуУПользователяToolStripMenuItem
             // 
+            списокГруппуУПользователяToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { однуНесколькоToolStripMenuItem });
             списокГруппуУПользователяToolStripMenuItem.Name = "списокГруппуУПользователяToolStripMenuItem";
             списокГруппуУПользователяToolStripMenuItem.Size = new Size(533, 46);
             списокГруппуУПользователяToolStripMenuItem.Text = "Список группу у пользователя";
@@ -393,14 +402,14 @@
             // конкретнуюToolStripMenuItem
             // 
             конкретнуюToolStripMenuItem.Name = "конкретнуюToolStripMenuItem";
-            конкретнуюToolStripMenuItem.Size = new Size(281, 46);
-            конкретнуюToolStripMenuItem.Text = "Конкретную";
+            конкретнуюToolStripMenuItem.Size = new Size(338, 46);
+            конкретнуюToolStripMenuItem.Text = "Одну\\Несколько";
             конкретнуюToolStripMenuItem.Click += конкретнуюToolStripMenuItem_Click;
             // 
             // всЁToolStripMenuItem1
             // 
             всЁToolStripMenuItem1.Name = "всЁToolStripMenuItem1";
-            всЁToolStripMenuItem1.Size = new Size(281, 46);
+            всЁToolStripMenuItem1.Size = new Size(338, 46);
             всЁToolStripMenuItem1.Text = "ВсЁ";
             всЁToolStripMenuItem1.Click += всЁToolStripMenuItem1_Click;
             // 
@@ -607,12 +616,12 @@
             listBoxAllLog.Size = new Size(956, 508);
             listBoxAllLog.TabIndex = 24;
             // 
-            // карточкаСотрудникаToolStripMenuItem
+            // однуНесколькоToolStripMenuItem
             // 
-            карточкаСотрудникаToolStripMenuItem.Name = "карточкаСотрудникаToolStripMenuItem";
-            карточкаСотрудникаToolStripMenuItem.Size = new Size(713, 46);
-            карточкаСотрудникаToolStripMenuItem.Text = "Карточка сотрудника";
-            карточкаСотрудникаToolStripMenuItem.Click += карточкаСотрудникаToolStripMenuItem_Click;
+            однуНесколькоToolStripMenuItem.Name = "однуНесколькоToolStripMenuItem";
+            однуНесколькоToolStripMenuItem.Size = new Size(338, 46);
+            однуНесколькоToolStripMenuItem.Text = "Одну\\Несколько";
+            однуНесколькоToolStripMenuItem.Click += однуНесколькоToolStripMenuItem_Click;
             // 
             // Form1
             // 
@@ -725,5 +734,6 @@
         private ToolStripMenuItem множественныйToolStripMenuItem5;
         private ToolStripMenuItem удалитьГруппуToolStripMenuItem;
         private ToolStripMenuItem карточкаСотрудникаToolStripMenuItem;
+        private ToolStripMenuItem однуНесколькоToolStripMenuItem;
     }
 }

@@ -31,13 +31,16 @@
             buttonUploadListUser = new Button();
             label1 = new Label();
             comboBoxListGroup = new ComboBox();
+            button1 = new Button();
+            label2 = new Label();
+            listBoxListGroup = new ListBox();
             SuspendLayout();
             // 
             // buttonUploadListUser
             // 
-            buttonUploadListUser.Location = new Point(327, 64);
+            buttonUploadListUser.Location = new Point(298, 454);
             buttonUploadListUser.Name = "buttonUploadListUser";
-            buttonUploadListUser.Size = new Size(203, 67);
+            buttonUploadListUser.Size = new Size(412, 78);
             buttonUploadListUser.TabIndex = 0;
             buttonUploadListUser.Text = "Выгрузить";
             buttonUploadListUser.UseVisualStyleBackColor = true;
@@ -60,11 +63,42 @@
             comboBoxListGroup.Size = new Size(406, 46);
             comboBoxListGroup.TabIndex = 2;
             // 
+            // button1
+            // 
+            button1.Location = new Point(536, 12);
+            button1.Name = "button1";
+            button1.Size = new Size(174, 46);
+            button1.TabIndex = 3;
+            button1.Text = "Добавить";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(12, 64);
+            label2.Name = "label2";
+            label2.Size = new Size(190, 38);
+            label2.TabIndex = 4;
+            label2.Text = "Список групп";
+            // 
+            // listBoxListGroup
+            // 
+            listBoxListGroup.FormattingEnabled = true;
+            listBoxListGroup.ItemHeight = 38;
+            listBoxListGroup.Location = new Point(208, 64);
+            listBoxListGroup.Name = "listBoxListGroup";
+            listBoxListGroup.Size = new Size(502, 384);
+            listBoxListGroup.TabIndex = 5;
+            // 
             // UploadListUsersFromGroup
             // 
             AutoScaleDimensions = new SizeF(15F, 38F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(542, 142);
+            ClientSize = new Size(730, 546);
+            Controls.Add(listBoxListGroup);
+            Controls.Add(label2);
+            Controls.Add(button1);
             Controls.Add(comboBoxListGroup);
             Controls.Add(label1);
             Controls.Add(buttonUploadListUser);
@@ -83,5 +117,8 @@
         private Button buttonUploadListUser;
         private Label label1;
         private ComboBox comboBoxListGroup;
+        private Button button1;
+        private Label label2;
+        private ListBox listBoxListGroup;
     }
 }

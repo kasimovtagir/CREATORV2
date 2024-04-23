@@ -91,6 +91,9 @@
     <Compile Update="UnlockLockUser.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="UploadListGroupAtUser.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="UploadListUserFromAllGroup.cs">
       <SubType>Form</SubType>
     </Compile>

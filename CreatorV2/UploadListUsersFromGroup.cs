@@ -28,25 +28,27 @@ namespace CreatorV2
 
         private void buttonUploadListUser_Click(object sender, EventArgs e)
         {
-            string path = $@"listAllUsersIn_{comboBoxListGroup.Text}.txt";
-
-            List<string> results = new List<string>();
-
-            using (StreamWriter sw = new StreamWriter(path))
+            foreach (var itemChoosedGroup in listBoxListGroup.Items)
             {
-                try
-                {
-                    results = _Actions.showUsersInGroup(comboBoxListGroup.Text);
-                    sw.WriteLine(comboBoxListGroup.Text);
-                    foreach (var items in results)
-                    {
-                        sw.WriteLine($"\t{items}");
-                    }
-                }
-                catch (Exception ex) { MessageBox.Show($"error {ex}"); }
-            }
-            _Variables.Log.Add($"Готово. Вся информация выгружена в файл listAllUsersIn_{comboBoxListGroup.Text}.txt");
+                string path = $@"listAllUsersIn_{itemChoosedGroup}.txt";
 
+                List<string> results = new List<string>();
+
+                using (StreamWriter sw = new StreamWriter(path))
+                {
+                    try
+                    {
+                        results = _Actions.showUsersInGroup(itemChoosedGroup.ToString());
+                        sw.WriteLine(itemChoosedGroup);
+                        foreach (var items in results)
+                        {
+                            sw.WriteLine($"\t{items}");
+                        }
+                    }
+                    catch (Exception ex) { MessageBox.Show($"error {ex}"); }
+                }
+                _Variables.Log.Add($"Готово. Вся информация выгружена в файл listAllUsersIn_{itemChoosedGroup}.txt");
+            }
             this.Close();
         }
 
@@ -73,6 +75,29 @@ namespace CreatorV2
         private void UploadListUsersFromGroup_FormClosed(object sender, FormClosedEventArgs e)
         {
             _Variables.ListAllGroups.Clear();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            // Проверяем, выбран ли пользователь в comboBoxListUser
+            if (string.IsNullOrEmpty(comboBoxListGroup.Text))
+            {
+                MessageBox.Show("Выберите пользователя.");
+            }
+            else
+            {
+                // Проверяем, содержится ли выбранный пользователь уже в списке
+                if (!listBoxListGroup.Items.Contains(comboBoxListGroup.Text))
+                {
+                    listBoxListGroup.Items.Add(comboBoxListGroup.Text);
+                }
+                else
+                {
+                    MessageBox.Show("Пользователь уже в списке.");
+                }
+
+                comboBoxListGroup.Text = string.Empty; // Очищаем текстовое поле comboBoxListUser
+            }
         }
     }
 }

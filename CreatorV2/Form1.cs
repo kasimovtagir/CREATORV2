@@ -418,7 +418,16 @@ namespace CreatorV2
             employeeCard._Variables = _Variables;
             employeeCard._Actions = _Actions;
             employeeCard.ShowDialog();
-            
+
+        }
+
+        private void îäíóÍåñêîëüêîToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            UploadListGroupAtUser uploadListGroupAtUser = new UploadListGroupAtUser();
+            uploadListGroupAtUser._Variables = _Variables;
+            uploadListGroupAtUser._Actions = _Actions;
+            uploadListGroupAtUser.ShowDialog();
+            showLog();
         }
     }
 }
