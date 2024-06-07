@@ -388,9 +388,16 @@ namespace CreatorV2.Classes
         /// <param name="expirateDate"></param>
         public void SetExpirateDate(string userName, string expirateDate)
         {
+            string rootPath = string.Empty;
+            string[] splitNetBios = _Variables.NetBios.Split(".");
+            foreach (string net in splitNetBios)
+            {
+                rootPath += $"DC={net}, ";
+            }
+            _Variables.splitNetBios = _ = rootPath.Remove(rootPath.Length - 2);
             try
             {
-                using (PrincipalContext context = new PrincipalContext(ContextType.Domain, _Variables.NetBios))
+                using (PrincipalContext context = new PrincipalContext(ContextType.Domain, _Variables.NetBios, $"OU={_Variables.OU}, {_Variables.splitNetBios}"))
                 {
                     userName = GetSamAccountNameByDisplayName(userName);
                     UserPrincipal user = UserPrincipal.FindByIdentity(context, IdentityType.SamAccountName, userName);

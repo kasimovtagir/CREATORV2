@@ -43,6 +43,9 @@
     <Compile Update="SetExpirationDate.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="SingleDeleteOrAddUserToGroups.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="TextMessage.cs">
       <SubType>Form</SubType>
     </Compile>

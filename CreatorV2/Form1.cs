@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Xml.Linq;
 using static System.Net.Mime.MediaTypeNames;
 using static System.Windows.Forms.DataFormats;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace CreatorV2
 {
@@ -51,10 +52,8 @@ namespace CreatorV2
                         _Actions.UploadAllSettings();
                     }
                 }
-            }
+            }            
         }
-
-
 
 
         /// <summary>
@@ -102,8 +101,23 @@ namespace CreatorV2
             listGroup.ShowDialog();
         }
 
+
+
         private void buttonCreateUser_Click(object sender, EventArgs e)
         {
+
+            string[] checkBeforeCreateAccount = {
+                        textBoxLastNameInAD.Text, textBoxUserNameInAD.Text, comboBoxTypePost.Text,textBoxEMAIL.Text
+                        };
+
+            foreach (string check in checkBeforeCreateAccount)
+            {
+                if (string.IsNullOrEmpty(check))
+                {
+                    MessageBox.Show($"Не все поля заполнены.");
+                }
+            }
+
 
             // Проверяем, что поле имени и фамилии содержит только русские буквы
             bool checkRUStxtboxName = Regex.IsMatch(textBoxUserNameInAD.Text.Trim(), "^[А-Яа-я]+$");
@@ -313,5 +327,7 @@ namespace CreatorV2
                 включитьТестовыйРежимToolStripMenuItem.Text = "Включить тестовый режим";
             }
         }
+
+
     }
 }

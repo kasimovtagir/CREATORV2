@@ -35,6 +35,7 @@
             группыПоУмолчаниюToolStripMenuItem = new ToolStripMenuItem();
             доменToolStripMenuItem = new ToolStripMenuItem();
             установитьПарольПользователяПоУмолчаниюToolStripMenuItem = new ToolStripMenuItem();
+            включитьТестовыйРежимToolStripMenuItem = new ToolStripMenuItem();
             работаСПользователямиToolStripMenuItem = new ToolStripMenuItem();
             парольДляПользователяToolStripMenuItem = new ToolStripMenuItem();
             добавитьПользователяВГруппуToolStripMenuItem = new ToolStripMenuItem();
@@ -76,7 +77,6 @@
             checkBoxWinthEmail = new CheckBox();
             buttonCreateUser = new Button();
             listBoxAllLog = new ListBox();
-            включитьТестовыйРежимToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -133,6 +133,13 @@
             установитьПарольПользователяПоУмолчаниюToolStripMenuItem.Size = new Size(744, 46);
             установитьПарольПользователяПоУмолчаниюToolStripMenuItem.Text = "Установить пароль пользователя по умолчанию";
             установитьПарольПользователяПоУмолчаниюToolStripMenuItem.Click += установитьПарольПользователяПоУмолчаниюToolStripMenuItem_Click;
+            // 
+            // включитьТестовыйРежимToolStripMenuItem
+            // 
+            включитьТестовыйРежимToolStripMenuItem.Name = "включитьТестовыйРежимToolStripMenuItem";
+            включитьТестовыйРежимToolStripMenuItem.Size = new Size(744, 46);
+            включитьТестовыйРежимToolStripMenuItem.Text = "Включить тестовый режим";
+            включитьТестовыйРежимToolStripMenuItem.Click += включитьТестовыйРежимToolStripMenuItem_Click;
             // 
             // работаСПользователямиToolStripMenuItem
             // 
@@ -455,13 +462,6 @@
             listBoxAllLog.ScrollAlwaysVisible = true;
             listBoxAllLog.Size = new Size(956, 564);
             listBoxAllLog.TabIndex = 24;
-            // 
-            // включитьТестовыйРежимToolStripMenuItem
-            // 
-            включитьТестовыйРежимToolStripMenuItem.Name = "включитьТестовыйРежимToolStripMenuItem";
-            включитьТестовыйРежимToolStripMenuItem.Size = new Size(744, 46);
-            включитьТестовыйРежимToolStripMenuItem.Text = "Включить тестовый режим";
-            включитьТестовыйРежимToolStripMenuItem.Click += включитьТестовыйРежимToolStripMenuItem_Click;
             // 
             // Form1
             // 

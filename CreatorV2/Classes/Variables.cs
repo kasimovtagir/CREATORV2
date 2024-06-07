@@ -10,14 +10,14 @@
             set { FIOForSendEMail = value; }
         }
 
-        private string EmailForSendEMail;
+        private string? EmailForSendEMail;
         public string _EmailForSendEmail
         {
             get { return EmailForSendEMail; }
             set { EmailForSendEMail = value; }
         }
 
-        private string PasswordForSendEmail;
+        private string? PasswordForSendEmail;
         public string _PasswordForSendEmail
         {
             get { return PasswordForSendEmail; }
@@ -29,7 +29,7 @@
         public string? TextMessageForSendEMAIL_RUS { get; set; }
 
         public string? SubjectTextMessageForSendEmail_ENG { get; set; }
-        public string TextMessageForSendEMAIL_ENG { get; set; }
+        public string? TextMessageForSendEMAIL_ENG { get; set; }
 
         //переменные для списка групп в которые будет добавлен новый пользователь 
         private List<string> ListGroupForAddEmployeer = new List<string>();
@@ -69,12 +69,12 @@
         // поле для переменной netbios
         public string? NetBios;// { get; set; }
         public string? splitNetBios;
-        public string OU;
-        public List<string> _ListOU;
+        public string? OU;
+        public List<string>? _ListOU;
 
         //паля для подключения к АД
-        public PrincipalContext principalContext;
-        public GroupPrincipal group { get; set; }
+        public PrincipalContext? principalContext;
+        public GroupPrincipal? group { get; set; }
 
 
 
