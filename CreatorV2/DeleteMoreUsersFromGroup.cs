@@ -125,7 +125,9 @@ namespace CreatorV2
 
         private void comboBoxListGroup_SelectedIndexChanged(object sender, EventArgs e)
         {
+            comboBoxListUser.Items.Clear();
             List<string> listUserInGroup = new List<string>();
+
             listUserInGroup = _Actions.showUsersInGroup(comboBoxListGroup.Text);
 
             List<string> listUserInGroup2 = new List<string>();
