@@ -51,7 +51,7 @@
             label1.AutoSize = true;
             label1.Location = new Point(12, 15);
             label1.Name = "label1";
-            label1.Size = new Size(253, 38);
+            label1.Size = new Size(173, 25);
             label1.TabIndex = 1;
             label1.Text = "Имя пользователя";
             // 
@@ -60,7 +60,7 @@
             label2.AutoSize = true;
             label2.Location = new Point(12, 67);
             label2.Name = "label2";
-            label2.Size = new Size(203, 38);
+            label2.Size = new Size(138, 25);
             label2.TabIndex = 2;
             label2.Text = "Новый пароль";
             // 
@@ -69,14 +69,14 @@
             comboBoxUserName.FormattingEnabled = true;
             comboBoxUserName.Location = new Point(271, 12);
             comboBoxUserName.Name = "comboBoxUserName";
-            comboBoxUserName.Size = new Size(686, 46);
+            comboBoxUserName.Size = new Size(686, 33);
             comboBoxUserName.TabIndex = 3;
             // 
             // textBoxNewPassword
             // 
             textBoxNewPassword.Location = new Point(271, 64);
             textBoxNewPassword.Name = "textBoxNewPassword";
-            textBoxNewPassword.Size = new Size(686, 45);
+            textBoxNewPassword.Size = new Size(686, 32);
             textBoxNewPassword.TabIndex = 4;
             textBoxNewPassword.UseSystemPasswordChar = true;
             // 
@@ -85,7 +85,7 @@
             checkBoxShowPassword.AutoSize = true;
             checkBoxShowPassword.Location = new Point(48, 151);
             checkBoxShowPassword.Name = "checkBoxShowPassword";
-            checkBoxShowPassword.Size = new Size(257, 42);
+            checkBoxShowPassword.Size = new Size(179, 29);
             checkBoxShowPassword.TabIndex = 5;
             checkBoxShowPassword.Text = "Показать пароль";
             checkBoxShowPassword.UseVisualStyleBackColor = true;
@@ -93,7 +93,7 @@
             // 
             // ChangePasswordForUser
             // 
-            AutoScaleDimensions = new SizeF(15F, 38F);
+            AutoScaleDimensions = new SizeF(11F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(968, 221);
             Controls.Add(checkBoxShowPassword);

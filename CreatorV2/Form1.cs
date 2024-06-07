@@ -52,7 +52,7 @@ namespace CreatorV2
                         _Actions.UploadAllSettings();
                     }
                 }
-            }            
+            }
         }
 
 
@@ -105,7 +105,6 @@ namespace CreatorV2
 
         private void buttonCreateUser_Click(object sender, EventArgs e)
         {
-
             string[] checkBeforeCreateAccount = {
                         textBoxLastNameInAD.Text, textBoxUserNameInAD.Text, comboBoxTypePost.Text,textBoxEMAIL.Text
                         };
@@ -199,21 +198,15 @@ namespace CreatorV2
             //ForTest(); // метод дл€ тестировани€ 
         }
 
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void добавитьѕользовател€¬√руппуToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-        }
-
         private void одинаныйToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            AddUserInGroup addUserInGroup = new AddUserInGroup();
-            addUserInGroup._Variables = _Variables;
-            addUserInGroup._Actions = _Actions;
-            addUserInGroup.ShowDialog();
+            SingleDeleteOrAddUserToGroups addUserTogroup = new("Add", _Actions, _Variables);
+            addUserTogroup.ShowDialog();
+
+            /*            AddUserInGroup addUserInGroup = new AddUserInGroup();
+                        addUserInGroup._Variables = _Variables;
+                        addUserInGroup._Actions = _Actions;
+                        addUserInGroup.ShowDialog();*/
             showLog();
         }
         private void установитьѕарольѕользовател€ѕо”молчаниюToolStripMenuItem_Click(object sender, EventArgs e)
@@ -231,15 +224,6 @@ namespace CreatorV2
             changePasswordForUser._Variables = _Variables;
             changePasswordForUser._Actions = _Actions;
             changePasswordForUser.ShowDialog();
-            showLog();
-        }
-
-        private void удалитьѕользовател€»з√руппыToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DeleteUserFromGroup deleteUserFromGroup = new DeleteUserFromGroup();
-            deleteUserFromGroup._Variables = _Variables;
-            deleteUserFromGroup._Actions = _Actions;
-            deleteUserFromGroup.ShowDialog();
             showLog();
         }
 
@@ -267,24 +251,10 @@ namespace CreatorV2
 
         private void создать√руппуToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("¬ременно не доступно.");
-        }
-
-        private void заблокировать–азблокироватьѕользовател€ToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            UnlockLockUser unlockLockUser = new UnlockLockUser();
-            unlockLockUser._Variables = _Variables;
-            unlockLockUser._Actions = _Actions;
-            unlockLockUser.ShowDialog();
-            showLog();
-        }
-
-        private void установитьƒату»стечени€ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            SetExpirationDate setExpirationDate = new SetExpirationDate();
-            setExpirationDate._Variables = _Variables;
-            setExpirationDate._Actions = _Actions;
-            setExpirationDate.ShowDialog();
+            CreateGroup createGroup = new CreateGroup();
+            createGroup._Actions = _Actions;
+            createGroup._Variables = _Variables;
+            createGroup.ShowDialog();
             showLog();
         }
 
@@ -312,6 +282,7 @@ namespace CreatorV2
             textMessage._Variables = _Variables;
             textMessage._Actions = _Actions;
             textMessage.ShowDialog();
+            showLog();
         }
 
         private void включить“естовый–ежимToolStripMenuItem_Click(object sender, EventArgs e)
@@ -329,5 +300,155 @@ namespace CreatorV2
         }
 
 
+
+        private void пользователей¬√руппуToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AddMoreUsersInGroup addMoreUsersInGroup = new AddMoreUsersInGroup();
+            addMoreUsersInGroup._Variables = _Variables;
+            addMoreUsersInGroup._Actions = _Actions;
+            addMoreUsersInGroup.ShowDialog();
+            showLog();
+        }
+
+        private void группѕользователюToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AddMoreGroupsToUser addMoreGroupsToUser = new AddMoreGroupsToUser();
+            addMoreGroupsToUser._Variables = _Variables;
+            addMoreGroupsToUser._Actions = _Actions;
+            addMoreGroupsToUser.ShowDialog();
+            showLog();
+        }
+        private void несколькоѕользователе¬Ќесколько√руппToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AddMoreUsersToMoreGroups addMoreUsersToMoreGroups = new AddMoreUsersToMoreGroups();
+            addMoreUsersToMoreGroups._Variables = _Variables;
+            addMoreUsersToMoreGroups._Actions = _Actions;
+            addMoreUsersToMoreGroups.ShowDialog();
+            showLog();
+        }
+
+        private void несколькоѕользователей»з√руппыToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DeleteMoreUsersFromGroup delete = new DeleteMoreUsersFromGroup();
+            delete._Variables = _Variables;
+            delete._Actions = _Actions;
+            delete.ShowDialog();
+            showLog();
+        }
+
+        private void несколько√рупп”ѕользовател€ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DeleteMoreGroupsFromUsers deleteMoreGroupsFromUsers = new DeleteMoreGroupsFromUsers();
+            deleteMoreGroupsFromUsers._Variables = _Variables;
+            deleteMoreGroupsFromUsers._Actions = _Actions;
+            deleteMoreGroupsFromUsers.ShowDialog();
+            showLog();
+        }
+
+        private void одинарныйToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            UnlockLockUser unlockLockUser = new UnlockLockUser();
+            unlockLockUser._Variables = _Variables;
+            unlockLockUser._Actions = _Actions;
+            unlockLockUser.ShowDialog();
+            showLog();
+        }
+
+        private void множественныйToolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            UnlockLockMoreUsers unlock = new UnlockLockMoreUsers();
+            unlock._Variables = _Variables;
+            unlock._Actions = _Actions;
+            unlock.ShowDialog(); showLog();
+        }
+
+        private void одинарныйToolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            DeleteAllGroupsFromUsers deleteAllGroupsFromUsers = new DeleteAllGroupsFromUsers();
+            deleteAllGroupsFromUsers._Variables = _Variables;
+            deleteAllGroupsFromUsers._Actions = _Actions;
+            deleteAllGroupsFromUsers.ShowDialog(); showLog();
+        }
+
+        private void множественныйToolStripMenuItem3_Click(object sender, EventArgs e)
+        {
+            DeleteAllGroupsFromMoreUsers deleteAllGroupsFromMoreUsers = new DeleteAllGroupsFromMoreUsers();
+            deleteAllGroupsFromMoreUsers._Variables = _Variables;
+            deleteAllGroupsFromMoreUsers._Actions = _Actions;
+            deleteAllGroupsFromMoreUsers.ShowDialog(); showLog();
+        }
+
+        private void множественныйToolStripMenuItem4_Click(object sender, EventArgs e)
+        {
+            MoveMoreUsers moveMoreUsers = new MoveMoreUsers();
+            moveMoreUsers._Variables = _Variables;
+            moveMoreUsers._Actions = _Actions;
+            moveMoreUsers.ShowDialog(); showLog();
+        }
+
+        private void одинарныйToolStripMenuItem3_Click(object sender, EventArgs e)
+        {
+            MoveUsers moveUsers = new MoveUsers();
+            moveUsers._Variables = _Variables;
+            moveUsers._Actions = _Actions;
+            moveUsers.ShowDialog(); showLog();
+        }
+
+        private void одинарныйToolStripMenuItem4_Click(object sender, EventArgs e)
+        {
+            SetExpirationDate setExpirationDate = new SetExpirationDate();
+            setExpirationDate._Variables = _Variables;
+            setExpirationDate._Actions = _Actions;
+            setExpirationDate.ShowDialog();
+            showLog();
+        }
+
+        private void множественныйToolStripMenuItem5_Click(object sender, EventArgs e)
+        {
+            SetExpirationDateMoreUsers setExpirationDateMoreUsers = new SetExpirationDateMoreUsers();
+            setExpirationDateMoreUsers._Variables = _Variables;
+            setExpirationDateMoreUsers._Actions = _Actions;
+            setExpirationDateMoreUsers.ShowDialog();
+            showLog();
+        }
+
+        private void удалить√руппуToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DeleteGroup deleteGroup = new DeleteGroup();
+            deleteGroup._Variables = _Variables;
+            deleteGroup._Actions = _Actions;
+            deleteGroup.ShowDialog();
+            showLog();
+        }
+
+        private void карточка—отрудникаToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            EmployeeCard employeeCard = new EmployeeCard();
+            employeeCard._Variables = _Variables;
+            employeeCard._Actions = _Actions;
+            employeeCard.ShowDialog();
+
+        }
+
+        private void однуЌесколькоToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            UploadListGroupAtUser uploadListGroupAtUser = new UploadListGroupAtUser();
+            uploadListGroupAtUser._Variables = _Variables;
+            uploadListGroupAtUser._Actions = _Actions;
+            uploadListGroupAtUser.ShowDialog();
+            showLog();
+        }
+
+        private void одинарныйToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SingleDeleteOrAddUserToGroups deleteUserInGroup = new("Delete", _Actions, _Variables);
+            deleteUserInGroup.ShowDialog();
+
+            /*            DeleteUserFromGroup deleteUserFromGroup = new DeleteUserFromGroup();
+                        deleteUserFromGroup._Variables = _Variables;
+                        deleteUserFromGroup._Actions = _Actions;
+                        deleteUserFromGroup.ShowDialog();*/
+            showLog();
+        }
     }
 }

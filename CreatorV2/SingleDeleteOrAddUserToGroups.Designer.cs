@@ -33,12 +33,13 @@
             label4 = new Label();
             comboBoxGroup = new ComboBox();
             comboBoxUserName = new ComboBox();
+            label1 = new Label();
             SuspendLayout();
             // 
             // button1
             // 
             button1.Font = new Font("Microsoft Sans Serif", 14F, FontStyle.Regular, GraphicsUnit.Point);
-            button1.Location = new Point(475, 122);
+            button1.Location = new Point(475, 147);
             button1.Name = "button1";
             button1.Size = new Size(258, 98);
             button1.TabIndex = 0;
@@ -50,7 +51,7 @@
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Microsoft Sans Serif", 14F, FontStyle.Regular, GraphicsUnit.Point);
-            label3.Location = new Point(12, 70);
+            label3.Location = new Point(12, 103);
             label3.Name = "label3";
             label3.Size = new Size(108, 32);
             label3.TabIndex = 6;
@@ -70,7 +71,7 @@
             // 
             comboBoxGroup.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point);
             comboBoxGroup.FormattingEnabled = true;
-            comboBoxGroup.Location = new Point(278, 70);
+            comboBoxGroup.Location = new Point(278, 95);
             comboBoxGroup.Name = "comboBoxGroup";
             comboBoxGroup.Size = new Size(455, 46);
             comboBoxGroup.TabIndex = 8;
@@ -84,11 +85,21 @@
             comboBoxUserName.Size = new Size(455, 46);
             comboBoxUserName.TabIndex = 7;
             // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(278, 67);
+            label1.Name = "label1";
+            label1.Size = new Size(274, 25);
+            label1.TabIndex = 9;
+            label1.Text = "На английском, Name LastName";
+            // 
             // SingleDeleteOrAddUserToGroups
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(742, 228);
+            ClientSize = new Size(741, 256);
+            Controls.Add(label1);
             Controls.Add(comboBoxGroup);
             Controls.Add(comboBoxUserName);
             Controls.Add(label3);
@@ -96,6 +107,7 @@
             Controls.Add(button1);
             Name = "SingleDeleteOrAddUserToGroups";
             Text = "SingleDeleteOrAddUserToGroups";
+            FormClosed += SingleDeleteOrAddUserToGroups_FormClosed;
             Load += SingleDeleteOrAddUserToGroups_Load;
             ResumeLayout(false);
             PerformLayout();
@@ -108,5 +120,6 @@
         private Label label4;
         private ComboBox comboBoxGroup;
         private ComboBox comboBoxUserName;
+        private Label label1;
     }
 }

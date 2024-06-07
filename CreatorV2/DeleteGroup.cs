@@ -8,16 +8,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Runtime.InteropServices.JavaScript.JSType;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace CreatorV2
 {
-    public partial class UploadListUsersFromGroup : Form
+    public partial class DeleteGroup : Form
     {
         public Variables _Variables;
         public Actions _Actions;
-        public UploadListUsersFromGroup()
+        public DeleteGroup()
         {
             InitializeComponent();
 
@@ -25,34 +23,7 @@ namespace CreatorV2
             _Actions = new Actions(_Variables);
         }
 
-
-        private void buttonUploadListUser_Click(object sender, EventArgs e)
-        {
-            foreach (var itemChoosedGroup in listBoxListGroup.Items)
-            {
-                string path = $@"listAllUsersIn_{itemChoosedGroup}.txt";
-
-                List<string> results = new List<string>();
-
-                using (StreamWriter sw = new StreamWriter(path))
-                {
-                    try
-                    {
-                        results = _Actions.showUsersInGroup(itemChoosedGroup.ToString());
-                        sw.WriteLine(itemChoosedGroup);
-                        foreach (var items in results)
-                        {
-                            sw.WriteLine($"\t{items}");
-                        }
-                    }
-                    catch (Exception ex) { MessageBox.Show($"error {ex}"); }
-                }
-                _Variables.Log.Add($"Готово. Вся информация выгружена в файл listAllUsersIn_{itemChoosedGroup}.txt");
-            }
-            this.Close();
-        }
-
-        private void UploadListUsersFromGroup_Load(object sender, EventArgs e)
+        private void DeleteGroup_Load(object sender, EventArgs e)
         {
             _Actions.GetGroups();
             string[] group_names = _Variables.ListAllGroups.ToArray(); // Data.AllGroupsInAD.ToArray();
@@ -72,12 +43,13 @@ namespace CreatorV2
             comboBoxListGroup.AutoCompleteCustomSource = autoCompleteCollection2;
         }
 
-        private void UploadListUsersFromGroup_FormClosed(object sender, FormClosedEventArgs e)
+        private void DeleteGroup_FormClosing(object sender, FormClosingEventArgs e)
         {
             _Variables.ListAllGroups.Clear();
+            _Variables.AllUsersInAD.Clear();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void buttonAddToList_Click(object sender, EventArgs e)
         {
             // Проверяем, выбран ли пользователь в comboBoxListUser
             if (string.IsNullOrEmpty(comboBoxListGroup.Text))
@@ -87,9 +59,9 @@ namespace CreatorV2
             else
             {
                 // Проверяем, содержится ли выбранный пользователь уже в списке
-                if (!listBoxListGroup.Items.Contains(comboBoxListGroup.Text))
+                if (!listBoxListChoosedGroup.Items.Contains(comboBoxListGroup.Text))
                 {
-                    listBoxListGroup.Items.Add(comboBoxListGroup.Text);
+                    listBoxListChoosedGroup.Items.Add(comboBoxListGroup.Text);
                 }
                 else
                 {
@@ -98,6 +70,19 @@ namespace CreatorV2
 
                 comboBoxListGroup.Text = string.Empty; // Очищаем текстовое поле comboBoxListUser
             }
+        }
+
+        private void buttonDeleteGroup_Click(object sender, EventArgs e)
+        {
+            foreach (var groupName in listBoxListChoosedGroup.Items)
+            {
+                if (!string.IsNullOrEmpty(groupName.ToString()))
+                {
+                    _Actions.DeleteGroup(groupName.ToString());
+                }
+            }
+            
+            this.Close();
         }
     }
 }

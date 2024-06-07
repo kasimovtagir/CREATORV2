@@ -24,7 +24,7 @@ namespace CreatorV2
             _Actions = action;
             _DeleteOrAdd = deleteOrAdd;
 
-            if (deleteOrAdd == "Delete".ToLower())
+            if (deleteOrAdd == "Delete")
             {
                 button1.Text = "Удалить";
             }
@@ -36,29 +36,44 @@ namespace CreatorV2
 
         private void SingleDeleteOrAddUserToGroups_Load(object sender, EventArgs e)
         {
-            ConfigureComboBox(comboBoxUserName, _Actions.GetAllUser, _Variables.AllUsersInAD);
-            ConfigureComboBox(comboBoxGroup, _Actions.GetGroups, _Variables.ListAllGroups);
+            label1.BackColor = Color.Red;
+
+            comboBoxUserName = _Actions.ConfigureComboBox(comboBoxUserName, _Actions.GetAllUser, _Variables.AllUsersInAD);
+
+            comboBoxGroup = _Actions.ConfigureComboBox(comboBoxGroup, _Actions.GetGroups, _Variables.ListAllGroups);
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            
-        }
+            string username = comboBoxUserName.Text; // Замените на имя пользователя, которого вы хотите удалить из группы
+            string groupName = comboBoxGroup.Text; // Замените на имя группы, из которой вы хотите удалить пользователя
 
+            if (comboBoxUserName.Text == string.Empty | comboBoxGroup.Text == string.Empty)
+            {
+                MessageBox.Show("Поля пустые, пожалуйста введите необходимые данные.");
+            }
+            else
+            {
+                if (_DeleteOrAdd == "Delete")
+                {
+                    _Actions.RemoveUserFroumGroup(username, groupName);
 
-        private void ConfigureComboBox(ComboBox comboBox, Action getDataAction, IEnumerable<string> dataSource)
+                    this.Close();
+                }
+                else
+                {
+                    username = _Actions.GetSamAccountNameByDisplayName(username);
+                    _Actions.AddUserToGroup(username, comboBoxGroup.Text);
+
+                    this.Close();
+                }
+            }
+        }        
+
+        private void SingleDeleteOrAddUserToGroups_FormClosed(object sender, FormClosedEventArgs e)
         {
-            getDataAction();
-            string[] items = dataSource.ToArray();
-            Array.Sort(items);
-            comboBox.Items.AddRange(items);
-
-            comboBox.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-            comboBox.AutoCompleteSource = AutoCompleteSource.CustomSource;
-
-            AutoCompleteStringCollection autoCompleteCollection = new AutoCompleteStringCollection();
-            autoCompleteCollection.AddRange(items);
-            comboBox.AutoCompleteCustomSource = autoCompleteCollection;
+            _Variables.ListAllGroups.Clear();
+            _Variables.AllUsersInAD.Clear();
         }
     }
 }

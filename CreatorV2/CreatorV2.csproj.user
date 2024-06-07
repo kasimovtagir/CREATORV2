@@ -4,10 +4,22 @@
     <Compile Update="AccountSettings.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="AddMoreGroupsToUser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="AddMoreUsersInGroup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="AddMoreUsersToMoreGroups.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="AddUserInGroup.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="ChangePasswordForUser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="CreateGroup.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="CreateTempGroups.cs">
@@ -16,10 +28,28 @@
     <Compile Update="DefPasswordForUser.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="DeleteAllGroupsFromMoreUsers.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="DeleteAllGroupsFromUsers.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="DeleteGroup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="DeleteMoreGroupsFromUsers.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="DeleteMoreUsersFromGroup.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="DeleteUserFromGroup.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="DomainSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="EmployeeCard.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Form1.cs">
@@ -34,6 +64,15 @@
     <Compile Update="MainSettings.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="MoreDeleteOrAddUsersFromGroup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="MoveMoreUsers.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="MoveUsers.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="PreviewCreateUsersAccountWithoutSendEmail.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -43,13 +82,22 @@
     <Compile Update="SetExpirationDate.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="SetExpirationDateMoreUsers.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="SingleDeleteOrAddUserToGroups.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="TextMessage.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="UnlockLockMoreUsers.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="UnlockLockUser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="UploadListGroupAtUser.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="UploadListUserFromAllGroup.cs">
