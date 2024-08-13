@@ -79,18 +79,18 @@
 
 
         //паля для заполнения информации об новом сотруднике
-        public string? _nameInAD;
-        public string? _lastNameInAD;
-        public string? _SamAccountInAD;
-        public string? _PasswordInAD;
+        public string? _nameInAD { get; set; }
+        public string? _lastNameInAD { get; set; }
+        public string? _SamAccountInAD { get; set; }
+        public string? _PasswordInAD { get; set; }
 
-        public string? _UserlastName;
-        public string?  _UserName;
-        public string? _UserThistName;
-        public string? _UserISU_ID;
-        public string? _UserDescription;
-        public string? _UsersEmail;
-        public string? _TypePost;
+        public string? _UserlastName { get; set; }
+        public string?  _UserName { get; set; }
+        public string? _UserThistName { get; set; }
+        public string? _UserISU_ID { get; set; }
+        public string? _UserDescription { get; set; }
+        public string? _UsersEmail { get; set; }
+        public string? _TypePost { get; set; }
 
         public bool _WithEmail;
 

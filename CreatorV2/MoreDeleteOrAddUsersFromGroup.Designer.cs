@@ -47,6 +47,7 @@
             buttonAddUserToList.TabIndex = 15;
             buttonAddUserToList.Text = "Добавить";
             buttonAddUserToList.UseVisualStyleBackColor = true;
+            buttonAddUserToList.Click += buttonAddUserToList_Click;
             // 
             // comboBoxListGroup
             // 
@@ -57,6 +58,7 @@
             comboBoxListGroup.Name = "comboBoxListGroup";
             comboBoxListGroup.Size = new Size(548, 46);
             comboBoxListGroup.TabIndex = 14;
+            comboBoxListGroup.SelectedIndexChanged += comboBoxListGroup_SelectedIndexChanged;
             // 
             // comboBoxListUser
             // 
@@ -142,6 +144,7 @@
             Name = "MoreDeleteOrAddUsersFromGroup";
             Text = "MoreDeleteOrAddUsersFromGroup";
             FormClosed += MoreDeleteOrAddUsersFromGroup_FormClosed;
+            Load += MoreDeleteOrAddUsersFromGroup_Load;
             ResumeLayout(false);
             PerformLayout();
         }

@@ -1207,8 +1207,8 @@ namespace CreatorV2.Classes
         /// <summary>
         /// метод для выгрузки в списка групп или пользователей в comboBox
         /// </summary>
-        /// <param name="comboBox"></param>
-        /// <param name="getDataAction"></param>
+        /// <param name="comboBox"> передаем объект combobox</param>
+        /// <param name="getDataAction"> передает метод для получения всех пользоватлелей или групп</param>
         /// <param name="dataSource"></param>
         public ComboBox ConfigureComboBox(ComboBox comboBox, Action getDataAction, IEnumerable<string> dataSource)
         {

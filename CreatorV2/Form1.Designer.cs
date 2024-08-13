@@ -97,6 +97,7 @@
             checkBoxWinthEmail = new CheckBox();
             buttonCreateUser = new Button();
             listBoxAllLog = new ListBox();
+            button1 = new Button();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -201,12 +202,14 @@
             группПользователюToolStripMenuItem.Name = "группПользователюToolStripMenuItem";
             группПользователюToolStripMenuItem.Size = new Size(568, 46);
             группПользователюToolStripMenuItem.Text = "Несколько Групп пользователю";
+            группПользователюToolStripMenuItem.Click += группПользователюToolStripMenuItem_Click;
             // 
             // пользователейВГруппуToolStripMenuItem
             // 
             пользователейВГруппуToolStripMenuItem.Name = "пользователейВГруппуToolStripMenuItem";
             пользователейВГруппуToolStripMenuItem.Size = new Size(568, 46);
             пользователейВГруппуToolStripMenuItem.Text = "Неколько Пользователей в группу";
+            пользователейВГруппуToolStripMenuItem.Click += пользователейВГруппуToolStripMenuItem_Click;
             // 
             // несколькоПользователеВНесколькоГруппToolStripMenuItem
             // 
@@ -240,6 +243,7 @@
             несколькоПользователейИзГруппыToolStripMenuItem.Name = "несколькоПользователейИзГруппыToolStripMenuItem";
             несколькоПользователейИзГруппыToolStripMenuItem.Size = new Size(596, 46);
             несколькоПользователейИзГруппыToolStripMenuItem.Text = "Несколько пользователей из группы";
+            несколькоПользователейИзГруппыToolStripMenuItem.Click += несколькоПользователейИзГруппыToolStripMenuItem_Click;
             // 
             // несколькоГруппУПользователяToolStripMenuItem
             // 
@@ -607,11 +611,22 @@
             listBoxAllLog.Size = new Size(956, 508);
             listBoxAllLog.TabIndex = 24;
             // 
+            // button1
+            // 
+            button1.Location = new Point(600, 618);
+            button1.Name = "button1";
+            button1.Size = new Size(446, 53);
+            button1.TabIndex = 25;
+            button1.Text = "СУЗсПФ";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(15F, 38F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1568, 681);
+            Controls.Add(button1);
             Controls.Add(listBoxAllLog);
             Controls.Add(buttonCreateUser);
             Controls.Add(checkBoxWinthEmail);
@@ -719,5 +734,6 @@
         private ToolStripMenuItem удалитьГруппуToolStripMenuItem;
         private ToolStripMenuItem карточкаСотрудникаToolStripMenuItem;
         private ToolStripMenuItem однуНесколькоToolStripMenuItem;
+        private Button button1;
     }
 }

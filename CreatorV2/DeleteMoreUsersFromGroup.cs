@@ -126,18 +126,14 @@ namespace CreatorV2
         private void comboBoxListGroup_SelectedIndexChanged(object sender, EventArgs e)
         {
             comboBoxListUser.Items.Clear();
-            List<string> listUserInGroup = new List<string>();
+            List<string> listUserInGroup = _Actions.showUsersInGroup(comboBoxListGroup.Text);
 
-            listUserInGroup = _Actions.showUsersInGroup(comboBoxListGroup.Text);
-
-            List<string> listUserInGroup2 = new List<string>();
-
-            foreach (var username in listUserInGroup)
+            for (int i = 0; i < listUserInGroup.Count; i++)
             {
-                listUserInGroup2.Add(Regex.Replace(username.ToString(), @"\s*\([^()]*\)", ""));
+                listUserInGroup[i] = Regex.Replace(listUserInGroup[i], @"\s*\([^()]*\)", "");
             }
 
-            string[] listAllUser = listUserInGroup2.ToArray();
+            string[] listAllUser = listUserInGroup.ToArray();
             Array.Sort(listAllUser);
             comboBoxListUser.Items.AddRange(listAllUser);
             comboBoxListUser.AutoCompleteMode = AutoCompleteMode.SuggestAppend;

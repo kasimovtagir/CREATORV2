@@ -303,10 +303,12 @@ namespace CreatorV2
 
         private void пользователей¬√руппуToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            AddMoreUsersInGroup addMoreUsersInGroup = new AddMoreUsersInGroup();
-            addMoreUsersInGroup._Variables = _Variables;
-            addMoreUsersInGroup._Actions = _Actions;
-            addMoreUsersInGroup.ShowDialog();
+            MoreDeleteOrAddUsersFromGroup moreDeleteOrAddUsersFromGroup = new MoreDeleteOrAddUsersFromGroup("Add", _Actions, _Variables);
+            moreDeleteOrAddUsersFromGroup.ShowDialog();
+            //AddMoreUsersInGroup addMoreUsersInGroup = new AddMoreUsersInGroup();
+            //addMoreUsersInGroup._Variables = _Variables;
+            //addMoreUsersInGroup._Actions = _Actions;
+            //addMoreUsersInGroup.ShowDialog();
             showLog();
         }
 
@@ -329,10 +331,12 @@ namespace CreatorV2
 
         private void несколькоѕользователей»з√руппыToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DeleteMoreUsersFromGroup delete = new DeleteMoreUsersFromGroup();
-            delete._Variables = _Variables;
-            delete._Actions = _Actions;
-            delete.ShowDialog();
+            MoreDeleteOrAddUsersFromGroup moreDeleteOrAddUsersFromGroup = new MoreDeleteOrAddUsersFromGroup("Delete", _Actions, _Variables);
+            moreDeleteOrAddUsersFromGroup.ShowDialog();
+            /*            DeleteMoreUsersFromGroup delete = new DeleteMoreUsersFromGroup();
+                        delete._Variables = _Variables;
+                        delete._Actions = _Actions;
+                        delete.ShowDialog();*/
             showLog();
         }
 
@@ -448,6 +452,13 @@ namespace CreatorV2
                         deleteUserFromGroup._Variables = _Variables;
                         deleteUserFromGroup._Actions = _Actions;
                         deleteUserFromGroup.ShowDialog();*/
+            showLog();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            SUZsPF sUZsPF = new SUZsPF(_Actions, _Variables);
+            sUZsPF.ShowDialog();
             showLog();
         }
     }
