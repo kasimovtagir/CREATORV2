@@ -13,5 +13,6 @@ namespace CreatorV2.Classes
         public string LastName { get; set; }
         public string SamAccountName { get; set; }
         public string Password { get; set; }
+        public bool Sushestvuet {  get; set; }
     }
 }

@@ -831,6 +831,36 @@ namespace CreatorV2.Classes
             else return false;
         }
 
+
+        /// <summary>
+        /// метод проверяет, создана ли учетная запись или нет
+        /// </summary>
+        /// <returns></returns>
+        public bool CheckCreateUser(string _SamAccountInAD)
+        {
+            string rootPath = string.Empty;
+            string[] splitNetBios = _Variables.NetBios.Split(".");
+            foreach (string net in splitNetBios)
+            {
+                rootPath += $"DC={net}, ";
+            }
+            _Variables.splitNetBios = _ = rootPath.Remove(rootPath.Length - 2);
+
+            PrincipalContext context = new PrincipalContext(ContextType.Domain, _Variables.NetBios, $"OU={_Variables.OU}, {_Variables.splitNetBios}");
+            bool userExists = UserPrincipal.FindByIdentity(context, IdentityType.SamAccountName, $"{_SamAccountInAD.ToLower()}") != null;
+            if (userExists)
+            {
+                return true;
+            }
+            else return false;
+        }
+
+
+
+
+
+
+
         /// <summary>
         /// метод для отправки писем на электронный почту
         /// </summary>
